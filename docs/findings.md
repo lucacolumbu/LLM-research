@@ -525,3 +525,18 @@ effect stays under the 1-nat floor (final accuracy 0.52-0.54), so patching never
 formation although recovery is 1.0; the floor should scale with the attainable effect. For
 the paper: the three definitions agree in rank; report patching as the primary metric and
 note that it leads behaviour in the MLP regime.
+
+## 2026-09-13: weight-decay control on the lag law (item 1)
+
+MLP, rotary, warmup 500, 8000 steps, 3 seeds, weight decay 0.001 vs the 0 used for the law.
+
+| repeat_frac | lag at wd 0 | lag at wd 0.001 | formation at wd 0 / 0.001 | final acc at wd 0 / 0.001 |
+|---|---|---|---|---|
+| 0.60 | 15 | 15, 15, 15 | 5467 / 5400 | 0.72 / 0.72 |
+| 0.75 | 19 | 19, 19, 19 | 4367 / 4400 | 0.68 / 0.68 |
+| 0.90 | 22 | 22, 22, 22 | 4000 / 4000 | 0.66 / 0.66 |
+
+Lag, formation step and ceiling are unchanged. The lag is chosen by the data, not by the
+regulariser. The wd 0.01 control is queued (that value blocked formation entirely under
+learned positions and slowed it under rotary, so it tests the law at the edge of where the
+circuit forms at all).

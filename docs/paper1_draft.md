@@ -58,7 +58,8 @@ copy-based score cannot see it. [Phase 3 sentence pending.]
   1, 2, 4 copies -> gain 0.154, 0.149, 0.125 -> formation 900, 1267, 1367 (rho -0.88):
   formation follows the score, not the fraction.
 - Failure: vocabulary 16 vs 100 -> gain 0.021 vs 0.101, formation 1367 vs 1733 (wrong sign).
-- Weight-decay control on the MLP family [pending: wd 0.001 and 0.01].
+- Weight-decay control: at wd 0.001 the lags (15, 19, 22), formation steps and ceilings are
+  unchanged from wd 0 in all seeds; the lag is set by the data. [wd 0.01 pending]
 
 ### 3.2 A reference model repairs the blind spot (pillar 2)
 - Tier 2 scores vocabularies 16/32/100 as 0.090/0.099/0.104 where the zipper says
