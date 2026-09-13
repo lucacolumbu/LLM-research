@@ -384,3 +384,59 @@ plateaus near 0.75; 0.35 still never forms (0.07-0.17 at 12,000). Full ordering 
 matched architecture: 0.98 -> 1267, 0.75 -> 4367, 0.5 -> 6867, 0.35 and below -> never.
 Monotone in the zipper gain, rank correlation -1 on condition means. The censoring at low
 gains is now a budget statement (12,000 steps, 60k documents), not a gap in the ordering.
+
+## 2026-09-13: the induction lag is a data-dependent free parameter (why MLP models plateau)
+
+Direct probing of the models that copy without the textbook geometry. For each target at
+copy position dst+j (query dst+j-1, needed token at src+j), attention mass at need+o for
+o = 0..24 and, for layer 0, at query-o.
+
+| condition | model | layer-1 lag (mass) | layer-0 offset | accuracy ceiling predicted from lag / observed |
+|---|---|---|---|---|
+| repeat 0.35, 0.5, 0.75 | attention-only | 0 (0.78-0.94) | previous token | 1.00 / 0.94-0.98 |
+| noise 0.25 | attention-only | 0 (0.55-0.61) | previous token | |
+| repeat 0.98 | attention-only | 9 (0.62-0.85) | 9-10 back | 0.99 / 0.91 |
+| vocabulary 16 | attention-only | 8 (0.40-0.72) | 8-10 back | 0.94 / 0.84 |
+| repeat 0.98 | MLPs | 9-10 (0.64-0.83) | 9-11 back | 0.98 / 0.90 |
+| repeat 0.75 | MLPs | 19 (0.56-0.61) | 19-20 back | 0.76 / 0.71 |
+| repeat 0.5 (12k steps) | MLPs | 12 (0.47-0.54) | 12-13 back | 0.83 / 0.73 |
+
+A lag-k induction circuit is a layer-0 head carrying the token k+1 positions back and a
+layer-1 head that matches the current token against it and reads the token k positions
+after the needed one; it copies correctly whenever the copy offset exceeds k. On targets
+with offset > lag every model scores 0.88-0.93; on targets with offset <= lag, 0.01-0.07.
+The MLP "plateaus" are not partial circuits: they are complete lagged induction circuits
+whose lag is longer than the copy offset in a quarter of the documents. Longer lags appear
+with long copies (0.98), with small vocabularies, and with MLPs in every condition.
+
+Consequences. (1) "Formation by attention to the copied token" (lag 0) undercounts: it
+returned no formation for 0.98 and vocabulary 16, both of which formed lagged circuits.
+Behavioural formation (accuracy >= 0.5) was used for all correlations, so the tier-1
+results stand; the circuit analysis now needs a lag-aware measure. (2) "Cheapest circuit
+the data allows" again: the same behaviour is delivered by a family of circuits indexed
+by lag, and the data (and the presence of MLPs) selects the member, with an accuracy
+ceiling as the price. Why longer lags are preferred under those conditions is open;
+rotary distance resolution is one candidate.
+
+## 2026-09-13: tier 2 sees what the zipper misses
+
+Tier-2 dataset score: loss gain of validation documents under one fixed reference model
+(the random-subset model from the selection experiment, which has an induction head),
+relative to shuffled copies of the same documents (`analysis/tier2_dataset.py`). All 39
+attention-only induction runs, four knob families. Figure `results/tiers_vs_formation.png`,
+table `results/induction_tiers_vs_formation.csv`.
+
+| score | Spearman vs formation, 30 formed runs | with 9 never-formed ranked last | repeat | noise | structure | vocabulary |
+|---|---|---|---|---|---|---|
+| zipper (tier 1) | -0.49 | -0.72 | -0.98 | -0.72 | -0.65 | -0.15 |
+| reference-model loss (tier 2) | -0.85 | -0.93 | -0.98 | -0.93 | -0.52 | +0.09 |
+
+Vocabulary axis, seed means: zipper 0.021 / 0.038 / 0.101 for 16 / 32 / 100 symbols;
+tier 2 0.090 / 0.099 / 0.104; formation 1367 / 1167 / 1733. The reference model, whose
+induction head is content-independent, scores the three vocabularies nearly alike, which
+is what their formation times warrant; the zipper penalises small vocabularies because
+accidental matches inflate its shuffled control. Pooled across families the tier-2 score
+is the better predictor, entirely because of that family. Within every other family the
+two tiers agree. This is the one-figure justification for the tiered framework: tier 1 is
+free and right whenever the token distribution is fixed; tier 2 costs a trained reference
+model and repairs the token-distribution blind spot.
