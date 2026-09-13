@@ -454,3 +454,33 @@ Dominant lags by condition: 0 for attention-only models at repeat 0.35-0.75, noi
 19 and 12 for the MLP models at repeat 0.98, 0.75 and 0.5. The brief's formation
 definition (patching recovery >= 50%) is still to be implemented for the induction task;
 the two proxies now in use agree with each other.
+
+## 2026-09-13: MLP repetition family completed (six formed conditions)
+
+Matched architecture (MLPs, rotary, weight decay 0); 8,000 or 12,000 steps where needed.
+Table `results/summary_repeat_frac.csv` (last written for the MLP family); figure
+`results/zipper_vs_formation_mlp.png`.
+
+| repeat_frac | zipper gain | formation (acc >= 0.5), 3 seeds | final acc | dominant lag (all 3 seeds) | r_max |
+|---|---|---|---|---|---|
+| 0.35 | 0.068 | never in 12,000 | 0.11 | (9, unformed) | 11 |
+| 0.50 | 0.101 | 6867 (231) | 0.75 | 12 | 16 |
+| 0.60 | 0.121 | 5467 (231) | 0.72 | 15 | 19 |
+| 0.75 | 0.154 | 4367 (351) | 0.68 | 19 | 24 |
+| 0.85 | 0.175 | 4133 (306) | 0.68 | 21 | 27 |
+| 0.90 | 0.181 | 4000 (200) | 0.66 | 22 | 28 |
+| 0.98 | 0.201 | 1267 (58) | 0.90 | 9-10 | 31 |
+
+1. **The tier-1 ordering holds under the matched architecture with six points**: Spearman
+   -0.92 over the 18 formed runs, -1.00 on condition means. Formation is 2-4 times slower
+   than in attention-only models throughout.
+2. **The lag is a deterministic function of the data.** All three seeds agree on the lag in
+   every condition, and it grows with the maximum copy length: 12, 15, 19, 21, 22 for
+   r_max 16, 19, 24, 27, 28, about 0.78 r_max. The accuracy ceiling falls accordingly
+   (0.75 -> 0.66). At 0.98 the copy offset is nearly fixed by the geometry (source and
+   copy each fill almost half the context), a different regime, and the lag drops to 9
+   with a clean snap and a 0.90 ceiling.
+3. Attention-only models choose lag 0 at every moderate fraction; the MLP models never do.
+   Why MLPs and long copies favour long lags is the open mechanistic question in this
+   dataset; it is the clearest example we have of the data (and the architecture) fixing a
+   circuit parameter that the behaviour alone does not reveal.
