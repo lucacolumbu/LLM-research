@@ -25,8 +25,8 @@ from pathlib import Path
 
 import numpy as np
 import torch
-from analysis.lm_scores import cross_entropy_per_doc
 
+from analysis.lm_scores import cross_entropy_per_doc
 from analysis.zipper import Zipper, strip_pad
 from data.generator import load_dataset, save_dataset
 from train.train import load_checkpoint
@@ -79,14 +79,14 @@ def main(argv: list[str] | None = None) -> Path:
     idx, score = select(splits["train"], meta, a.method, a.n, a.seed, a.reference)
     train = {k: v[idx] for k, v in splits["train"].items()}
     train["score"] = score[idx]
-    sel_frac = splits["train"]["doc_frac"][idx]
     meta = dict(meta)
-    meta["selection"] = {
-        "method": a.method, "n": a.n, "seed": a.seed, "pool": str(a.pool),
-        "mean_doc_frac_selected": float(sel_frac.mean()),
-        "mean_doc_frac_pool": float(splits["train"]["doc_frac"].mean()),
-        "spearman_score_vs_hidden_frac": float(_spearman(score, splits["train"]["doc_frac"])),
-    }
+    meta["selection"] = {"method": a.method, "n": a.n, "seed": a.seed, "pool": str(a.pool), "mean_score_selected": float(score[idx].mean()), "mean_score_pool": float(score.mean())}
+    if "doc_frac" in splits["train"]:  # synthetic pools carry the hidden per-document fraction
+        frac = splits["train"]["doc_frac"]
+        meta["selection"].update(
+            mean_doc_frac_selected=float(frac[idx].mean()), mean_doc_frac_pool=float(frac.mean()),
+            spearman_score_vs_hidden_frac=float(_spearman(score, frac)),
+        )
     meta["stats"] = dict(meta.get("stats", {}), selected={"frac_target": float(train["target_mask"].mean())})
     save_dataset(a.out, {"train": train, "val": splits["val"]}, meta)
     print(json.dumps(meta["selection"]))

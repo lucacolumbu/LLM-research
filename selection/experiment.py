@@ -58,24 +58,26 @@ def main(argv: list[str] | None = None) -> pd.DataFrame:
     p.add_argument("--jobs", type=int, default=3)
     p.add_argument("--threads", type=int, default=2)
     p.add_argument("--methods", nargs="+", default=["zipper", "refloss", "oracle"])
+    p.add_argument("--pool-seed", type=int, default=0, help="generator seed of the pool; runs and datasets get a _p<seed> tag when non-zero")
     a = p.parse_args(argv)
     Path("results").mkdir(exist_ok=True)
     log = Path("results/selection_experiment.log")
 
-    pool = Path("datasets/pool_het.npz")
+    tag = f"_p{a.pool_seed}" if a.pool_seed else ""
+    pool = Path(f"datasets/pool_het{tag}.npz")
     if not pool.exists():
         sh(["data.induction", "--out", str(pool), "--n-train", str(a.pool_size), "--n-val", "2000",
-            "--repeat-frac", "0.98", "--repeat-frac-min", "0.1", "--seed", "0"], log, a.threads)
+            "--repeat-frac", "0.98", "--repeat-frac-min", "0.1", "--seed", str(a.pool_seed)], log, a.threads)
 
     def arm(method: str, seed: int) -> tuple[str, Path]:
-        ds = Path("datasets") / f"sel_{method}_s{seed}.npz"
+        ds = Path("datasets") / f"sel_{method}{tag}_s{seed}.npz"
         if not ds.exists():
             cmd = ["selection.select_by_score", "--pool", str(pool), "--method", method, "--n", str(a.n),
                    "--seed", str(seed), "--out", str(ds)]
             if method == "refloss":
                 cmd += ["--reference", f"checkpoints/sel_random_s0/step_{a.steps}.pt"]
             sh(cmd, log, a.threads)
-        return f"sel_{method}_s{seed}", ds
+        return f"sel_{method}{tag}_s{seed}", ds
 
     with ThreadPoolExecutor(a.jobs) as ex:
         list(ex.map(lambda s: train_run(*arm("random", s), s, a), a.seeds))
@@ -85,12 +87,12 @@ def main(argv: list[str] | None = None) -> pd.DataFrame:
     rows = []
     for m in ["random", *a.methods]:
         for s in a.seeds:
-            run = f"sel_{m}_s{s}"
+            run = f"sel_{m}{tag}_s{s}"
             logp = Path("results") / run / "log.jsonl"
             recs = [json.loads(line) for line in logp.read_text().splitlines()]
             meta_sel = json.loads(Path("results", run, "train_config.json").read_text())
             sel = None
-            dsp = Path("datasets") / f"sel_{m}_s{s}.npz"
+            dsp = Path("datasets") / f"sel_{m}{tag}_s{s}.npz"
             import numpy as np
             with np.load(dsp) as f:
                 sel = json.loads(str(f["meta"]))["selection"]
@@ -103,7 +105,7 @@ def main(argv: list[str] | None = None) -> pd.DataFrame:
                 "dataset": meta_sel["dataset"],
             })
     df = pd.DataFrame(rows)
-    df.to_csv("results/selection_summary.csv", index=False)
+    df.to_csv(f"results/selection_summary{tag}.csv", index=False)
     with pd.option_context("display.width", 200):
         print(df.to_string(index=False))
         print(df.groupby("method")[["formation_step_acc50", "final_val_acc", "mean_doc_frac_selected"]].agg(["mean", "std"]))
