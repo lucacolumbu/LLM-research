@@ -152,6 +152,7 @@ def analyze_prompts(
     pool_ids: list[int] | None = None,
     k_circuit: int = 2,
     recovery_target: float = 0.8,
+    greedy_max: int = 0,
 ) -> dict[str, Any]:
     model.eval()
     dev = model.cfg.device
@@ -209,6 +210,28 @@ def analyze_prompts(
     out["faithfulness_ld"] = keep_curve[k_circuit]["ld"] / ld_clean if ld_clean > 0 else float("nan")
     out["sharpness"] = next((c["k"] for c in keep_curve if c["ld"] >= 0.9 * ld_clean), None)
 
+    if greedy_max > 0:
+        # greedy forward selection: minimal *sufficient* head set (mean-ablate everything else)
+        kept: list[tuple[int, int]] = []
+        greedy_curve = []
+        for _ in range(min(greedy_max, L * H)):
+            best = None
+            for cand in all_heads:
+                if cand in kept:
+                    continue
+                drop = [hd for hd in all_heads if hd not in kept and hd != cand]
+                ld_c, acc_c = _metrics(run_ablated(model, clean, drop, means), io, s)
+                if best is None or ld_c > best[0]:
+                    best = (ld_c, acc_c, cand)
+            kept.append(best[2])
+            greedy_curve.append({"k": len(kept), "head": f"L{best[2][0]}H{best[2][1]}", "ld": best[0], "acc": best[1]})
+            if best[0] >= 0.9 * ld_clean:
+                break
+        out["greedy_keep_curve"] = greedy_curve
+        out["sharpness_greedy"] = next((c["k"] for c in greedy_curve if c["ld"] >= 0.9 * ld_clean), None)
+        out["faithfulness_greedy_at_circuit_size"] = next(
+            (c["acc"] / acc_clean for c in greedy_curve if c["k"] == len(circuit_heads)), None) if acc_clean > 0 else None
+
     split = {"tokens": prompts["tokens"], "target_mask": prompts["target_mask"], "s_ids": prompts["s_ids"]}
     dla = analyze_checkpoint(model, split, max_docs=len(prompts["tokens"]), pool_ids=pool_ids)
     for key in ("ctx_bonus", "components_ctx", "components_ld", "components_io", "attn_io", "attn_s", "dla_ctx"):
@@ -224,6 +247,7 @@ def analyze_run(
     n_prompts: int = 256,
     k_circuit: int = 2,
     update_results: bool = False,
+    greedy_max: int = 0,
 ) -> dict[str, Any]:
     run_dir = results_dir / run
     tc = json.loads((run_dir / "train_config.json").read_text())
@@ -234,7 +258,7 @@ def analyze_run(
 
     # fix the circuit and ranking from the final checkpoint, then walk every checkpoint
     model, _ = load_checkpoint(ckpts[-1])
-    final = analyze_prompts(model, prompts["val"], pool_ids=pool, k_circuit=k_circuit)
+    final = analyze_prompts(model, prompts["val"], pool_ids=pool, k_circuit=k_circuit, greedy_max=greedy_max)
     rec = np.array(final["recovery_per_head"])
     flat = np.argsort(-rec, axis=None)
     ranking = [(int(i // rec.shape[1]), int(i % rec.shape[1])) for i in flat]
@@ -267,6 +291,9 @@ def analyze_run(
         "final_val_components_ctx": fin.get("components_ctx"),
         "final_val_recovery_per_head": fin["recovery_per_head"],
         "final_val_keep_only_curve": fin["keep_only_curve"],
+        "greedy_keep_curve": final.get("greedy_keep_curve"),
+        "sharpness_greedy": final.get("sharpness_greedy"),
+        "faithfulness_greedy_at_circuit_size": final.get("faithfulness_greedy_at_circuit_size"),
     }
     if "heldout_io" in records[-1]:
         h = records[-1]["heldout_io"]
@@ -282,7 +309,7 @@ def analyze_run(
             hit = df["run"] == run
             df.loc[hit, "formation_step"] = formation
             df.loc[hit, "faithfulness"] = fin["faithfulness"]
-            df.loc[hit, "sharpness"] = fin["sharpness"]
+            df.loc[hit, "sharpness"] = final.get("sharpness_greedy") if greedy_max > 0 else fin["sharpness"]
             df.to_csv(csv, index=False)
     return summary
 
@@ -295,8 +322,9 @@ def main(argv: list[str] | None = None) -> dict[str, Any]:
     p.add_argument("--n-prompts", type=int, default=256)
     p.add_argument("--k-circuit", type=int, default=2, help="heads in the circuit; 0 = smallest set recovering 80%% of the patching effect")
     p.add_argument("--update-results", action="store_true", help="fill formation_step, faithfulness, sharpness")
+    p.add_argument("--greedy-max", type=int, default=0, help="greedy forward selection of a sufficient head set on the final checkpoint, up to this many heads (0 = off)")
     a = p.parse_args(argv)
-    summary = analyze_run(a.run, a.results_dir, a.checkpoints_dir, a.n_prompts, a.k_circuit, a.update_results)
+    summary = analyze_run(a.run, a.results_dir, a.checkpoints_dir, a.n_prompts, a.k_circuit, a.update_results, a.greedy_max)
     brief = {k: v for k, v in summary.items() if not k.startswith("final_val_")}
     print(json.dumps(brief, indent=2))
     return summary

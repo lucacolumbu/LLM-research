@@ -338,3 +338,22 @@ circuit (smallest head set recovering 80% of the patching effect).
    of 8, and ablating the 1-2 circuit heads drops validation accuracy to 0.47-0.60, close
    to the two-candidate chance level the exclusion story predicts. The earlier sharpness
    numbers were an artefact of off-distribution ablation.
+
+## 2026-09-13: sharpness done properly (greedy sufficient sets)
+
+Ranking heads by single-head patching and keeping the top k says nothing about layer-0
+heads that are individually negligible but collectively necessary, so keep-only curves
+were flat. Greedy forward selection (add the head that most restores the logit difference,
+everything else mean-ablated per position) gives minimal sufficient sets.
+
+| model | seeds | ablate circuit heads: val acc | greedy sharpness (heads for 90% ld, out of total) | typical sufficient set |
+|---|---|---|---|---|
+| 2L4H standard, wd 0.01 | 3 | 0.43-0.48 | 2, 3, 5 of 8 | one S-inhibition head + one or two layer-0 heads |
+| 2L4H rotary, wd 0 (matched) | 3 | 0.47-0.60 | 3, 4, 3 of 8 | same |
+| 4L8H standard, wd 0.01 | 3 | 0.77-0.93 | 9, 7, 8 of 32 | 2-3 layer-0 heads, 2-3 layer-1 S-heads, 1-2 layer-2 heads |
+
+In the small models the circuit is a quarter to a half of the model; in the larger model
+it is about a quarter of the heads, spread over three layers, and ablating the top S-heads
+alone barely dents validation accuracy because several backup S-heads exist. The
+faithfulness figures reported earlier (keep-only-k by single-head ranking) should be
+replaced by these.

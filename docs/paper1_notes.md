@@ -40,14 +40,19 @@ is buying; the mechanism check is the method, not a preliminary.
 - The "never an answer" prior is a byproduct of forming the circuit, not a pre-existing
   bias: it deepens during formation. Overwriting it afterwards is cheap (late-leak
   experiment, pending confirmation).
-- Architecture matters for which circuit the data can buy: with MLPs the induction
-  circuit did not form within budget on this data (learning-rate check pending).
+- The apparent "MLPs block induction" result was an optimisation artefact (weight decay
+  0.01 with learned positions); with rotary positions and weight decay 0 the MLP model
+  forms the circuit by ~1200 steps. Both tasks now run under one architecture.
+- Weight decay is what erodes the two-name prior: with it off, held-out IO accuracy
+  stays near zero for 4000 steps; the prior moves only when pushed (decay or leaks).
+- The prior is cheap to overwrite after formation (~100 leaked examples) and expensive
+  to prevent during it (~800): spend rare-class examples after the mechanism exists.
 
 ## Caveats to state
 
-- The two-name task is at 2 layers and 4 heads; sparsity numbers there are not
-  meaningful. A 4-layer 8-head replication is queued.
-- The two tasks use different architectures (MLPs vs attention-only); cross-task claims
-  are about mechanism, not about matched models.
+- Sparsity: greedy sufficient sets are 2-5 of 8 heads at 2L4H and 7-9 of 32 at 4L8H.
+  Single-head-ranked keep-only curves are not a valid sparsity measure here.
+- The original sweeps used different architectures per task; the matched replications
+  (`mlp_` induction sweep, `match_` two-name runs) remove that confound.
 - All results are on synthetic data at toy scale; Phase 3 (Pythia-scale corpus subset)
   is untouched.
