@@ -580,3 +580,13 @@ Pool 1: zipper 700, oracle 900, random never. Pool 2: zipper 700, oracle 800, ra
 With the original pool: zipper 700 x3, oracle 900-1000, random 5200/never/never. The zipper
 subset forms at step 700 in every pool and seed; the parameter oracle is 100-300 steps
 slower everywhere; random is 7x slower or fails.
+
+### Phase 3 first attempt: failed for two reasons (item 6)
+Five of six TinyStories runs died in `torch.save` with the disk full. The one that finished
+(zipper subset, 8,000 documents of 128 tokens, 4,000 steps) shows the design flaw: the
+subset is 1M tokens, so 4,000 steps is 32 epochs; train loss 1.12 vs validation 3.33, and
+no induction head under either the uniform-token or the frequent-token prefix-matching
+probe (score 0.02). A real-text selection experiment needs a pool at least an order of
+magnitude larger (a slice of the TinyStories training split, ~400k stories from a 300 MB
+range request) so that the selected subset supports multi-thousand-step training at low
+epoch counts; it also needs disk space. Redesign pending.
