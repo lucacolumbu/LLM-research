@@ -440,3 +440,17 @@ is the better predictor, entirely because of that family. Within every other fam
 two tiers agree. This is the one-figure justification for the tiered framework: tier 1 is
 free and right whenever the token distribution is fixed; tier 2 costs a trained reference
 model and repairs the token-distribution blind spot.
+
+### Lag-aware formation metric (re-run of all induction circuit summaries)
+
+`analysis.circuit` now records, per head, the attention mass at need+o for o = 0..24 and
+reports the dominant lag and the first checkpoint at which any head at any lag reaches
+0.5. Across the 39 formed induction runs this attention-based formation step agrees with
+the behavioural one (validation accuracy >= 0.5) with Spearman +0.99 and a mean absolute
+gap of 87 steps, one checkpoint interval. The lag-0 metric returned nothing for repeat
+0.98 (lag 9) and was unstable for vocabulary 16 (seeds split between lag 0 and lag 8).
+Dominant lags by condition: 0 for attention-only models at repeat 0.35-0.75, noise 0.1 and
+0.25, structure 2 and 4, vocabulary 32; 9 at repeat 0.98; 0 or 8 at vocabulary 16; 9-10,
+19 and 12 for the MLP models at repeat 0.98, 0.75 and 0.5. The brief's formation
+definition (patching recovery >= 50%) is still to be implemented for the induction task;
+the two proxies now in use agree with each other.
