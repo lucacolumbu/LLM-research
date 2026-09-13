@@ -20,6 +20,7 @@ def main(argv: list[str] | None = None) -> None:
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--runs", default="ind_rep*_s*")
     p.add_argument("--knob", default="repeat_frac")
+    p.add_argument("--groups", nargs="*", default=[], help='extra "label:glob" groups plotted as separate series on the left panel')
     p.add_argument("--formation", default="formation_step_acc50")
     p.add_argument("--results-dir", type=Path, default=Path("results"))
     p.add_argument("--out", type=Path, default=Path("results/zipper_vs_formation.png"))
@@ -41,6 +42,16 @@ def main(argv: list[str] | None = None) -> None:
         ax.scatter(f["zipper_score"], f[a.formation], color=colors[v], s=34, zorder=3, label=f"{a.knob}={v:g}")
         if len(n):
             ax.scatter(n["zipper_score"], [max_step * 1.08] * len(n), facecolor="none", edgecolor=colors[v], s=34, zorder=3)
+    from analysis.plots import SERIES
+
+    for gi, spec in enumerate(a.groups):
+        label, glob = spec.split(":", 1)
+        g = load_runs(a.results_dir, glob, a.knob)
+        gf = g[a.formation].notna()
+        col = SERIES[1 + gi % (len(SERIES) - 1)]
+        ax.scatter(g[gf]["zipper_score"], g[gf][a.formation], color=col, s=34, marker="s", zorder=3, label=label)
+        if (~gf).any():
+            ax.scatter(g[~gf]["zipper_score"], [max_step * 1.08] * int((~gf).sum()), facecolor="none", edgecolor=col, s=34, marker="s", zorder=3)
     ax.scatter([], [], facecolor="none", edgecolor=INK, s=34, label=f"never formed within {max_step} steps")
     sub = df[formed][["zipper_score", a.formation]].astype(float)
     rho = sub["zipper_score"].corr(sub[a.formation], method="spearman") if len(sub) > 2 else float("nan")

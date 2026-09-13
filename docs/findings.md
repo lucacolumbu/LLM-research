@@ -214,3 +214,36 @@ during formation are mostly wasted against it, while after formation only a toke
 entry in the MLP has to move and each example shifts it by roughly 0.1 logits. For data
 design this says: to make a rare answer class available, spend the examples after the
 mechanism is in place rather than mixing them in from the start.
+
+## 2026-09-12 (later): dissociation A, noise and vocabulary (induction task)
+
+Same setup as the repetition sweep, `repeat_frac` fixed at 0.5. Tables in
+`results/summary_noise.csv` and `results/summary_vocab_size.csv`.
+
+| knob | value | zipper gain | final acc | formation (acc >= 0.5) |
+|---|---|---|---|---|
+| noise | 0 | 0.101 | 0.97 | 1733 (58) |
+| noise | 0.10 | 0.076 | 0.80 | 2233 (58) |
+| noise | 0.25 | 0.047 | 0.54 | 3933 (153) |
+| noise | 0.50 | 0.015 | 0.03 | never in 6000 |
+| vocab | 16 | 0.021 | 0.87 | 1367 (462) |
+| vocab | 32 | 0.038 | 0.92 | 1167 (58) |
+| vocab | 100 | 0.101 | 0.97 | 1733 (58) |
+
+1. **Noise is not a dissociation: the zipper sees it and is right.** Random replacement
+   of copied tokens shortens verbatim matches, so the gain falls with noise, and formation
+   slows in step with it (Spearman -0.92 over the 9 formed runs). At 50% noise neither the
+   gain nor the circuit survives.
+2. **Vocabulary is a dissociation, and the zipper gets it wrong.** Shrinking the vocabulary
+   from 100 to 16 symbols cuts the gain fivefold, because the shuffled control sequence is
+   itself full of accidental 2- and 3-token matches, yet the circuit forms *faster*
+   (1367 vs 1733 steps; 1167 at 32 symbols). Spearman between gain and formation across the
+   vocabulary axis is +0.27, the wrong sign. The zipper conflates learnable copy structure
+   with coincidental repeats: it is a measure of verbatim redundancy relative to chance,
+   and when chance repeats are common it under-reports the signal the circuit can use.
+   Formation is faster at small vocabularies presumably because there are fewer token
+   embeddings to learn and spurious matches give partial credit early.
+
+Net: the zipper is a good predictor along axes that change the amount or integrity of
+verbatim structure (repeat fraction, noise) and a poor one along axes that change the
+token distribution (vocabulary entropy). That is the boundary the paper should state.
