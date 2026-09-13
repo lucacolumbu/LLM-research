@@ -512,8 +512,8 @@ the floor the ratio is noise before the model can copy). Run on all 72 induction
 
 | architecture | formed runs | Spearman, patching vs behavioural | patching minus behavioural (mean, mean abs, max abs) |
 |---|---|---|---|
-| attention-only | 27 | see script output above | within one or two checkpoint intervals |
-| MLPs | 18 | | patching leads by 1000-2000 steps |
+| attention-only | 27 | +0.99 | -26 / 70 / 300 steps |
+| MLPs | 18 | +0.92 | -1083 / 1083 / 2000 steps |
 
 Over all 45 formed runs: Spearman +0.96 against behavioural formation and +0.96 against the
 lag-aware attention formation; final recovery 0.97-1.00 everywhere, so the layer-1 heads

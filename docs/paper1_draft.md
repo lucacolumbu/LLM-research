@@ -39,8 +39,10 @@ copy-based score cannot see it. [Phase 3 sentence pending.]
   for the two-name task; 3L8H attention-only replication for the headline [pending].
 - Formation: behavioural (validation accuracy on copied tokens >= 0.5), attention (lag-aware
   mass >= 0.5), patching (layer-1 patching recovers >= 50% of the source-corruption effect,
-  1-nat floor) [agreement across all runs pending]. The three agree on the reference run
-  (1700, 1733, 1700).
+  1-nat floor). Across 45 formed runs the three agree in rank (Spearman 0.96); in
+  attention-only models patching and behaviour coincide (mean gap 70 steps, max 300); in MLP
+  models the patched circuit reaches 50% recovery 1000-2000 steps before accuracy reaches
+  0.5, the mechanistic form of the slower "seep" in those models.
 - Scores: tier 1, per-document LZ77 gain against a shuffled copy; tier 2, loss gain under a
   fixed reference model with an induction head.
 
