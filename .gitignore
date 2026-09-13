@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Generated data, checkpoints and run logs are local by default.
+# Commit curated subsets deliberately.
+datasets/*
+checkpoints/*
+results/*
+!datasets/.gitkeep
+!checkpoints/.gitkeep
+!results/.gitkeep
+
+.env
+.DS_Store

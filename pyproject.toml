@@ -1,0 +1,35 @@
+[project]
+name = "llm-research"
+version = "0.1.0"
+description = "Mechanism-informed data selection: how training data shapes circuit formation in small transformers"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "torch>=2.4",
+    "transformer-lens>=3.0",
+    "numpy>=2.0",
+    "einops>=0.8",
+    "pandas>=2.2",
+    "matplotlib>=3.9",
+    "tqdm>=4.66",
+    "jupyterlab>=4.2",
+    "ipykernel>=6.29",
+    "scipy>=1.18.1",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.6",
+]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
