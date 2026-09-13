@@ -501,3 +501,27 @@ it. The zipper ranks by realised verbatim content. Selected subsets:
 The "oracle" was an oracle for the generator's parameter, not for the quantity that drives
 formation. The zipper is closer to the true oracle (copied tokens). Both ran on one pool;
 the replication on two further pools is queued.
+
+## 2026-09-13: the brief's formation definition on the induction task (item 4)
+
+`analysis/induction_patching.py`: corrupt the source segment, patch the layer-1 attention
+outputs at target positions from the clean run, formation = first checkpoint with >= 50%
+recovery of the clean-minus-corrupt log-probability, with a 1-nat effect floor (without
+the floor the ratio is noise before the model can copy). Run on all 72 induction runs;
+`results/induction_formation_measures.csv`.
+
+| architecture | formed runs | Spearman, patching vs behavioural | patching minus behavioural (mean, mean abs, max abs) |
+|---|---|---|---|
+| attention-only | 27 | see script output above | within one or two checkpoint intervals |
+| MLPs | 18 | | patching leads by 1000-2000 steps |
+
+Over all 45 formed runs: Spearman +0.96 against behavioural formation and +0.96 against the
+lag-aware attention formation; final recovery 0.97-1.00 everywhere, so the layer-1 heads
+carry the whole effect once formed. Two systematic differences: (1) in MLP models the
+patched circuit reaches 50% recovery 1000-2000 steps before accuracy reaches 0.5, i.e. the
+circuit is load-bearing while the behaviour is still climbing, which is the mechanistic
+form of the "seep" observed in those models; (2) at noise 0.25 the clean-minus-corrupt
+effect stays under the 1-nat floor (final accuracy 0.52-0.54), so patching never calls
+formation although recovery is 1.0; the floor should scale with the attainable effect. For
+the paper: the three definitions agree in rank; report patching as the primary metric and
+note that it leads behaviour in the MLP regime.
