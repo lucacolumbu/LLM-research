@@ -247,3 +247,26 @@ Same setup as the repetition sweep, `repeat_frac` fixed at 0.5. Tables in
 Net: the zipper is a good predictor along axes that change the amount or integrity of
 verbatim structure (repeat fraction, noise) and a poor one along axes that change the
 token distribution (vocabulary entropy). That is the boundary the paper should state.
+
+## 2026-09-12 (later): dissociation B, repeat structure at fixed repeated fraction
+
+`repeat_frac` 0.75, `n_repeats` 1, 2 or 4 copied segments per document with the
+per-segment cap divided accordingly, so the copied fraction stays at 0.187 of tokens
+(copied tokens per document 14, 14, 16). Table `results/summary_n_repeats.csv`; figure
+`results/zipper_vs_formation_all.png` (green squares: vocabulary; orange: noise; the
+structure runs are the third group).
+
+| repeats per doc | zipper gain | final acc | formation (acc >= 0.5) |
+|---|---|---|---|
+| 1 | 0.154 | 0.98 | 900 (0) |
+| 2 | 0.149 | 0.97 | 1267 (58) |
+| 4 | 0.125 | 0.94 | 1367 (58) |
+
+Splitting the same amount of repetition into shorter copies lowers the LZ77 gain (each
+match costs a fixed overhead, so short matches compress worse) and delays formation, even
+though the number of copied tokens is equal or slightly higher. Formation tracks the
+score, not the repeated fraction: Spearman -0.88 over 9 runs. This is the evidence that
+the compression score carries information the generating knob does not, which is what a
+reviewer will ask for. Combined with dissociation A: the zipper predicts formation along
+every axis that changes the amount, integrity or granularity of verbatim structure, and
+fails only where the token distribution changes (vocabulary size).

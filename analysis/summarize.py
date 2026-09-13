@@ -18,6 +18,8 @@ import pandas as pd
 
 from analysis.plots import GRID, INK, MUTED, SURFACE, _style
 
+# knobs added after some runs were generated; older condition JSON lacks them
+KNOB_DEFAULTS = {"n_repeats": 1, "repeat_frac_min": 0.0, "heldout_io_leak": 0.0, "noise": 0.0, "vocab_size": 100}
 BLUE_RAMP = ["#9ec5f4", "#5598e7", "#2a78d6", "#1c5cab", "#0d366b"]  # ordered knob values
 
 
@@ -25,7 +27,7 @@ def load_runs(results_dir: Path, pattern: str, knob: str) -> pd.DataFrame:
     df = pd.read_csv(results_dir / "results.csv")
     patterns = pattern.split(",")
     df = df[[any(fnmatch.fnmatch(r, p) for p in patterns) for r in df["run"]]].drop_duplicates("run", keep="last").copy()
-    df[knob] = [json.loads(c)[knob] for c in df["condition"]]
+    df[knob] = [json.loads(c).get(knob, KNOB_DEFAULTS.get(knob, np.nan)) for c in df["condition"]]
     extra = []
     for run in df["run"]:
         path = results_dir / run / "circuit_summary.json"
