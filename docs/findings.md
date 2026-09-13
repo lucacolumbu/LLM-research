@@ -357,3 +357,24 @@ it is about a quarter of the heads, spread over three layers, and ablating the t
 alone barely dents validation accuracy because several backup S-heads exist. The
 faithfulness figures reported earlier (keep-only-k by single-head ranking) should be
 replaced by these.
+
+## 2026-09-13: repetition sweep with MLPs restored (rotary, weight decay 0)
+
+Same sweep as the attention-only one, matched architecture. Table
+`results/summary_repeat_frac.csv` (last written for the `mlp_` runs); figure
+`results/zipper_vs_formation_mlp.png`.
+
+| repeat_frac | zipper gain | final acc | formation (acc >= 0.5) | 0.2 -> 0.8 width |
+|---|---|---|---|---|
+| 0.10-0.35 | 0.012-0.068 | 0.02-0.06 | never in 6000 | n/a |
+| 0.50 | 0.101 | 0.22 | never in 6000 (reaches 0.2 at 5800-6000) | n/a |
+| 0.75 | 0.154 | 0.68 | 4367 (351) | plateau at 0.68, no 0.8 |
+| 0.98 | 0.201 | 0.90 | 1267 (58) | 100 steps, all seeds |
+
+The ordering by zipper gain is unchanged (Spearman -0.81 over the 6 formed runs; the
+censored conditions are the lowest gains), so the tier-1 result does not depend on the
+attention-only architecture. Two differences: with MLPs everything forms 2-3 times later
+and only the densest condition shows the clean snap, and at 0.75 the model sits at 0.68
+accuracy, a partial solution the attention-only model never showed. MLPs offer a competing
+partial path that delays and softens the transition. Runs at 0.35 and 0.5 are being
+extended to 12,000 steps to fill the censored cells.
