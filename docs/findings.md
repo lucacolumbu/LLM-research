@@ -484,3 +484,20 @@ Table `results/summary_repeat_frac.csv` (last written for the MLP family); figur
    Why MLPs and long copies favour long lags is the open mechanistic question in this
    dataset; it is the clearest example we have of the data (and the architecture) fixing a
    circuit parameter that the behaviour alone does not reveal.
+
+## 2026-09-13: why the zipper beat the oracle in the selection experiment (item 5)
+
+Lag-aware circuit summaries of all twelve selection-arm models: every formed model has a
+lag-0 induction circuit (mass 0.82-0.87), so the arms differ in formation time, not
+circuit variant. The difference is in what was selected. The oracle ranks documents by
+the hidden per-document *maximum* copy length; the realised copy length is uniform below
+it. The zipper ranks by realised verbatim content. Selected subsets:
+
+| arm | mean hidden fraction | copied tokens per document | formation (3 training seeds) |
+|---|---|---|---|
+| zipper | 0.73 | 17.3 | 700, 700, 700 |
+| oracle | 0.83 | 14.2 | 900, 1000, 900 |
+
+The "oracle" was an oracle for the generator's parameter, not for the quantity that drives
+formation. The zipper is closer to the true oracle (copied tokens). Both ran on one pool;
+the replication on two further pools is queued.
