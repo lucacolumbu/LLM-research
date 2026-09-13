@@ -302,3 +302,12 @@ With MLPs, rotary positions, r_max 31: learning rate 3e-4 (warmup 500) forms at
 MLPs do not prevent the circuit; weight decay at that learning rate does. The repetition
 sweep is being rerun with MLPs (rotary, weight decay 0) to remove the architecture
 confound between the two tasks.
+
+Addendum: with MLPs and *standard* learned positions, zero weight decay is not enough
+(0.61 accuracy at 6000 steps for r_max 31, 0.10 for r_max 16). The working recipe for
+models with MLPs is rotary positions plus zero weight decay; attention-only models form
+the circuit under either position encoding. Position encoding and MLPs interact: a
+previous-token head is cheap under rotary and expensive under learned absolute positions,
+and only when it is cheap does the attention circuit win the race against MLP
+memorisation. The two-name task is being rerun with the same recipe (`match_pool16_s*`)
+so both tasks share one architecture.

@@ -293,7 +293,7 @@ def main(argv: list[str] | None = None) -> dict[str, Any]:
     p.add_argument("--results-dir", type=Path, default=Path("results"))
     p.add_argument("--checkpoints-dir", type=Path, default=Path("checkpoints"))
     p.add_argument("--n-prompts", type=int, default=256)
-    p.add_argument("--k-circuit", type=int, default=2, help="heads in the circuit; 0 = smallest set recovering 80%")
+    p.add_argument("--k-circuit", type=int, default=2, help="heads in the circuit; 0 = smallest set recovering 80%% of the patching effect")
     p.add_argument("--update-results", action="store_true", help="fill formation_step, faithfulness, sharpness")
     a = p.parse_args(argv)
     summary = analyze_run(a.run, a.results_dir, a.checkpoints_dir, a.n_prompts, a.k_circuit, a.update_results)
