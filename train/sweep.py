@@ -17,6 +17,7 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 SHORT = {
+    "length_dist": "ind_len",
     "name_pool_size": "pool",
     "heldout_io_leak": "leak",
     "repetition_rate": "rep",
@@ -32,8 +33,9 @@ SHORT = {
 }
 
 
-def run_name(knob: str, value: float, seed: int, prefix: str = "") -> str:
-    return f"{prefix}{SHORT.get(knob, knob)}{value:g}_s{seed}"
+def run_name(knob: str, value: float | str, seed: int, prefix: str = "") -> str:
+    tag = value if isinstance(value, str) else f"{value:g}"
+    return f"{prefix}{SHORT.get(knob, knob)}{tag}_s{seed}"
 
 
 def _cli(overrides: dict[str, object]) -> list[str]:
@@ -77,7 +79,7 @@ def pipeline(run: str, knob: str, value: float, seed: int, a: argparse.Namespace
 def main(argv: list[str] | None = None) -> list[str]:
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--knob", required=True, help="DataConfig field to sweep")
-    p.add_argument("--values", nargs="+", type=float, required=True)
+    p.add_argument("--values", nargs="+", required=True)
     p.add_argument("--seeds", nargs="+", type=int, default=[0, 1, 2])
     p.add_argument("--base", default="{}", help="JSON of DataConfig overrides shared by all runs")
     p.add_argument("--train-args", default="{}", help="JSON of TrainConfig overrides")
@@ -91,9 +93,10 @@ def main(argv: list[str] | None = None) -> list[str]:
     a = p.parse_args(argv)
 
     int_knobs = {"name_pool_size", "n_heldout_io_names", "ctx_len", "n_train", "n_val", "vocab_size", "n_repeats"}
+    str_knobs = {"length_dist"}
     jobs = []
     for v in a.values:
-        value = int(v) if a.knob in int_knobs else v
+        value = v if a.knob in str_knobs else int(float(v)) if a.knob in int_knobs else float(v)
         for seed in a.seeds:
             jobs.append((run_name(a.knob, value, seed, a.prefix), a.knob, value, seed))
     print(f"{len(jobs)} runs, {a.jobs} in parallel: {[j[0] for j in jobs]}", flush=True)

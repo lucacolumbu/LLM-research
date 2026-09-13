@@ -16,6 +16,7 @@ Mechanistic-interpretability project: how properties of training data shape circ
 - `uv run python -m analysis.patching --run <run> --update-results` activation patching on single-sentence prompts across checkpoints: per-head recovery, circuit-head ablation, keep-only-k faithfulness and sharpness, context-bonus decomposition; fills formation_step, faithfulness, sharpness in results.csv
 - `uv run python -m data.induction --out datasets/<name>.npz [--repeat-frac F --vocab-size V --noise P]` generates the pure induction task (random tokens with an embedded verbatim repeat); sweep it with `train.sweep --generator data.induction --knob repeat_frac`
 - `uv run python -m analysis.leak_curves --runs <fine runs>` plots held-out IO accuracy against leaked examples seen
+- `uv run python -m analysis.induction_patching --run <run>` the brief's formation definition on the induction task: source-segment corruption, layer-1 patching at target positions, recovery >= 0.5 with a 1-nat effect floor; writes `induction_patching_summary.json`
 - `uv run python -m analysis.summarize ... --correlate zipper_score:formation_step_acc90` adds a Spearman/Pearson correlation across runs
 - `uv run python -m analysis.tier2_dataset --reference <ckpt> --runs <runs>` scores datasets under a reference model; `analysis.tiers_figure` plots both tiers against formation
 - `uv run python -m selection.select_by_score --pool datasets/pool_het.npz --method zipper|random|refloss|oracle --n N --out datasets/sel_x.npz` selects a subset of a heterogeneous pool by a per-document score

@@ -21,6 +21,11 @@ Knobs (InductionConfig):
 - repeat_frac_min  if > 0, each document draws its own fraction ~ U(repeat_frac_min,
                 repeat_frac): a heterogeneous pool for selection experiments; the
                 per-document fraction is stored as `doc_frac`
+- length_dist   distribution of the copy length r in [2, r_cap]: "uniform" (default),
+                "short_tail" (80% of documents draw r from [2, r_cap // 3], 20% from
+                the full range: mostly short with a long tail, same maximum), or
+                "long" (r = r_cap always). Separates "lag follows the maximum" from
+                "lag follows the typical length".
 
 Splits: train, val. `s_ids` holds the current token at each target (the token whose
 previous occurrence must be found), so analysis.circuit's `attn_s` measures duplicate-
@@ -53,6 +58,7 @@ class InductionConfig:
     noise: float = 0.0
     n_repeats: int = 1
     repeat_frac_min: float = 0.0
+    length_dist: str = "uniform"
     ctx_len: int = 64
     n_train: int = 20_000
     n_val: int = 2_000
@@ -71,6 +77,8 @@ class InductionConfig:
             raise ValueError("repeat_frac too large: source and copy must both fit")
         if self.n_repeats < 1:
             raise ValueError("n_repeats must be >= 1")
+        if self.length_dist not in ("uniform", "short_tail", "long"):
+            raise ValueError("length_dist must be uniform, short_tail or long")
         if not 0.0 <= self.repeat_frac_min <= self.repeat_frac:
             raise ValueError("repeat_frac_min must be in [0, repeat_frac]")
         if self.repeat_frac_min > 0 and round(self.repeat_frac_min * (self.ctx_len - 1) / 2) < 2:
@@ -94,7 +102,12 @@ def generate_split(rng: np.random.Generator, cfg: InductionConfig, n: int) -> di
         r_cap = max(2, round(doc_frac[i] * B / 2) // cfg.n_repeats)
         used = np.zeros(B, dtype=bool)
         for _ in range(cfg.n_repeats):
-            r = int(rng.integers(2, r_cap + 1))
+            if cfg.length_dist == "long":
+                r = r_cap
+            elif cfg.length_dist == "short_tail" and rng.random() < 0.8:
+                r = int(rng.integers(2, max(2, r_cap // 3) + 1))
+            else:
+                r = int(rng.integers(2, r_cap + 1))
             for _attempt in range(200):
                 src = int(rng.integers(0, B - 2 * r + 1))  # source segment start
                 dst = int(rng.integers(src + r, B - r + 1))  # copy start, after the source ends

@@ -68,3 +68,17 @@ def test_n_repeats_and_heterogeneous_pool():
     assert np.corrcoef(f, het["train"]["doc_copied"])[0, 1] > 0.6
     with pytest.raises(ValueError):
         InductionConfig(repeat_frac=0.5, repeat_frac_min=0.6)
+
+
+def test_length_distributions_share_the_maximum():
+    def lengths(cfg):
+        splits, _ = generate(cfg)
+        m = splits["train"]["target_mask"]
+        return m.sum(1) + 1
+    base = {"repeat_frac": 0.75, "n_train": 400, "n_val": 5, "seed": 4}
+    uni, short, long_ = (lengths(InductionConfig(length_dist=d, **base)) for d in ("uniform", "short_tail", "long"))
+    assert uni.max() == short.max() == long_.max() == 24
+    assert np.median(short) < 0.6 * np.median(uni)
+    assert (long_ == 24).all()
+    with pytest.raises(ValueError):
+        InductionConfig(length_dist="weird")
