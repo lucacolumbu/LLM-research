@@ -311,3 +311,30 @@ previous-token head is cheap under rotary and expensive under learned absolute p
 and only when it is cheap does the attention circuit win the race against MLP
 memorisation. The two-name task is being rerun with the same recipe (`match_pool16_s*`)
 so both tasks share one architecture.
+
+## 2026-09-13: two-name task under the matched architecture (rotary, MLPs, weight decay 0)
+
+Three seeds, pool 16, 4000 steps; patching with per-position mean ablation and an adaptive
+circuit (smallest head set recovering 80% of the patching effect).
+
+| seed | circuit heads | recovery | ablate: val / held-out IO | faithfulness | sharpness | heldout-IO acc at 4000 | attention of circuit heads (to IO, to S) |
+|---|---|---|---|---|---|---|---|
+| 0 | L1H1 | 1.01 | 0.47 / 0.00 | 0.11 | 4 | 0.09 | (0.00, 0.96) |
+| 1 | L1H1, L1H0 | 0.93 | 0.60 / 0.06 | 0.08 | 4 | 0.06 | (0.00, 0.94), (0.00, 0.41) |
+| 2 | L1H0, L1H1 | 0.93 | 0.58 / 0.00 | 0.12 | 3 | 0.02 | (0.00, 0.99), (0.01, 0.91) |
+
+1. **Same mechanism under the induction task's architecture.** S-inhibition heads in layer
+   1, no attention to the IO, and the in-context margin carried by the MLPs (10-11 logits
+   vs under 1 from the heads' direct path). The cross-task claim no longer rests on an
+   architectural difference.
+2. **Weight decay was eroding the prior.** With weight decay off, held-out IO accuracy stays
+   at 0.02-0.09 through 4000 steps, against 0.20-0.70 with weight decay 0.01 and otherwise
+   identical training. The slow crawl of the held-out logit difference reported earlier is
+   therefore largely weight decay shrinking the MLP prior, not the circuit strengthening,
+   which fits the "byproduct of formation" reading and the late-leak result: the prior
+   only moves when something pushes on it (decay or leaked examples).
+3. **Per-position mean ablation changes the sparsity picture.** With one mean vector per
+   head over all positions, sharpness was 7 of 8 heads; with per-position means it is 3-4
+   of 8, and ablating the 1-2 circuit heads drops validation accuracy to 0.47-0.60, close
+   to the two-candidate chance level the exclusion story predicts. The earlier sharpness
+   numbers were an artefact of off-distribution ablation.
