@@ -378,3 +378,9 @@ and only the densest condition shows the clean snap, and at 0.75 the model sits 
 accuracy, a partial solution the attention-only model never showed. MLPs offer a competing
 partial path that delays and softens the transition. Runs at 0.35 and 0.5 are being
 extended to 12,000 steps to fill the censored cells.
+
+Addendum (12,000-step extension): repeat_frac 0.5 forms at 7000, 7000, 6600 and
+plateaus near 0.75; 0.35 still never forms (0.07-0.17 at 12,000). Full ordering under the
+matched architecture: 0.98 -> 1267, 0.75 -> 4367, 0.5 -> 6867, 0.35 and below -> never.
+Monotone in the zipper gain, rank correlation -1 on condition means. The censoring at low
+gains is now a budget statement (12,000 steps, 60k documents), not a gap in the ordering.
