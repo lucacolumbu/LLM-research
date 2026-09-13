@@ -540,3 +540,43 @@ Lag, formation step and ceiling are unchanged. The lag is chosen by the data, no
 regulariser. The wd 0.01 control is queued (that value blocked formation entirely under
 learned positions and slowed it under rotary, so it tests the law at the edge of where the
 circuit forms at all).
+
+## 2026-09-13 (evening): batch 3 results
+
+### Copy-length distribution at a fixed maximum (item 2): the lag follows neither the maximum nor the typical length
+
+MLP, rotary, wd 0, repeat_frac 0.75 (maximum copy length 24), 8000 steps, 3 seeds.
+
+| length distribution | mean / median copy length | zipper gain | formation | final acc | lag (3 seeds) |
+|---|---|---|---|---|---|
+| uniform in [2, 24] | 13.0 / 13 | 0.154 | 4000-4700 | 0.68 | 19, 19, 19 |
+| short-tailed (80% in [2, 8]) | 6.6 / 6 | 0.069 | never in 8000 | 0.05 | unformed |
+| fixed at 24 | 24 / 24 | 0.305 | 800, 800, 800 | 0.997 | 0, 0, 0 |
+
+With every copy 24 tokens long the MLP model builds the textbook lag-0 circuit, snaps in at
+800 and reaches 0.997; with the same maximum but uniform lengths it builds a lag-19 circuit
+at 4000+ with a 0.68 ceiling; with mostly short copies nothing forms. So the lag is not a
+function of the maximum copy length, and the "0.78 r_max" law from the repeat sweep was a
+coincidence of the uniform distribution. The lag is set by the *distribution of copy lengths
+and offsets* in a way that is still unexplained; note that lag 0 would cover every target
+under uniform lengths, so the choice is not coverage-maximising. Zipper gain, which rises
+sharply with copy length, orders the three conditions correctly (0.069 < 0.154 < 0.305 vs
+never > 4300 > 800).
+
+### Weight decay 0.01 (item 1, second value)
+Lags 15 / 19 (one seed 18) / 22 at repeat 0.6 / 0.75 / 0.9, formation 5000-5400 / 4000-4600
+/ 3800-4200, ceilings 0.71 / 0.69 / 0.66: indistinguishable from wd 0 and 0.001. Weight
+decay does not touch the lag law. Correction to the earlier diagnosis: the blocker for MLP
+models was learned absolute positions (and short warmup), not weight decay; the wd 0.01
+rotary diagnostic that reached 0.72 was a lag ceiling, not a failure to form.
+
+### Architecture robustness (item 7): 3 layers, 8 heads, attention-only
+Formation 2600 (173) / 1300 (0) / 933 (153) for repeat 0.5 / 0.75 / 0.98; 0.35 never in
+6000 (2L4H formed at 3600). Spearman -0.94 over 9 formed runs; jumps of 0.5-0.66 accuracy
+per 100 steps. The headline correlation holds at a second depth and width.
+
+### Selection replication on two new pools (item 5)
+Pool 1: zipper 700, oracle 900, random never. Pool 2: zipper 700, oracle 800, random 6000.
+With the original pool: zipper 700 x3, oracle 900-1000, random 5200/never/never. The zipper
+subset forms at step 700 in every pool and seed; the parameter oracle is 100-300 steps
+slower everywhere; random is 7x slower or fails.
