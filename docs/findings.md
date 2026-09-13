@@ -194,3 +194,23 @@ half the context; per-document length and offset random). Figure:
    copies up to 31 tokens and a vocabulary of 100, the current token often has a spurious
    earlier occurrence. The attention-based formation step is undefined there because the
    top head's attention to the copied token stays below 0.5.
+
+## 2026-09-12 (later): the prior is cheap to overwrite after formation, not before
+
+Late-leak experiment: train on the no-leak pool-16 data until step 400 (validation
+accuracy 1.0 from about step 325), then switch to the 1.2%-leak data. Checkpoints every
+25 steps, 3 seeds. Compared with the leak-from-step-0 runs.
+
+| condition | leaked examples until held-out IO accuracy >= 0.5 | logit difference just before / 100 steps after |
+|---|---|---|
+| leak from step 0 | 670, 983, 659 | n/a (starts at 0, dips to -4.5 first) |
+| leak from step 400 | 112, 112, 56 | -5.1 -> +4.6, -4.4 -> +3.9, -4.7 -> +3.2 |
+
+Six to twelve times fewer examples are needed once the circuit exists, and the flip is
+stable (accuracy 0.99-1.00 for the remaining 1000 steps). This is the opposite of the
+"cheapest to prevent during formation" prediction. Reading: the "never an answer" prior
+is built by the same gradient that builds the circuit, so leaked examples that arrive
+during formation are mostly wasted against it, while after formation only a token-level
+entry in the MLP has to move and each example shifts it by roughly 0.1 logits. For data
+design this says: to make a rare answer class available, spend the examples after the
+mechanism is in place rather than mixing them in from the start.
