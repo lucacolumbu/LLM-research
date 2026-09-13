@@ -58,6 +58,8 @@ class TrainConfig:
     attn_only: bool = False  # no MLPs (the setting in which 2-layer induction heads form crisply)
     checkpoints_dir: str = "checkpoints"
     results_dir: str = "results"
+    switch_dataset: str = ""  # if set, train on this dataset from switch_step onward (data-schedule experiments)
+    switch_step: int = 0
 
 
 def build_model(tc: TrainConfig, d_vocab: int, n_ctx: int) -> HookedTransformer:
@@ -200,9 +202,14 @@ def train(tc: TrainConfig) -> dict[str, Any]:
     t0 = time.time()
     loss_val = float("nan")
     latest: dict[str, Any] = {}
+    switch_tokens = None
+    if tc.switch_dataset:
+        switch_splits, _ = load_dataset(Path(tc.switch_dataset))
+        switch_tokens = torch.as_tensor(switch_splits["train"]["tokens"])
     for step in range(1, tc.steps + 1):
-        idx = rng.integers(len(train_tokens), size=tc.batch_size)
-        tokens = train_tokens[idx].to(tc.device)
+        source = switch_tokens if switch_tokens is not None and step > tc.switch_step else train_tokens
+        idx = rng.integers(len(source), size=tc.batch_size)
+        tokens = source[idx].to(tc.device)
         loss = lm_loss(model(tokens), tokens, pad_id)
         opt.zero_grad(set_to_none=True)
         loss.backward()

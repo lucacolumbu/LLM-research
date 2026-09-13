@@ -1,3 +1,4 @@
+import numpy as np
 import pytest
 
 from data.induction import BOS_ID, MAX_VOCAB, InductionConfig, generate
@@ -48,3 +49,22 @@ def test_noise_and_validation():
         InductionConfig(repeat_frac=0.02)
     with pytest.raises(ValueError):
         InductionConfig(repeat_frac=1.0, ctx_len=64)
+
+
+def test_n_repeats_and_heterogeneous_pool():
+    one, m1 = generate(InductionConfig(repeat_frac=0.75, n_repeats=1, n_train=300, n_val=5, seed=2))
+    four, m4 = generate(InductionConfig(repeat_frac=0.75, n_repeats=4, n_train=300, n_val=5, seed=2))
+    c1, c4 = m1["stats"]["train"]["copied_tokens_per_doc"], m4["stats"]["train"]["copied_tokens_per_doc"]
+    assert 0.6 < c4 / c1 < 1.6, (c1, c4)  # roughly the same copied fraction, different structure
+    # more, shorter target runs with n_repeats=4
+    def runs_per_doc(mask):
+        d = np.diff(mask.astype(int), axis=1)
+        return (d == 1).sum(1).mean()
+    assert runs_per_doc(four["train"]["target_mask"]) > 1.8 * runs_per_doc(one["train"]["target_mask"])
+
+    het, _ = generate(InductionConfig(repeat_frac=0.98, repeat_frac_min=0.1, n_train=300, n_val=5, seed=3))
+    f = het["train"]["doc_frac"]
+    assert f.min() >= 0.1 and f.max() <= 0.98 and f.std() > 0.15
+    assert np.corrcoef(f, het["train"]["doc_copied"])[0, 1] > 0.6
+    with pytest.raises(ValueError):
+        InductionConfig(repeat_frac=0.5, repeat_frac_min=0.6)

@@ -17,6 +17,9 @@ Mechanistic-interpretability project: how properties of training data shape circ
 - `uv run python -m data.induction --out datasets/<name>.npz [--repeat-frac F --vocab-size V --noise P]` generates the pure induction task (random tokens with an embedded verbatim repeat); sweep it with `train.sweep --generator data.induction --knob repeat_frac`
 - `uv run python -m analysis.leak_curves --runs <fine runs>` plots held-out IO accuracy against leaked examples seen
 - `uv run python -m analysis.summarize ... --correlate zipper_score:formation_step_acc90` adds a Spearman/Pearson correlation across runs
+- `uv run python -m selection.select_by_score --pool datasets/pool_het.npz --method zipper|random|refloss|oracle --n N --out datasets/sel_x.npz` selects a subset of a heterogeneous pool by a per-document score
+- `uv run python -m selection.experiment --n 20000 --seeds 0 1 2` runs the Phase 2 comparison end to end (pool, arms, training, `results/selection_summary.csv`)
+- `train.train --switch-dataset <npz> --switch-step N` trains on a second dataset from step N (data-schedule experiments such as late leaks)
 - `uv run jupyter lab` opens notebooks
 
 ## Layout
@@ -25,7 +28,9 @@ Mechanistic-interpretability project: how properties of training data shape circ
 - `train/train.py`: trains a `HookedTransformer` (default 2 layers, d_model 128, 4 heads) with AdamW on CPU. Saves `checkpoints/<run>/step_<N>.pt` every `ckpt_every` steps, logs eval metrics to `results/<run>/log.jsonl`, and appends one row to `results/results.csv`. `load_checkpoint()` rebuilds a model from a checkpoint.
 - `analysis/zipper.py`: tier 1. `Zipper.conditional_many` gives C(B|A) reusing one zlib compressor state for A; `compression_gain` is per-document gain against a shuffled copy (unigram skew does not count). Tiers 2 and 3 not started.
 - `analysis/circuit.py`: head-level measurements at IO positions across checkpoints. Exact direct-logit-attribution decomposition (heads, MLPs, embeddings, attention biases, and the LN-bias plus unembed-bias "prior" term); `decomposed_ld` must equal `logit_diff`. Formation steps are defined on the final top-attribution heads. Activation patching, faithfulness and sharpness not started.
-- `analysis/plots.py`, `analysis/summarize.py`: static matplotlib figures; fixed categorical palette, one measure per axis.
+- `analysis/lm_scores.py`: tier 2, mean cross-entropy per document under a checkpoint. Tier 3 (circuit-probe learnability) not started.
+- `analysis/plots.py`, `analysis/summarize.py`, `analysis/zipper_figure.py`, `analysis/leak_curves.py`: static matplotlib figures; fixed categorical palette, one measure per axis.
+- `selection/select_by_score.py`, `selection/experiment.py`: Phase 2 minimal selector and its driver. The greedy marginal-information selector from the brief is not started.
 - `data/induction.py`: pure induction task. Same npz layout; only train and val splits. `s_ids` is the current token at each target, so `attn_s` = duplicate-token attention and `attn_io` = attention to the token to be copied.
 - `analysis/patching.py`: activation patching and ablations on 17-token single-sentence IOI prompts (answer read at index 14). Circuit heads are the top-k by single-head patching recovery at the final checkpoint.
 - `train/sweep.py`: one-knob sweep runner (`--generator` selects the task module); run names are `<short knob><value>_s<seed>` (e.g. `pool16_s0`, `leak0.045_s0`).

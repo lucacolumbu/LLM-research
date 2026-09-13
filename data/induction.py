@@ -15,6 +15,12 @@ Knobs (InductionConfig):
 - vocab_size    active token types (<= MAX_VOCAB; the tokenizer is fixed at MAX_VOCAB)
 - noise         P(a copied token is replaced by a random one): conditional entropy of
                 the target given the context
+- n_repeats     number of independent copied segments per document; each segment's
+                maximum length is r_max // n_repeats, so the copied fraction stays
+                roughly fixed while the *structure* (few long vs many short) changes
+- repeat_frac_min  if > 0, each document draws its own fraction ~ U(repeat_frac_min,
+                repeat_frac): a heterogeneous pool for selection experiments; the
+                per-document fraction is stored as `doc_frac`
 
 Splits: train, val. `s_ids` holds the current token at each target (the token whose
 previous occurrence must be found), so analysis.circuit's `attn_s` measures duplicate-
@@ -45,6 +51,8 @@ class InductionConfig:
     repeat_frac: float = 0.5
     vocab_size: int = 100
     noise: float = 0.0
+    n_repeats: int = 1
+    repeat_frac_min: float = 0.0
     ctx_len: int = 64
     n_train: int = 20_000
     n_val: int = 2_000
@@ -61,6 +69,12 @@ class InductionConfig:
             raise ValueError("repeat_frac too small for this ctx_len: fewer than 2 copied tokens")
         if 2 * self.repeat_len > self.ctx_len - 1:
             raise ValueError("repeat_frac too large: source and copy must both fit")
+        if self.n_repeats < 1:
+            raise ValueError("n_repeats must be >= 1")
+        if not 0.0 <= self.repeat_frac_min <= self.repeat_frac:
+            raise ValueError("repeat_frac_min must be in [0, repeat_frac]")
+        if self.repeat_frac_min > 0 and round(self.repeat_frac_min * (self.ctx_len - 1) / 2) < 2:
+            raise ValueError("repeat_frac_min too small for this ctx_len")
 
     @property
     def repeat_len(self) -> int:
@@ -68,26 +82,38 @@ class InductionConfig:
 
 
 def generate_split(rng: np.random.Generator, cfg: InductionConfig, n: int) -> dict[str, np.ndarray]:
-    B, r_max = cfg.ctx_len - 1, cfg.repeat_len
+    B = cfg.ctx_len - 1
     lo, hi = len(SPECIAL), len(SPECIAL) + cfg.vocab_size
     body = rng.integers(lo, hi, size=(n, B))
     target_mask = np.zeros((n, B + 1), dtype=bool)
+    doc_frac = np.full(n, cfg.repeat_frac)
+    doc_copied = np.zeros(n, dtype=np.int64)
     for i in range(n):
-        r = int(rng.integers(2, r_max + 1))
-        idx = np.arange(r)
-        src = int(rng.integers(0, B - 2 * r + 1))  # source segment start
-        dst = int(rng.integers(src + r, B - r + 1))  # copy start, after the source ends
-        segment = body[i, src : src + r].copy()
-        if cfg.noise > 0:
-            flip = rng.random(r) < cfg.noise
-            segment[flip] = rng.integers(lo, hi, size=flip.sum())
-        body[i, dst + idx] = segment
-        target_mask[i, 1 + dst + 1 : 1 + dst + r] = True  # copied tokens except the first
+        if cfg.repeat_frac_min > 0:
+            doc_frac[i] = rng.uniform(cfg.repeat_frac_min, cfg.repeat_frac)
+        r_cap = max(2, round(doc_frac[i] * B / 2) // cfg.n_repeats)
+        used = np.zeros(B, dtype=bool)
+        for _ in range(cfg.n_repeats):
+            r = int(rng.integers(2, r_cap + 1))
+            for _attempt in range(200):
+                src = int(rng.integers(0, B - 2 * r + 1))  # source segment start
+                dst = int(rng.integers(src + r, B - r + 1))  # copy start, after the source ends
+                if used[src : src + r].any() or used[dst : dst + r].any():
+                    continue
+                segment = body[i, src : src + r].copy()
+                if cfg.noise > 0:
+                    flip = rng.random(r) < cfg.noise
+                    segment[flip] = rng.integers(lo, hi, size=flip.sum())
+                body[i, dst : dst + r] = segment
+                target_mask[i, 1 + dst + 1 : 1 + dst + r] = True  # copied tokens except the first
+                used[src : src + r] = used[dst : dst + r] = True
+                doc_copied[i] += r
+                break
     tokens = np.concatenate([np.full((n, 1), BOS_ID), body], axis=1).astype(np.int64)
     s_ids = np.full_like(tokens, -1)
     b, p = target_mask.nonzero()
     s_ids[b, p] = tokens[b, p - 1]  # the current token at the prediction position
-    return {"tokens": tokens, "target_mask": target_mask, "s_ids": s_ids}
+    return {"tokens": tokens, "target_mask": target_mask, "s_ids": s_ids, "doc_frac": doc_frac, "doc_copied": doc_copied}
 
 
 def generate(cfg: InductionConfig) -> tuple[dict[str, dict[str, np.ndarray]], dict[str, Any]]:
@@ -102,7 +128,10 @@ def generate(cfg: InductionConfig) -> tuple[dict[str, dict[str, np.ndarray]], di
         "repeat_len_max": cfg.repeat_len,
         "targets_per_doc_mean": float(splits["train"]["target_mask"].sum(1).mean()),
         "token_entropy_bits": math.log2(cfg.vocab_size),
-        "stats": {s: {"frac_target": float(d["target_mask"].mean())} for s, d in splits.items()},
+        "stats": {
+            s: {"frac_target": float(d["target_mask"].mean()), "copied_tokens_per_doc": float(d["doc_copied"].mean())}
+            for s, d in splits.items()
+        },
     }
     return splits, meta
 

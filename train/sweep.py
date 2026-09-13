@@ -28,6 +28,7 @@ SHORT = {
     "repeat_frac": "ind_rep",
     "vocab_size": "ind_vocab",
     "noise": "ind_noise",
+    "n_repeats": "ind_nrep",
 }
 
 
@@ -89,7 +90,7 @@ def main(argv: list[str] | None = None) -> list[str]:
     p.add_argument("--generator", default="data.generator", help="generator module, e.g. data.induction")
     a = p.parse_args(argv)
 
-    int_knobs = {"name_pool_size", "n_heldout_io_names", "ctx_len", "n_train", "n_val", "vocab_size"}
+    int_knobs = {"name_pool_size", "n_heldout_io_names", "ctx_len", "n_train", "n_val", "vocab_size", "n_repeats"}
     jobs = []
     for v in a.values:
         value = int(v) if a.knob in int_knobs else v
