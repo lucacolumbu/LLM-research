@@ -100,8 +100,9 @@ def _metrics(logits: torch.Tensor, io: torch.Tensor, s: torch.Tensor) -> tuple[f
 
 
 def _z_hook_ablate(z: torch.Tensor, hook, heads: list[int], value: torch.Tensor | None) -> torch.Tensor:
+    """value: per-position means [pos, head, d_head] (mean ablation) or None (zero ablation)."""
     for h in heads:
-        z[:, :, h, :] = 0.0 if value is None else value[h]
+        z[:, :, h, :] = 0.0 if value is None else value[:, h, :]
     return z
 
 
@@ -115,7 +116,9 @@ def _z_hook_patch(z: torch.Tensor, hook, heads: list[int], clean_z: torch.Tensor
 def run_ablated(
     model: HookedTransformer, tokens: torch.Tensor, heads: list[tuple[int, int]], means: dict[int, torch.Tensor] | None
 ) -> torch.Tensor:
-    """Logits with the given heads ablated at every position (mean if `means` given, else zero)."""
+    """Logits with the given heads ablated at every position (per-position mean over the prompt
+    batch if `means` given, else zero). Prompts share one template, so per-position means are
+    an in-distribution reference; a single mean over all positions is not."""
     by_layer: dict[int, list[int]] = {}
     for layer, head in heads:
         by_layer.setdefault(layer, []).append(head)
@@ -147,6 +150,8 @@ def analyze_prompts(
     circuit_heads: list[tuple[int, int]] | None = None,
     ranking: list[tuple[int, int]] | None = None,
     pool_ids: list[int] | None = None,
+    k_circuit: int = 2,
+    recovery_target: float = 0.8,
 ) -> dict[str, Any]:
     model.eval()
     dev = model.cfg.device
@@ -158,7 +163,7 @@ def analyze_prompts(
     clean_logits, cache = model.run_with_cache(clean, names_filter=lambda n: n in z_names)
     ld_clean, acc_clean = _metrics(clean_logits, io, s)
     ld_corrupt, acc_corrupt = _metrics(model(corrupt), io, s)
-    means = {layer: cache[f"blocks.{layer}.attn.hook_z"].mean((0, 1)) for layer in range(L)}  # [H, d_head]
+    means = {layer: cache[f"blocks.{layer}.attn.hook_z"].mean(0) for layer in range(L)}  # [pos, H, d_head]
     denom = ld_clean - ld_corrupt if abs(ld_clean - ld_corrupt) > 1e-6 else float("nan")
 
     recovery = np.zeros((L, H))
@@ -170,7 +175,13 @@ def analyze_prompts(
         flat = np.argsort(-recovery, axis=None)
         ranking = [(int(i // H), int(i % H)) for i in flat]
     if circuit_heads is None:
-        circuit_heads = ranking[:2]
+        circuit_heads = ranking[:k_circuit]
+        if k_circuit <= 0:  # adaptive: smallest k whose joint patch recovers >= recovery_target
+            for k in range(1, min(L * H, 8) + 1):
+                ld_k, _ = _metrics(run_patched(model, corrupt, ranking[:k], cache), io, s)
+                if (ld_k - ld_corrupt) / denom >= recovery_target:
+                    break
+            circuit_heads = ranking[:k]
 
     ld_p, acc_p = _metrics(run_patched(model, corrupt, circuit_heads, cache), io, s)
     out: dict[str, Any] = {
@@ -223,11 +234,11 @@ def analyze_run(
 
     # fix the circuit and ranking from the final checkpoint, then walk every checkpoint
     model, _ = load_checkpoint(ckpts[-1])
-    final = analyze_prompts(model, prompts["val"], pool_ids=pool)
+    final = analyze_prompts(model, prompts["val"], pool_ids=pool, k_circuit=k_circuit)
     rec = np.array(final["recovery_per_head"])
     flat = np.argsort(-rec, axis=None)
     ranking = [(int(i // rec.shape[1]), int(i % rec.shape[1])) for i in flat]
-    circuit = ranking[:k_circuit]
+    circuit = [tuple(h) for h in final["circuit_heads"]]  # k_circuit heads, or adaptive when k_circuit <= 0
 
     records = []
     for path in ckpts:
@@ -282,7 +293,7 @@ def main(argv: list[str] | None = None) -> dict[str, Any]:
     p.add_argument("--results-dir", type=Path, default=Path("results"))
     p.add_argument("--checkpoints-dir", type=Path, default=Path("checkpoints"))
     p.add_argument("--n-prompts", type=int, default=256)
-    p.add_argument("--k-circuit", type=int, default=2)
+    p.add_argument("--k-circuit", type=int, default=2, help="heads in the circuit; 0 = smallest set recovering 80%")
     p.add_argument("--update-results", action="store_true", help="fill formation_step, faithfulness, sharpness")
     a = p.parse_args(argv)
     summary = analyze_run(a.run, a.results_dir, a.checkpoints_dir, a.n_prompts, a.k_circuit, a.update_results)

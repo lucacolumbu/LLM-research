@@ -270,3 +270,35 @@ the compression score carries information the generating knob does not, which is
 reviewer will ask for. Combined with dissociation A: the zipper predicts formation along
 every axis that changes the amount, integrity or granularity of verbatim structure, and
 fails only where the token distribution changes (vocabulary size).
+
+## 2026-09-12 (later): selection experiment, and the MLP claim reversed
+
+### Phase 2, minimal: selecting 20k of a 60k heterogeneous pool
+
+Pool: induction documents with per-document repeat fraction ~ U(0.1, 0.98). Subsets of
+20,000 documents; attention-only rotary model, 6000 steps, 3 seeds. Table
+`results/selection_summary.csv`.
+
+| arm | selection rule | mean hidden fraction of selected docs | formation step (3 seeds) |
+|---|---|---|---|
+| random | uniform | 0.54 | 5200, never, never |
+| zipper | top-N per-document LZ77 gain | 0.73 | 700, 700, 700 |
+| refloss | lowest loss under a reference model trained on a random subset | 0.73 | 700, 700, 700 |
+| oracle | top-N hidden fraction | 0.83 | 900, 1000, 900 |
+
+Selecting by the zipper score forms the circuit at least 7 times sooner than a random
+subset of the same size, with zero seed variance, and slightly sooner than the oracle
+(the oracle picks the longest copies, which carry more ambiguous matches). Tier 2 matched
+tier 1 almost document for document, but only because the reference model was the one
+random-subset run that had formed an induction head; had it been either of the other two
+seeds, reference loss would have carried no signal. That bootstrapping dependence is
+exactly what the zipper avoids.
+
+### The "MLPs block induction" claim was an optimisation artefact
+
+With MLPs, rotary positions, r_max 31: learning rate 3e-4 (warmup 500) forms at
+2250-2500; 1e-4 forms at 5500-6000; learning rate 1e-3 with weight decay 0 and warmup
+500 forms at 1000-1250. The earlier failures used weight decay 0.01 with warmup 100. So
+MLPs do not prevent the circuit; weight decay at that learning rate does. The repetition
+sweep is being rerun with MLPs (rotary, weight decay 0) to remove the architecture
+confound between the two tasks.
