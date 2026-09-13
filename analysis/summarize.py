@@ -39,6 +39,8 @@ def load_runs(results_dir: Path, pattern: str, knob: str) -> pd.DataFrame:
             rec.update(
                 formation_step_attn_s=s.get("formation_step_attn_s"),
                 formation_step_attn_io=s.get("formation_step_attn_io"),
+                formation_step_attn_lag=s.get("formation_step_attn_lag"),
+                dominant_lag=(max((m, lag) for row_m, row_l in zip(s["final_best_lag_mass"], s["final_best_lag"]) for m, lag in zip(row_m, row_l))[1] if s.get("final_best_lag_mass") else None),
                 crossing_step=s.get("crossing_step_logit_diff"),
                 sustained_crossing_step=s.get("sustained_crossing_step_logit_diff"),
                 min_ld=(s.get("min_logit_diff") or [np.nan])[0],
@@ -87,7 +89,7 @@ def trajectory(results_dir: Path, run: str, split: str, key: str) -> tuple[list[
 
 METRICS = [
     "zipper_score", "val_io_acc", "generalization", "generalization_pairs",
-    "formation_step_attn_s", "formation_step_attn_io", "formation_step_acc90", "formation_step_acc50", "max_acc_gain_per_eval", "crossing_step", "sustained_crossing_step", "min_ld",
+    "formation_step_attn_s", "formation_step_attn_io", "formation_step_attn_lag", "dominant_lag", "formation_step_acc90", "formation_step_acc50", "max_acc_gain_per_eval", "crossing_step", "sustained_crossing_step", "min_ld",
     "heads_ld", "mlp0_ld", "mlp1_ld", "prior_ld",
     "formation_step_patching", "faithfulness_p", "sharpness_p", "circuit_recovery", "ablate_acc_val",
     "ablate_acc_heldout", "ctx_bonus_val", "ctx_bonus_heldout", "ctx_mlp1_val", "ctx_heads_val",

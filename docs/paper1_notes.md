@@ -56,3 +56,16 @@ is buying; the mechanism check is the method, not a preliminary.
   (`mlp_` induction sweep, `match_` two-name runs) remove that confound.
 - All results are on synthetic data at toy scale; Phase 3 (Pythia-scale corpus subset)
   is untouched.
+
+## Additions (2026-09-13)
+
+- Tier 2 vs tier 1 across all 39 induction runs: Spearman with formation -0.72 (zipper)
+  vs -0.93 (reference-model loss); the gap is entirely the vocabulary family. One figure,
+  `results/tiers_vs_formation.png`, justifies the tiered framework.
+- The induction lag is a free parameter chosen by the data: lag 1 at moderate repeat
+  fractions, lags 8-19 with long copies, small vocabularies, or MLPs. The lag sets an exact
+  accuracy ceiling (offset > lag). MLP "plateaus" are complete lagged circuits. This is the
+  cleanest instance of "the data picks the circuit variant", and it means any formation
+  metric tied to the textbook geometry undercounts.
+- Selection: zipper-selected 20k subsets form at 700 vs random 5200/never; tier 2 matches
+  tier 1 only when its reference model has already formed the circuit.

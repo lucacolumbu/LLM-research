@@ -52,8 +52,13 @@ def analyze_checkpoint(
     max_docs: int = 512,
     batch_size: int = 128,
     pool_ids: np.ndarray | list[int] | None = None,
+    need_pos: np.ndarray | None = None,
+    max_lag: int = 24,
 ) -> dict[str, Any]:
     """Per-head and per-component measurements at IO positions.
+
+    With `need_pos` (position of the token to copy, induction task), also records per head
+    the attention mass at need+o for o = 0..max_lag: a lag-k induction head peaks at o = k.
 
     With `pool_ids`, also decomposes the *context bonus*: the IO logit minus the mean
     logit of pool names absent from the context. That is the task-specific signal an
@@ -83,6 +88,8 @@ def analyze_checkpoint(
     n_total = correct = 0
     ld_sum = io_logit_sum = ctx_bonus_sum = 0.0
     pool = torch.as_tensor(np.asarray(pool_ids), device=dev) if pool_ids is not None else None
+    lag = torch.zeros(L, H, max_lag + 1) if need_pos is not None else None
+    lag_n = 0
 
     for i in range(0, len(tokens_np), batch_size):
         tok = torch.as_tensor(tokens_np[i : i + batch_size]).to(dev)
@@ -130,6 +137,16 @@ def analyze_checkpoint(
             pat = cache[f"blocks.{layer}.attn.hook_pattern"][b, :, q, :]  # [n, H, ctx]
             heads["attn_io"][layer] += (pat * io_mask[:, None, :]).sum(-1).sum(0).cpu()
             heads["attn_s"][layer] += (pat * s_mask[:, None, :]).sum(-1).sum(0).cpu()
+            if lag is not None:
+                need = torch.as_tensor(need_pos[i : i + batch_size], device=dev)[b, p]  # [n]
+                valid = need >= 0
+                for o in range(max_lag + 1):
+                    k = need + o
+                    ok = valid & (k <= q)
+                    if ok.any():
+                        lag[layer, :, o] += pat[ok].gather(2, k[ok][:, None, None].expand(-1, H, 1)).squeeze(-1).sum(0).cpu()
+                if layer == 0:
+                    lag_n += int(valid.sum())
         for name, x in comps.items():
             comp_ld[name] += _proj(x, dir_ld, scale, w_ln).sum().item()
             comp_io[name] += _proj(x, dir_io, scale, w_ln).sum().item()
@@ -155,6 +172,11 @@ def analyze_checkpoint(
     out["components_ld"]["heads"] = float(heads["dla_ld"].sum() / n_total)
     out["components_io"]["heads"] = float(heads["dla_io"].sum() / n_total)
     out["decomposed_ld"] = float(sum(out["components_ld"].values()))
+    if lag is not None and lag_n > 0:
+        prof = lag / lag_n  # [L, H, max_lag+1]
+        out["lag_profile"] = prof.tolist()
+        out["best_lag"] = prof.argmax(-1).tolist()
+        out["best_lag_mass"] = prof.max(-1).values.tolist()
     if pool is not None:
         out["ctx_bonus"] = ctx_bonus_sum / n_total
         out["components_ctx"] = {k: v / n_total for k, v in comp_ctx.items()}
@@ -208,6 +230,10 @@ def summarize(records: list[dict[str, Any]], attn_threshold: float = 0.5) -> dic
         "formation_step_attn_io": first_step(lambda r: cand_max(r, "attn_io") >= attn_threshold),
         "formation_step_attn_s": first_step(lambda r: cand_max(r, "attn_s") >= attn_threshold),
         "formation_step_attn_s_anyhead": first_step(lambda r: max(map(max, r["attn_s"])) >= attn_threshold),
+        # lag-aware induction formation: any head, any lag 0..max_lag (induction datasets only)
+        "formation_step_attn_lag": first_step(lambda r: "best_lag_mass" in r and max(map(max, r["best_lag_mass"])) >= attn_threshold),
+        "final_best_lag": records[-1]["val"].get("best_lag"),
+        "final_best_lag_mass": records[-1]["val"].get("best_lag_mass"),
         "final_candidate_attention": {
             f"L{layer}H{head}": {
                 "attn_io": records[-1][gen_split]["attn_io"][layer][head],
@@ -237,17 +263,25 @@ def analyze_run(
 ) -> dict[str, Any]:
     run_dir = results_dir / run
     tc = json.loads((run_dir / "train_config.json").read_text())
-    splits, _ = load_dataset(Path(tc["dataset"]))
+    splits, meta = load_dataset(Path(tc["dataset"]))
     ckpts = sorted((checkpoints_dir / run).glob("step_*.pt"), key=_step_of)
     if not ckpts:
         raise FileNotFoundError(f"no checkpoints under {checkpoints_dir / run}")
+    need = None
+    if meta.get("task") == "induction":
+        from data.induction import need_positions
+
+        need = need_positions(splits["val"]["tokens"][:max_docs], splits["val"]["target_mask"][:max_docs])
 
     records = []
     for path in ckpts:
         model, ckpt = load_checkpoint(path)
         rec: dict[str, Any] = {"step": ckpt["step"]}
         for split in ("val", "heldout_pairs", "heldout_io"):
-            rec[split] = analyze_checkpoint(model, splits[split], max_docs) if split in splits else {}
+            if split not in splits:
+                rec[split] = {}
+            else:
+                rec[split] = analyze_checkpoint(model, splits[split], max_docs, need_pos=need if split == "val" else None)
         records.append(rec)
     with (run_dir / "circuit.jsonl").open("w") as f:
         for rec in records:

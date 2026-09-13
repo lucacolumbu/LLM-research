@@ -116,6 +116,26 @@ def generate_split(rng: np.random.Generator, cfg: InductionConfig, n: int) -> di
     return {"tokens": tokens, "target_mask": target_mask, "s_ids": s_ids, "doc_frac": doc_frac, "doc_copied": doc_copied}
 
 
+def need_positions(tokens: np.ndarray, target_mask: np.ndarray) -> np.ndarray:
+    """Position of the source token for every target (-1 where unknown). Reconstructed from
+    the copy geometry; exact for single-repeat documents, first exact match otherwise."""
+    need = np.full(tokens.shape, -1, dtype=np.int64)
+    for i in range(tokens.shape[0]):
+        pi = np.flatnonzero(target_mask[i])
+        if len(pi) == 0:
+            continue
+        # split targets into runs (one per copied segment)
+        runs = np.split(pi, np.flatnonzero(np.diff(pi) > 1) + 1)
+        for run in runs:
+            dst, r = int(run[0]) - 1, len(run) + 1
+            seg = tokens[i, dst : dst + r]
+            for s in range(1, dst - r + 1):
+                if np.array_equal(tokens[i, s : s + r], seg):
+                    need[i, run] = s + np.arange(1, r)
+                    break
+    return need
+
+
 def generate(cfg: InductionConfig) -> tuple[dict[str, dict[str, np.ndarray]], dict[str, Any]]:
     rng = np.random.default_rng(cfg.seed)
     splits = {"train": generate_split(rng, cfg, cfg.n_train), "val": generate_split(rng, cfg, cfg.n_val)}
