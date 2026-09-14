@@ -54,6 +54,7 @@ copy-based score cannot see it. [Phase 3 sentence pending.]
   Every formation is a jump of >= 0.4 accuracy within one 100-step interval.
 - With MLPs (matched architecture): six formed conditions, rho -0.92 per run, -1.00 on
   condition means; formation 2-4x later; only the densest condition snaps.
+- 3-layer 8-head attention-only: rho -0.94 over 9 formed runs, jumps intact.
 - Noise: gain and formation fall together (rho -0.92). Structure at fixed repeated fraction:
   1, 2, 4 copies -> gain 0.154, 0.149, 0.125 -> formation 900, 1267, 1367 (rho -0.88):
   formation follows the score, not the fraction.
@@ -73,9 +74,16 @@ copy-based score cannot see it. [Phase 3 sentence pending.]
 - 60k-document pool with hidden per-document repeat fraction ~ U(0.1, 0.98); 20k subsets.
   Formation: zipper 700/700/700; reference loss 700/700/700; parameter oracle 900/1000/900;
   random 5200/never/never. All formed models have lag-0 circuits (mass 0.82-0.87).
-- Zipper beats the parameter oracle because it scores realised copied tokens (17.3 vs 14.2
-  per document); the oracle ranks by the generator's maximum. Replication on two further
-  pools [pending].
+- Zipper beats the parameter oracle in all three pools (700 vs 800-1000). Reason: the dial
+  sets a maximum copy length and the realised length is drawn below it; gzip gain tracks
+  the realised length (rho 0.995) while the dial tracks it only at rho 0.60. At matched dial
+  settings the zipper's picks carry longer copies (20.5 vs 15.7 tokens in the top bin); the
+  oracle's subset is 24% short-copy documents, the zipper's 0%. A subset chosen by realised
+  copy length overlaps the zipper's by 97% [training pending].
+- This joins pillar 4: copy length is what decides which induction circuit forms and how
+  fast (fixed long copies: lag 0, snap at 800; uniform lengths: lag 19, 4000+; short: none),
+  and gzip gain measures copy length. The compressor is not a proxy for repetition; it
+  measures the quantity that determines learning.
 
 ### 3.4 The data picks the circuit variant (pillar 4)
 - Lag-k induction: layer-0 head carries the token k+1 back, layer-1 head matches on it and
@@ -84,9 +92,10 @@ copy-based score cannot see it. [Phase 3 sentence pending.]
   scores 0.88-0.93; on the rest 0.01-0.07.
 - Lags: 0 at repeat 0.35-0.75, noise, structure, vocabulary 32 (attention-only); 9 at repeat
   0.98; 0 or 8 at vocabulary 16; MLP family 12, 15, 19, 21, 22 for r_max 16, 19, 24, 27, 28
-  (about 0.78 r_max, all seeds agree), 9-10 at 0.98. Distance hypothesis rejected (attended
-  distance shrinks 8.5 -> 2.6). Copy-length distribution test [pending: uniform vs
-  short-tailed vs fixed at the same maximum].
+  9-10 at 0.98, all seeds agreeing. Not a function of the maximum: at a fixed maximum of 24,
+  fixed-length copies give lag 0 (formation 800, acc 0.997), uniform lengths give lag 19
+  (4000+, ceiling 0.68), mostly-short copies never form. Distance hypothesis rejected.
+  Weight decay 0, 0.001, 0.01: no effect on lag, formation or ceiling.
 - MLP "plateaus" (0.66-0.76) are lag ceilings, not partial circuits.
 - Two-name task: S-inhibition heads (attention 0.94-0.99 on the subject, ~0 on the IO), IO
   margin of 10-11 logits over absent names carried by MLPs; ablating the circuit heads gives
