@@ -83,6 +83,68 @@ def _lz77_bits(seq: np.ndarray, window: int, vocab_bits: float, max_match: int =
     return bits
 
 
+def lz77_match_lengths(seq: np.ndarray, window: int = 4096, min_match: int = 2, max_match: int = 255) -> list[int]:
+    """Greedy sliding-window LZ77 parse of a token sequence; returns the length of every match
+    phrase (literals are not returned). The distribution of match lengths is the real-text
+    analogue of the synthetic copy length."""
+    seq = [int(x) for x in np.asarray(seq).reshape(-1)]
+    n = len(seq)
+    index: dict[tuple[int, int], list[int]] = {}
+    i = 0
+    out: list[int] = []
+    while i < n:
+        best = 0
+        if i + 1 < n:
+            for pos in reversed(index.get((seq[i], seq[i + 1]), [])):
+                if i - pos > window:
+                    break
+                length = 2
+                while i + length < n and length < max_match and seq[pos + length] == seq[i + length]:
+                    length += 1
+                best = max(best, length)
+        step = best if best >= min_match else 1
+        if best >= min_match:
+            out.append(best)
+        for j in range(i, i + step):
+            if j + 1 < n:
+                lst = index.setdefault((seq[j], seq[j + 1]), [])
+                lst.append(j)
+                if len(lst) > 64:
+                    del lst[:-64]
+        i += step
+    return out
+
+
+def match_length_stats(tokens: np.ndarray, pad_id: int, n_docs: int = 4000, seed: int = 0, bins=(2, 3, 4, 6, 8, 12, 16, 24, 32, 64, 256)) -> dict:
+    """Per-document LZ77 match-length distribution over a sample of documents: histogram of
+    match lengths, mean and median match length, longest match per document, and the
+    fraction of tokens covered by matches of at least 4 and at least 8 tokens."""
+    rng = np.random.default_rng(seed)
+    idx = rng.choice(len(tokens), min(n_docs, len(tokens)), replace=False)
+    lengths: list[int] = []
+    longest: list[int] = []
+    cov4 = cov8 = total = 0
+    for i in idx:
+        doc = strip_pad(tokens[i], pad_id)
+        m = lz77_match_lengths(doc)
+        lengths += m
+        longest.append(max(m) if m else 0)
+        total += len(doc)
+        cov4 += sum(x for x in m if x >= 4)
+        cov8 += sum(x for x in m if x >= 8)
+    arr = np.array(lengths) if lengths else np.zeros(0)
+    hist, _ = np.histogram(arr, bins=list(bins)) if len(arr) else (np.zeros(len(bins) - 1, int), None)
+    return {
+        "n_docs": len(idx), "bins": list(bins), "hist": hist.tolist(),
+        "matches_per_doc": float(len(arr) / len(idx)),
+        "mean_match_len": float(arr.mean()) if len(arr) else 0.0,
+        "median_match_len": float(np.median(arr)) if len(arr) else 0.0,
+        "mean_longest_match": float(np.mean(longest)),
+        "frac_tokens_in_matches_ge4": cov4 / max(total, 1),
+        "frac_tokens_in_matches_ge8": cov8 / max(total, 1),
+    }
+
+
 class Zipper:
     def __init__(
         self, backend: str = "zlib", level: int = 9, window: int = 4096, vocab_size: int = 256

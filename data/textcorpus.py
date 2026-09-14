@@ -28,9 +28,11 @@ def tokenize(text: str) -> list[str]:
     return TOKEN_RE.findall(text)
 
 
-def build(src: Path, ctx_len: int, vocab_size: int, n_val: int, min_tokens: int, seed: int):
+def build(src: Path, ctx_len: int, vocab_size: int, n_val: int, min_tokens: int, seed: int, drop_ends: bool = False):
     rng = np.random.default_rng(seed)
-    stories = [s.strip() for s in src.read_text(encoding="utf-8").split("<|endoftext|>") if s.strip()]
+    stories = [s.strip() for s in src.read_text(encoding="utf-8", errors="ignore").split("<|endoftext|>") if s.strip()]
+    if drop_ends:  # a byte-range slice starts and ends mid-story
+        stories = stories[1:-1]
     toks = [tokenize(s) for s in stories]
     toks = [t for t in toks if len(t) >= min_tokens]
     rng.shuffle(toks)
@@ -70,8 +72,9 @@ def main(argv: list[str] | None = None) -> Path:
     p.add_argument("--n-val", type=int, default=2000)
     p.add_argument("--min-tokens", type=int, default=64)
     p.add_argument("--seed", type=int, default=0)
+    p.add_argument("--drop-ends", action="store_true", help="drop the first and last (partial) stories of a byte-range slice")
     a = p.parse_args(argv)
-    splits, meta = build(a.src, a.ctx_len, a.vocab_size, a.n_val, a.min_tokens, a.seed)
+    splits, meta = build(a.src, a.ctx_len, a.vocab_size, a.n_val, a.min_tokens, a.seed, a.drop_ends)
     save_dataset(a.out, splits, meta)
     print(f"wrote {a.out}: train {splits['train']['tokens'].shape} val {splits['val']['tokens'].shape}")
     print("  " + json.dumps(meta["stats"]))
