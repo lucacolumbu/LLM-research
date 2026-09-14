@@ -10,7 +10,8 @@ Methods:
 - refloss    lowest-N mean next-token loss under a reference model trained on a random
              subset of the pool (tier 2; a converged reference has an induction head and
              gives repeat-rich documents low loss)
-- oracle     top-N by the hidden per-document repeat fraction (upper bound)
+- oracle     top-N by the hidden per-document repeat fraction (the generator's dial)
+- copylen    top-N by the realised copied tokens per document (oracle for what the zipper measures)
 
     uv run python -m selection.select_by_score --pool datasets/pool_het.npz --method zipper --n 20000 --out datasets/sel_zipper.npz
 Writes a dataset with `train` = the selected documents (plus their scores) and `val`
@@ -59,6 +60,8 @@ def select(
         score = -refloss_scores(tokens, meta["pad_id"], reference)
     elif method == "oracle":
         score = pool["doc_frac"].astype(float)
+    elif method == "copylen":  # oracle for the realised copy length (what the zipper appears to measure)
+        score = pool["doc_copied"].astype(float) + 1e-3 * np.random.default_rng(seed).random(len(tokens))
     else:
         raise ValueError(method)
     idx = np.argsort(-score, kind="stable")[:n]
@@ -68,7 +71,7 @@ def select(
 def main(argv: list[str] | None = None) -> Path:
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--pool", type=Path, required=True)
-    p.add_argument("--method", required=True, choices=["zipper", "random", "refloss", "oracle"])
+    p.add_argument("--method", required=True, choices=["zipper", "random", "refloss", "oracle", "copylen"])
     p.add_argument("--n", type=int, default=20000)
     p.add_argument("--seed", type=int, default=0)
     p.add_argument("--reference", type=Path, default=None, help="checkpoint for refloss")

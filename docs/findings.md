@@ -590,3 +590,24 @@ probe (score 0.02). A real-text selection experiment needs a pool at least an or
 magnitude larger (a slice of the TinyStories training split, ~400k stories from a 300 MB
 range request) so that the selected subset supports multi-thousand-step training at low
 epoch counts; it also needs disk space. Redesign pending.
+
+## 2026-09-14: the zipper beats the dial-oracle because it measures realised copy length
+
+Check on the original pool (`datasets/pool_het.npz`, 60k documents, one copied segment
+each; the dial sets the maximum copy length, the realised length is uniform below it).
+
+- Spearman of zipper gain with realised copy length: +0.995. With the dial: +0.60, which is
+  also the correlation between the dial and copy length. The zipper is a near-perfect
+  oracle for copy length; the dial is not.
+- At matched dial settings the zipper's picks have longer copies than the oracle's: in the
+  top bin (0.87-0.98) 20.5 vs 15.7 tokens (the oracle takes every document in the bin, so
+  it inherits the pool mean); 18.7 vs 14.0 in the next; the zipper also reaches down to
+  dial 0.3 to pick long-copy documents the oracle never sees.
+- The oracle's subset is 24% documents with copies under 8 tokens; the zipper's has none.
+
+Together with the copy-length distribution result (fixed long copies give the lag-0
+circuit and a snap at 800; uniform lengths give lag 19 and 4000+; short copies give
+nothing), this collapses two findings into one: copy length is the quantity that
+determines which circuit forms and when, and gzip gain measures copy length almost
+exactly. Test in flight: a subset selected by realised copy length itself (`copylen` arm)
+should match or beat the zipper.
