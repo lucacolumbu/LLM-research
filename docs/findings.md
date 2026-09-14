@@ -611,3 +611,9 @@ nothing), this collapses two findings into one: copy length is the quantity that
 determines which circuit forms and when, and gzip gain measures copy length almost
 exactly. Test in flight: a subset selected by realised copy length itself (`copylen` arm)
 should match or beat the zipper.
+
+Confirmation: the copy-length oracle arm (`sel_copylen`, top 20k by realised copied
+tokens, 97% overlap with the zipper's subset) forms at step 700 in all three seeds with
+final accuracy 0.94-0.95, identical to the zipper arm. The compressor and the true oracle
+for copy length are the same selector on this pool; the dial-oracle is the one that is
+wrong, because it ranks by a parameter one step removed from what the circuit learns from.
