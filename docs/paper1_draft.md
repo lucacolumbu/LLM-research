@@ -115,7 +115,11 @@ copy-based score cannot see it. On natural text (TinyStories) no induction head 
   induction signal is single-token repetition (47% of tokens), which gzip does not reward.
 - Honest framing: the compressor measures long verbatim structure; the induction heads of
   natural text ride on short repeats. A repeated-bigram score (Aoyama et al.) is the
-  natural-text analogue and gzip tracks it at rho 0.79. [attention-only diagnostic pending]
+  natural-text analogue and gzip tracks it at rho 0.79. An attention-only model also forms
+  no induction head at this budget, and in-distribution repeat-token and early-vs-late loss
+  gaps show no in-context benefit emerging: 65M tokens is 15-150x below the budgets at which
+  natural-text induction heads are reported. The natural-text test needs either that budget
+  on a rented GPU or a corpus with genuine verbatim structure (code).
 
 ## 4. Limitations
 - Toy scale, synthetic data; 2-layer models; one tokenizer per task.

@@ -651,3 +651,18 @@ epochs of a subset), one run at a time on the GPU. Figure `results/phase3.png`, 
 Diagnostic in flight: attention-only rotary on the random subset, to learn whether an
 induction head can form on this corpus at this budget at all (65M tokens is far below the
 token counts at which natural-text induction heads are usually reported).
+
+### Diagnostic: no induction on this corpus at 65M tokens in any architecture
+Attention-only rotary on the random subset, 8,000 steps: prefix-matching 0.011 at the end
+(baseline 0.02 at initialisation), induction accuracy 0.002, loss still falling (2.03).
+In-distribution signals across checkpoints of all three models (MLP zipper, MLP random,
+attention-only random): the loss advantage of tokens that repeat an earlier token in the
+story over first occurrences is 1.1-1.2 nats at step 400 and does not grow to 8,000 (the
+unigram effect of frequent words, not copying); loss at positions 100-127 stays higher
+than at positions 5-20 in every checkpoint (early-minus-late gap -1.4 -> -0.7 nats), so
+no in-context benefit of the kind that marks induction emerges. Conclusion: the TinyStories
+Phase 3 at this token budget cannot discriminate any selector, because the target circuit
+does not form. Reported natural-text induction phase changes occur at 10^9-10^10 tokens,
+15-150x this budget; at 132 ms per 8k-token step on the M1 Pro that is 11-110 hours per
+run, so a natural-text Phase 3 belongs on a rented GPU, or on a corpus with real verbatim
+structure (source code), where the score has range and the circuit forms early.
