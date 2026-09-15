@@ -666,3 +666,28 @@ does not form. Reported natural-text induction phase changes occur at 10^9-10^10
 15-150x this budget; at 132 ms per 8k-token step on the M1 Pro that is 11-110 hours per
 run, so a natural-text Phase 3 belongs on a rented GPU, or on a corpus with real verbatim
 structure (source code), where the score has range and the circuit forms early.
+
+## 2026-09-15: the second zipper quantity, corpus diversity (test 1, no new training)
+
+Mean pairwise normalized compression distance NCD(A,B) = (L(AB) - min(L_A, L_B)) /
+max(L_A, L_B) over 3,000 random document pairs per corpus, zlib on token bytes, nothing
+subtracted, documents all 64 tokens (`analysis.zipper.corpus_diversity`,
+`analysis/diversity.py`). Pool-size sweep, 15 runs; table `results/diversity_name_pool_size.csv`.
+
+| pool | mean NCD | per-doc gain | held-out IO acc | formation (S-attention / patching) |
+|---|---|---|---|---|
+| 4 | 0.631 | 0.239 | 0.02 | 1600 / 867 |
+| 8 | 0.694 | 0.221 | 0.17 | 333 / 200 |
+| 16 | 0.728 | 0.215 | 0.47 | 333 / 267 |
+| 32 | 0.748 | 0.215 | 0.55 | 400 / 333 |
+| 64 | 0.758 | 0.211 | 0.57 | 467 / 400 |
+
+Spearman over 15 runs: NCD vs held-out IO accuracy +0.80; NCD vs formation +0.02
+(attention) and +0.10 (patching); per-document gain vs held-out IO accuracy -0.83; gain vs
+formation -0.03 / -0.09. Three of the four predictions hold (diversity rises with pool size,
+tracks generalisation, does not track formation). The fourth does not: within one knob the
+per-document gain is monotone in pool size too, so it predicts generalisation as well as
+NCD does, with the opposite sign. Separating the two quantities needs knobs that move one
+and not the other: name skew at fixed pool size (diversity down, within-document repetition
+roughly unchanged) and repetition rate at fixed pool size (gain up, diversity roughly
+unchanged). Both sweeps are running.

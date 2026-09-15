@@ -145,6 +145,27 @@ def match_length_stats(tokens: np.ndarray, pad_id: int, n_docs: int = 4000, seed
     }
 
 
+def ncd(a: bytes, b: bytes, level: int = 9) -> float:
+    """Normalized compression distance (L(AB) - min(L_A, L_B)) / max(L_A, L_B) with zlib."""
+    la, lb = len(zlib.compress(a, level)), len(zlib.compress(b, level))
+    lab = len(zlib.compress(a + b, level))
+    return (lab - min(la, lb)) / max(max(la, lb), 1)
+
+
+def corpus_diversity(tokens: np.ndarray, pad_id: int, n_pairs: int = 3000, seed: int = 0) -> dict:
+    """Mean pairwise NCD over random document pairs: the second zipper quantity (how
+    different documents are from each other), as opposed to per-document gain (how
+    repetitive each document is internally). Nothing is subtracted: shared names and
+    templates are meant to count."""
+    rng = np.random.default_rng(seed)
+    n = len(tokens)
+    i = rng.integers(0, n, size=n_pairs)
+    j = rng.integers(0, n, size=n_pairs)
+    j = np.where(j == i, (j + 1) % n, j)
+    d = np.array([ncd(to_bytes(strip_pad(tokens[a], pad_id)), to_bytes(strip_pad(tokens[b], pad_id))) for a, b in zip(i, j)])
+    return {"mean_ncd": float(d.mean()), "std_ncd": float(d.std()), "n_pairs": n_pairs}
+
+
 class Zipper:
     def __init__(
         self, backend: str = "zlib", level: int = 9, window: int = 4096, vocab_size: int = 256
