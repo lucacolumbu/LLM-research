@@ -617,3 +617,37 @@ tokens, 97% overlap with the zipper's subset) forms at step 700 in all three see
 final accuracy 0.94-0.95, identical to the zipper arm. The compressor and the true oracle
 for copy length are the same selector on this pool; the dial-oracle is the one that is
 wrong, because it ranks by a parameter one step removed from what the circuit learns from.
+
+## 2026-09-14: Phase 3 on a 379k-story TinyStories slice: negative at this scale, and the bridge says why
+
+Pool 379,112 documents of 128 word-level tokens (vocabulary 8,192); 100k selected by gzip
+gain (top 26%) vs three random 100k subsets; 2L4H MLP rotary, 8,000 steps (65M tokens, ~5
+epochs of a subset), one run at a time on the GPU. Figure `results/phase3.png`, summary
+`results/phase3_summary.json`.
+
+| arm | gzip gain | LZ77 matches: median / mean longest / tokens in matches >= 8 | repeated-token frac | repeated-bigram frac | prefix-matching score at 8000 | induction acc | val loss at 8000 |
+|---|---|---|---|---|---|---|---|
+| zipper | 0.073 | 2 / 4.6 / 0.35% | 0.509 | 0.177 | 0.01-0.02 | 0.00 | 1.958-1.966 |
+| random | 0.040 | 2 / 3.8 / 0.11% | 0.467 | 0.124 | 0.01 | 0.00 | 1.894-1.898 |
+| synthetic zipper subset (for scale) | 0.215 | 16 / 17.4 / 27% | 0.417 | 0.266 | formed at 700 | 0.95 | |
+
+1. No induction head formed in any of the six runs; the prefix-matching score stays at its
+   uniform-attention baseline throughout, for both arms. The experiment therefore does not
+   discriminate at this scale.
+2. The match-length histogram is the bridge and the explanation. Natural children's stories
+   contain almost no long verbatim copies: median match 2 tokens, and even the selected
+   subset has 0.35% of tokens inside matches of 8 or more, seventy times less than the
+   synthetic subset that forms at step 700. The score's dynamic range on this corpus is
+   0.04 to 0.07 against 0.01 to 0.31 on synthetic data. Selecting by it shifts bigram
+   repeats from 12% to 18% and long matches by a few tenths of a percent; it cannot
+   manufacture copy structure the corpus does not have.
+3. Single-token repetition, the thing natural-text induction heads mostly exploit, is
+   already 47% in random stories and is not what the compressor rewards (rho 0.64 with
+   gain, vs 0.79 for bigram repeats). A Phase 3 score aligned with natural-text induction
+   should count repeated bigrams (Aoyama et al. 2026 use exactly that statistic); gzip gain
+   is a proxy for it only at rho 0.79.
+4. The zipper subset has *higher* validation loss (1.96 vs 1.90): selecting the most
+   repetitive stories narrows the distribution.
+Diagnostic in flight: attention-only rotary on the random subset, to learn whether an
+induction head can form on this corpus at this budget at all (65M tokens is far below the
+token counts at which natural-text induction heads are usually reported).

@@ -57,6 +57,13 @@ def main(argv: list[str] | None = None) -> dict:
             splits, meta = load_dataset(ds)
             ml = match_length_stats(splits["train"]["tokens"], meta["pad_id"], n_docs=a.n_docs)
             sel = meta.get("selection", {})
+            if sel.get("method") != "zipper":  # the stored score is the selection score, not the gzip gain
+                from analysis.zipper import Zipper, strip_pad
+
+                rng = np.random.default_rng(0)
+                z = Zipper("zlib")
+                sample = rng.choice(len(splits["train"]["tokens"]), min(2000, len(splits["train"]["tokens"])), replace=False)
+                sel = dict(sel, mean_score_selected=float(np.mean([z.compression_gain(strip_pad(splits["train"]["tokens"][i], meta["pad_id"]), rng) for i in sample])))
         summary["arms"][arm] = {"runs": [{k: v for k, v in r.items() if k not in ("pm_traj", "val_loss")} for r in runs], "match_lengths": ml,
                                 "mean_gzip_gain_selected": sel.get("mean_score_selected") if ml else None}
     if a.pool.exists():

@@ -18,7 +18,7 @@ by a copy lag, and the data and architecture pick the member (lag 1 in attention
 at moderate repetition, lags 8 to 22 with long copies, small vocabularies, or MLPs), each with
 a predictable accuracy ceiling; and an IOI-style two-name task is solved by subject
 suppression plus MLP-mediated promotion of in-context names with no name-mover head, so a
-copy-based score cannot see it. [Phase 3 sentence pending.]
+copy-based score cannot see it. On natural text (TinyStories) no induction head forms at this budget in either arm, and the LZ77 match-length histogram shows why: the corpus has almost no long verbatim repeats, so the compression score has no range to work with; natural-text induction rides on single-token repeats that gzip does not reward.
 
 ## 1. Introduction
 - Data selection scores documents against loss or surface statistics (DSIR, DoReMi,
@@ -105,9 +105,17 @@ copy-based score cannot see it. [Phase 3 sentence pending.]
 - The prior is a byproduct of formation: it deepens to -4.5 during formation; leaked
   examples cost ~800 before formation and ~100 after; with weight decay off it never erodes.
 
-### 3.5 Real text [pending Phase 3]
-- TinyStories, 25,628 documents of 128 word-level tokens; 8,000 selected by gzip gain vs
-  random; prefix-matching induction score across checkpoints.
+### 3.5 Real text: negative at this scale, with the bridge measurement
+- TinyStories slice, 379k documents of 128 tokens; 100k by gzip gain vs random x3; 2L4H
+  MLP rotary, 65M tokens. No induction head in either arm (prefix-matching at baseline,
+  induction accuracy 0); zipper arm has higher validation loss (1.96 vs 1.90).
+- The LZ77 match-length histogram explains it: natural stories have a median match of 2
+  tokens and 0.1-0.35% of tokens in matches >= 8, against 27% in the synthetic subset that
+  forms at 700. The score's range collapses (0.04-0.07); what remains of natural-text
+  induction signal is single-token repetition (47% of tokens), which gzip does not reward.
+- Honest framing: the compressor measures long verbatim structure; the induction heads of
+  natural text ride on short repeats. A repeated-bigram score (Aoyama et al.) is the
+  natural-text analogue and gzip tracks it at rho 0.79. [attention-only diagnostic pending]
 
 ## 4. Limitations
 - Toy scale, synthetic data; 2-layer models; one tokenizer per task.
