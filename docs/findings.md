@@ -691,3 +691,39 @@ NCD does, with the opposite sign. Separating the two quantities needs knobs that
 and not the other: name skew at fixed pool size (diversity down, within-document repetition
 roughly unchanged) and repetition rate at fixed pool size (gain up, diversity roughly
 unchanged). Both sweeps are running.
+
+## 2026-09-15: diversity vs per-document gain, dissociated (45 two-name runs)
+
+Two new sweeps at pool 16, 3 seeds, 4000 steps: name skew (Zipf exponent 0, 0.5, 1, 1.5, 2)
+and repetition rate (0, 0.25, 0.5, 0.75, 1). Skew lowers mean pairwise NCD (0.728 -> 0.647)
+and barely moves gain (0.215 -> 0.236); repetition rate raises gain (0.097 -> 0.337) and
+leaves NCD within 0.67-0.73. Pooled with the pool-size sweep the two quantities are
+decorrelated (Spearman -0.27). Tables `results/diversity_<knob>.csv`, pooled
+`results/diversity_pooled.csv`, figure `results/diversity_pooled.png`.
+
+| outcome | n | Spearman NCD / gain | partial (other held fixed) NCD / gain |
+|---|---|---|---|
+| formation (S-attention) | 44 | +0.01 / +0.07 | -0.04 / +0.03 |
+| formation (patching) | 15 | +0.10 / -0.09 | +0.16 / 0.00 |
+| held-out pairs accuracy | 42 | +0.55 / -0.25 | +0.57 / -0.20 |
+| held-out IO accuracy | 45 | +0.25 / +0.07 | +0.29 / +0.09 |
+| sustained crossing of held-out logit diff | 25 | +0.80 / -0.41 | +0.75 / +0.21 |
+
+1. **Neither quantity predicts when the two-name circuit forms.** Formation is flat
+   (333-467) across every knob except the extremes (pool 4: 1600; repetition rate 1.0:
+   1500, where every later sentence repeats an earlier triple and an induction shortcut
+   makes the IOI circuit unnecessary for two thirds of targets, the brief's "too clean"
+   prediction).
+2. **Diversity is the quantity tied to generalisation; gain contributes nothing once
+   diversity is fixed.** Held-out-pair accuracy +0.57 partial, the crossing step of the
+   held-out logit difference +0.75 partial; gain's partials are -0.20 and +0.21.
+3. **Held-out IO accuracy is only weakly a diversity effect pooled (+0.29)** because name
+   skew moves it the other way: at pool 16, skew 0 -> 2 lowers diversity yet raises
+   held-out IO accuracy 0.36 -> 0.63 and shortens the crossing from 2600 to 267 steps,
+   while held-out-pair accuracy falls 0.999 -> 0.929. Frequency skew weakens the
+   "never an answer" prior on the held-out names faster than it hurts pair
+   generalisation; the mechanism is untraced.
+4. Read together with the induction results: per-document gain predicts *when* the copy
+   circuit forms (induction task, rho -0.98); corpus diversity predicts *how well* the
+   circuit generalises (two-name task); each is silent on the other's outcome. The two
+   zipper quantities map onto the two outcomes of the brief.

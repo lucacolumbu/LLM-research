@@ -105,6 +105,17 @@ copy-based score cannot see it. On natural text (TinyStories) no induction head 
 - The prior is a byproduct of formation: it deepens to -4.5 during formation; leaked
   examples cost ~800 before formation and ~100 after; with weight decay off it never erodes.
 
+### 3.4b The second zipper quantity: diversity
+- Mean pairwise NCD over document pairs. Three two-name knobs (pool size, name skew,
+  repetition rate; 45 runs) decorrelate diversity from per-document gain (rho -0.27).
+- Neither predicts formation (|rho| <= 0.1). Diversity predicts generalisation with gain held
+  fixed (held-out pairs +0.57, held-out logit-diff crossing +0.75); gain does not (-0.20,
+  +0.21). Gain predicts when the copy circuit forms; diversity predicts how well it
+  generalises. Figure: results/diversity_pooled.png.
+- Two-name formation is flat except at the extremes: pool 4 (memorisation) and repetition
+  rate 1.0, where an induction shortcut replaces the IOI circuit for most targets (1500 vs
+  333), the brief's "too clean" prediction.
+
 ### 3.5 Real text: negative at this scale, with the bridge measurement
 - TinyStories slice, 379k documents of 128 tokens; 100k by gzip gain vs random x3; 2L4H
   MLP rotary, 65M tokens. No induction head in either arm (prefix-matching at baseline,
