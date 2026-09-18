@@ -50,15 +50,12 @@ def main(argv: list[str] | None = None) -> list[dict]:
         pat0 = cache["blocks.0.attn.hook_pattern"]  # [n, H, q, k]
         q_idx = torch.arange(T)
         prof = {"copy": np.zeros((H, a.max_d + 1)), "other": np.zeros((H, a.max_d + 1))}
-        cnt = {"copy": 0, "other": 0}
         for d in range(a.max_d + 1):
             qs = q_idx[d:]
             att = pat0[:, :, qs, qs - d]  # [n, H, |qs|]
             for grp, m in (("copy", in_copy[:, d:]), ("other", ~in_copy[:, d:])):
-                sel = att[:, :, :][m[:, None, :].expand(-1, H, -1)].view(len(tok), H, -1) if False else None
-                mm = m[:, None, :].expand(-1, H, -1)
-                vals = att[mm].view(H, -1) if mm.any() else torch.zeros(H, 0)
-                prof[grp][:, d] = vals.mean(-1).numpy() if vals.shape[1] else 0.0
+                w = m[:, None, :].float()  # [n, 1, |qs|]
+                prof[grp][:, d] = ((att * w).sum((0, 2)) / w.sum((0, 2)).clamp(min=1)).numpy()
         rec = {"step": ckpt["step"]}
         for grp in ("copy", "other"):
             best_d = prof[grp].argmax(1)
@@ -84,8 +81,7 @@ def main(argv: list[str] | None = None) -> list[dict]:
         l1 = " ".join(f"H{h}:{rec['l1_best_lag'][h]}({rec['l1_best_lag_mass'][h]:.2f})" for h in range(H))
         print(f"step {rec['step']:5d} | L0 best offset back (mass), inside copies: {c0} | L1 lag: {l1}")
     with Path("results", a.run, "l0_offsets.jsonl").open("w") as f:
-        for r in records:
-            f.write(json.dumps(r) + "\n")
+        f.writelines(json.dumps(r) + "\n" for r in records)
     return records
 
 
