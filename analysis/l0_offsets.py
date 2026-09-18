@@ -62,8 +62,16 @@ def main(argv: list[str] | None = None) -> list[dict]:
             rec[f"l0_{grp}_best_offset"] = best_d.tolist()
             rec[f"l0_{grp}_best_mass"] = prof[grp].max(1).tolist()
             rec[f"l0_{grp}_profile"] = prof[grp].tolist()
-        # layer-1 lag on copy targets
+        # layer-1 relative-offset profile at copy-target queries (positional seed in layer 1?)
         pat1 = cache["blocks.1.attn.hook_pattern"]
+        prof1 = np.zeros((H, a.max_d + 1))
+        for d in range(a.max_d + 1):
+            qs = q_idx[d:]
+            att = pat1[:, :, qs, qs - d]
+            w = in_copy[:, d:][:, None, :].float()
+            prof1[:, d] = ((att * w).sum((0, 2)) / w.sum((0, 2)).clamp(min=1)).numpy()
+        rec["l1_copy_best_offset"] = prof1.argmax(1).tolist()
+        rec["l1_copy_best_mass"] = prof1.max(1).tolist()
         b, pp = np.nonzero(mask)
         nd = need[b, pp]
         ok = nd >= 0
@@ -79,7 +87,8 @@ def main(argv: list[str] | None = None) -> list[dict]:
         records.append(rec)
         c0 = " ".join(f"H{h}:{rec['l0_copy_best_offset'][h]}({rec['l0_copy_best_mass'][h]:.2f})" for h in range(H))
         l1 = " ".join(f"H{h}:{rec['l1_best_lag'][h]}({rec['l1_best_lag_mass'][h]:.2f})" for h in range(H))
-        print(f"step {rec['step']:5d} | L0 best offset back (mass), inside copies: {c0} | L1 lag: {l1}")
+        c1 = " ".join(f"H{h}:{rec['l1_copy_best_offset'][h]}({rec['l1_copy_best_mass'][h]:.2f})" for h in range(H))
+        print(f"step {rec['step']:5d} | L0 offset back inside copies: {c0} | L1 offset back: {c1} | L1 lag: {l1}")
     with Path("results", a.run, "l0_offsets.jsonl").open("w") as f:
         f.writelines(json.dumps(r) + "\n" for r in records)
     return records

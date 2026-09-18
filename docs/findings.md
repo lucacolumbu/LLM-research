@@ -829,3 +829,42 @@ prune), 256 prompts per split (`analysis/clean_generalisation.py`, merged into
    diversity is decorrelated from gain and relates modestly to how far the two-name circuit
    generalises across name pairs; held-out-role generalisation depends on the repetition
    structure of training documents through a second circuit.
+
+## 2026-09-19: the lag mechanism (item 2): a positional seed at the modal copy offset
+
+Layer-0 relative-offset profiles across training (`analysis/l0_offsets.py`) and accuracy
+by copy offset at pre-formation checkpoints (`analysis/offset_accuracy.py`), on the
+retrained runs with checkpoints every 100-400 steps.
+
+1. **Before any induction head exists, the model builds a positional copier at one offset.**
+   Uniform lengths (final lag 19): from step 900 all four layer-0 heads attend a fixed 22
+   tokens back, inside and outside copies alike (content-independent), mass rising 0.05 ->
+   0.15 by step 3300; accuracy on copied tokens is near zero except at offsets 22-24 (0.19
+   / 0.23 / 0.22 at step 1500, 0.27 / 0.34 / 0.31 at 2400). Geometric lengths (final lag
+   22-23): layer-0 heads at 23-24 back from step 1200; accuracy 0.52 / 0.50 at offsets 24 /
+   25 at step 2000 and near zero elsewhere. Fixed length (final lag 0): accuracy 0.84 at
+   offset 24 and 0.53 at 25 at step 500, 0.11 beyond. A head that attends d back and copies
+   is correct exactly when the copy offset is d+1.
+2. **The seed sits at the mode of the copy-offset distribution**, which is 24 in every one of
+   these datasets (the generator places the copy uniformly after the source, so the offset
+   density peaks at the minimum admissible offset and the maximum copy length sets that
+   mode). Offsets 22-25 carry 6-7% of targets each under uniform lengths, 10% at 24 under
+   geometric, 21% at 24 under fixed length.
+3. **The induction head grows on the seed and inherits its offset.** In every run the final
+   lag equals the layer-0 offset minus one (uniform: offset drifts 22 -> 20 during formation
+   at steps 3300-4200, lag 19; geometric seed 0: 24 -> 23, lag 22; seed 1: 23-24, lag 23;
+   fixed: layer-0 heads at 0-1 back, lag 0). The layer-1 head takes the "token d back"
+   feature layer 0 already provides as its match key, so the copy it can perform is offset
+   by d-1 from the textbook circuit; the offset then shifts down by one or two while the
+   circuit sharpens, extending coverage to shorter offsets, and stops.
+4. This is the lag law: the lag is the modal copy offset minus about two, and the copy-length
+   distribution enters only through where that mode sits and how much mass surrounds it.
+   Fixed-length data gives the same mode but a lag-0 circuit, because there the seed lives in
+   layer 1 rather than layer 0 (being resolved). MLPs matter because the positional seed is
+   a one-layer solution the MLP model can exploit before the two-layer circuit exists;
+   attention-only models at moderate fractions go straight to lag 0, and their lag 9 at
+   repeat 0.98 is not yet explained by this account.
+5. Consequence for data design: the lag, and with it the accuracy ceiling, is fixed by the
+   geometry of where copies sit relative to their sources in the training documents, not by
+   how much is copied. Two corpora with identical compression gain but different
+   source-to-copy offset distributions produce different circuits.
