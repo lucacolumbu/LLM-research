@@ -23,8 +23,9 @@ Knobs (InductionConfig):
                 per-document fraction is stored as `doc_frac`
 - length_dist   distribution of the copy length r in [2, r_cap]: "uniform" (default),
                 "short_tail" (80% of documents draw r from [2, r_cap // 3], 20% from
-                the full range: mostly short with a long tail, same maximum), or
-                "long" (r = r_cap always). Separates "lag follows the maximum" from
+                the full range: mostly short with a long tail, same maximum),
+                "long" (r = r_cap always), or "geometric" (memoryless: constant hazard of
+                the copy ending, same mean as uniform, capped at r_cap). Separates "lag follows the maximum" from
                 "lag follows the typical length".
 
 Splits: train, val. `s_ids` holds the current token at each target (the token whose
@@ -77,8 +78,8 @@ class InductionConfig:
             raise ValueError("repeat_frac too large: source and copy must both fit")
         if self.n_repeats < 1:
             raise ValueError("n_repeats must be >= 1")
-        if self.length_dist not in ("uniform", "short_tail", "long"):
-            raise ValueError("length_dist must be uniform, short_tail or long")
+        if self.length_dist not in ("uniform", "short_tail", "long", "geometric"):
+            raise ValueError("length_dist must be uniform, short_tail, long or geometric")
         if not 0.0 <= self.repeat_frac_min <= self.repeat_frac:
             raise ValueError("repeat_frac_min must be in [0, repeat_frac]")
         if self.repeat_frac_min > 0 and round(self.repeat_frac_min * (self.ctx_len - 1) / 2) < 2:
@@ -104,6 +105,10 @@ def generate_split(rng: np.random.Generator, cfg: InductionConfig, n: int) -> di
         for _ in range(cfg.n_repeats):
             if cfg.length_dist == "long":
                 r = r_cap
+            elif cfg.length_dist == "geometric":
+                # memoryless lengths with the same mean as uniform on [2, r_cap], capped at r_cap
+                mean_extra = (r_cap - 2) / 2
+                r = min(2 + int(rng.geometric(1.0 / (mean_extra + 1.0))) - 1, r_cap)
             elif cfg.length_dist == "short_tail" and rng.random() < 0.8:
                 r = int(rng.integers(2, max(2, r_cap // 3) + 1))
             else:
