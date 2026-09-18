@@ -754,3 +754,17 @@ Confound found on the way: the sweeps' held-out IO accuracy is measured on train
 documents in which a third of sentences repeat an earlier triple, so the answer is copyable
 in context; that metric is 0.02 at repetition rate 0 and 0.48 at 0.5. The single-sentence
 probe is the clean generalisation measure and the diversity analysis is being redone with it.
+
+## 2026-09-18: the lag does not drift (item 2, first fact)
+
+Dominant induction lag per checkpoint from the pre-prune circuit records (`circuit.jsonl`,
+lag profile of the top layer-1 head), eight runs spanning lags 0, 8, 9, 12, 19, 22: in
+every run the lag at the first checkpoint where any head reaches 0.3 attention mass is the
+final lag, and no other lag ever reaches 0.3 at any checkpoint. Formation is a single event
+at a lag that is already fixed when the layer-1 head becomes visible (e.g. lag 19 appears
+at 3600-3900 at mass 0.16 -> 0.30 -> 0.47 and never moves; vocabulary-16 seeds 0 and 1
+settle on lags 8 and 0 respectively, each from the first visible checkpoint). So the lag is
+not the outcome of a lag-0 circuit losing to a competitor after forming; it is decided in
+the pre-formation phase, presumably by which relative-offset heads layer 0 has built by
+then. That is where the tracing goes next (`analysis/l0_offsets.py`, on retrained runs with
+intermediate checkpoints).
