@@ -33,7 +33,8 @@ def main(argv: list[str] | None = None) -> dict:
 
     summary: dict = {"arms": {}}
     fig, axes = plt.subplots(1, 3, figsize=(15, 4.4), facecolor=SURFACE)
-    fig.suptitle("Phase 3: TinyStories subsets selected by gzip gain vs random", x=0.02, ha="left", fontsize=12, color=INK)
+    corpus = "TinyStories" if "text" in a.prefix else "Python source" if "code" in a.prefix else a.prefix
+    fig.suptitle(f"Phase 3: {corpus} subsets selected by gzip gain vs random", x=0.02, ha="left", fontsize=12, color=INK)
     for arm, color in ARMS.items():
         runs = []
         for s in a.seeds:

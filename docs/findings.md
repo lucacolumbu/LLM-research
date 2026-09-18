@@ -879,3 +879,29 @@ inherits lag 19. So: seed in layer 1 plus previous-token heads in layer 0 gives 
 textbook circuit; seed in layer 0 gives lag = seed offset - 1. Fixed-length data seeds
 layer 1 (21% of targets at the modal offset); the broader distributions seed layer 0 (6-10%
 at the mode). Why the seed's layer depends on the signal's strength is the one open step.
+
+## 2026-09-19: Phase 3 on code (12,037 Python files, 498k documents of 128 tokens)
+
+100k documents by gzip gain (top 20%) vs three random 100k subsets; 2L4H MLP rotary,
+8,000 steps (65M tokens, ~5 epochs); figure `results/phase3_code.png`.
+
+| arm | gzip gain | LZ77: median match / mean longest / tokens in matches >= 8 | prefix-matching at 8000 (3 seeds) | val loss |
+|---|---|---|---|---|
+| zipper | 0.365 | 4 / 29.6 / 45% | 0.05, 0.03, 0.07 (rising from step ~5000) | 2.41-2.46 |
+| random | 0.162 | 2 / 13.1 / 14% | 0.01, 0.01, 0.01 (flat) | 2.01-2.04 |
+| synthetic zipper subset, for scale | 0.215 | 16 / 17.4 / 27% | formed at 700 | |
+
+1. The selection does what it should on the bridge measurement: the selected code has more
+   long verbatim structure than the synthetic subset that forms at step 700 (45% vs 27% of
+   tokens in matches of 8 or more; mean longest match 30 tokens vs 17).
+2. No induction head forms in either arm by the 0.5 threshold at this budget. But the two
+   arms separate late: from step 5000 the zipper arm's best-head prefix-matching score
+   rises in all three seeds (0.01 -> 0.03-0.07) while the random arm stays at 0.01. On the
+   in-distribution signals the repeated-bigram advantage is 1.7-2.3 nats from step 400 and
+   does not grow (syntax, not induction); the late-minus-early gap grows slowly in both arms.
+3. Validation loss is higher on the zipper subset (2.43 vs 2.02): the most repetitive fifth
+   of the corpus is a narrower distribution, as with the stories.
+4. Reading: on code the compressor has range and selects the right structure, and the first
+   sign of an induction head appears only in the selected arm; the budget is too small to
+   see formation. One seed per arm is training to 24,000 steps to test whether the zipper
+   arm forms first.
