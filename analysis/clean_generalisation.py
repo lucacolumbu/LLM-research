@@ -52,10 +52,11 @@ def main(argv: list[str] | None = None) -> pd.DataFrame:
     df.to_csv("results/clean_generalisation.csv", index=False)
     pooled = Path("results/diversity_pooled.csv")
     if pooled.exists():
-        d = pd.read_csv(pooled).merge(df, on="run", how="left")
+        d = pd.read_csv(pooled)
+        d = d[[c for c in d.columns if not c.startswith("probe_")]].merge(df, on="run", how="left")
         d.to_csv(pooled, index=False)
         print(f"{len(df)} runs probed; merged into {pooled}")
-        print(d.groupby("knob").apply(lambda g: g.groupby("value")[["generalization", "probe_heldout_io_acc", "probe_heldout_io_ld", "probe_val_acc"]].mean().round(3)).to_string())
+        print(d.groupby(["knob", "value"])[["generalization", "probe_heldout_io_acc", "probe_heldout_io_ld", "probe_val_acc"]].mean().round(3).to_string())
         from scipy.stats import spearmanr
         for target in ("probe_heldout_io_acc", "probe_heldout_io_ld"):
             sub = d[["mean_ncd", "zipper_score", target]].dropna()

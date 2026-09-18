@@ -768,3 +768,32 @@ not the outcome of a lag-0 circuit losing to a competitor after forming; it is d
 the pre-formation phase, presumably by which relative-offset heads layer 0 has built by
 then. That is where the tracing goes next (`analysis/l0_offsets.py`, on retrained runs with
 intermediate checkpoints).
+
+## 2026-09-18 (evening): geometric copy lengths, and loss at copy boundaries (item 2)
+
+**Geometric lengths.** Same maximum (24) and mean (13) as the uniform condition, but
+memoryless. Three seeds: lag 22, 23, 22; formation 4200-4600; ceiling 0.59-0.62. Fixed
+length 24 gives lag 0; uniform gives 19; geometric gives 22-23. With the mean held fixed
+the lag still moves, so it follows neither the mean nor the maximum. The three conditions
+order by the *probability mass at short lengths* (fixed: none; uniform: 1/23 per length;
+geometric: most): more short copies, longer lag, later formation, lower ceiling.
+
+**Boundary loss** (valid checkpoints; `analysis/boundary_loss.py`, `results/<run>/boundary_loss.json`).
+Cross-entropy at the first post-copy token and the probability assigned there to the
+source's continuation ("over-run"):
+
+| model | lag | over-run prob | CE at copy end +1 | CE at j=1 / j=2 (offset > lag) |
+|---|---|---|---|---|
+| fixed-24, MLP | 0 | 0.81 | 6.92 | 0.70 / 0.06 |
+| uniform, attention-only | 0 | 0.78 | 6.68 | 2.90 / 0.24 |
+| repeat 0.98, attention-only | 9 | 0.57 | 5.92 | 0.77 / 0.68 |
+| uniform, MLP | 19 | 0.67 | 6.58 | 2.02 / 1.08 |
+| repeat 0.9, MLP | 22 | 0.65 | 6.42 | 1.72 / 1.04 |
+
+Every circuit over-runs: at the copy's end it keeps predicting the source continuation with
+probability 0.57-0.81 (chance 0.01), paying 1.3-2.3 nats above uniform. Lagged circuits
+over-run somewhat less but do not avoid it, and on the fixed-length data, where the end is
+predictable from a count, the lag-0 model still pays 2.3 nats. So the boundary cost does
+not select the lag. One more clue: in the lag-19 model, targets with offset <= 19 (which the
+lag-19 head cannot reach) become predictable late in the copy (CE 2.2, 2.0, 0.7 at j = 17,
+18, 19), so a second, weaker mechanism reads the copy's own history.
