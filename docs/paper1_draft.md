@@ -98,6 +98,17 @@ copy-based score cannot see it. On natural text (TinyStories) no induction head 
   (4000+, ceiling 0.68), mostly-short copies never form. Distance hypothesis rejected.
   Weight decay 0, 0.001, 0.01: no effect on lag, formation or ceiling.
 - MLP "plateaus" (0.66-0.76) are lag ceilings, not partial circuits.
+- Mechanism of the lag. Before any induction head exists, MLP models build a positional
+  copier at one offset: a head that attends d back and copies, correct exactly when the
+  copy offset is d+1, placed at the mode of the copy-offset distribution (24 in every
+  dataset here; accuracy spikes of 0.3-0.8 at offsets 23-25 with nothing elsewhere). The
+  induction head grows on that seed and inherits its offset: when the seed is a layer-0
+  head, the lag is the seed offset minus one (uniform 22 -> 20 -> lag 19; geometric 23-24
+  -> lag 22-23); when the seed is a layer-1 head and layer 0 supplies previous-token heads,
+  the result is the textbook lag-0 circuit (fixed length). The lag is therefore set by the
+  geometry of where copies sit relative to their sources, not by how much is copied; the
+  copy-length distribution enters through the offset mode and the mass around it. Weight
+  decay is irrelevant (0, 0.001, 0.01 identical). Open: what decides the seed's layer.
 - Two-name task: S-inhibition heads (attention 0.94-0.99 on the subject, ~0 on the IO), IO
   margin of 10-11 logits over absent names carried by MLPs; ablating the circuit heads gives
   0.43-0.60 (chance for two candidates); held-out-IO failure carried by MLP 0 (-3 to -6

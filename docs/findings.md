@@ -868,3 +868,14 @@ retrained runs with checkpoints every 100-400 steps.
    geometry of where copies sit relative to their sources in the training documents, not by
    how much is copied. Two corpora with identical compression gain but different
    source-to-copy offset distributions produce different circuits.
+
+Addendum, where the seed lives. Layer-1 relative-offset profiles on the same checkpoints:
+fixed length, all four layer-1 heads attend 23 back from step 300 (mass 0.26-0.52, rising
+to 0.5-0.6) while layer 0 is still at initialisation; layer 0 then builds previous-token
+heads (offset 0-1, from step 400) and the layer-1 positional head becomes the lag-0
+induction head by 800. Uniform length, layer 1 sits at 1-3 back throughout pre-formation
+while layer 0 carries the 22-back seed; the induction head keys on layer 0's feature and
+inherits lag 19. So: seed in layer 1 plus previous-token heads in layer 0 gives the
+textbook circuit; seed in layer 0 gives lag = seed offset - 1. Fixed-length data seeds
+layer 1 (21% of targets at the modal offset); the broader distributions seed layer 0 (6-10%
+at the mode). Why the seed's layer depends on the signal's strength is the one open step.
