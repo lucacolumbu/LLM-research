@@ -140,6 +140,13 @@ copy-based score cannot see it. On natural text (TinyStories) no induction head 
 - The zipper measures within-document repetition; corpus-level duplication (Hernandez et al.
   2022) is a different quantity with the opposite effect.
 
+## 4b. Future work (paper 2)
+- Facts with paraphrases: a task whose circuit is compositional and whose training signal
+  is semantic redundancy rather than verbatim repetition, where tier 1 should fail by
+  construction and tier 2 or the circuit-probe learnability score (tier 3) has to take over.
+- Interference between the copy circuit and the two-name circuit on mixed data; leak
+  timing as a data-schedule lever.
+
 ## 5. Related work
 See docs/literature-pass-2.md. Closest: Aoyama et al. 2026 (bigram statistics predict
 emergence), Chen, Luo, Pan 2026 (mechanistic data attribution), Wang and Murfet 2026
