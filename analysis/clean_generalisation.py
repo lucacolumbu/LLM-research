@@ -30,7 +30,7 @@ def probe(run: str, n: int) -> dict:
     model.eval()
     out = {"run": run}
     with torch.no_grad():
-        for split in ("val", "heldout_io"):
+        for split in ("val", "heldout_io", "heldout_pairs"):
             pr = build_prompts(meta, n, seed=1, split=split)
             if len(pr["tokens"]) == 0:
                 out[f"probe_{split}_acc"] = np.nan
@@ -56,9 +56,9 @@ def main(argv: list[str] | None = None) -> pd.DataFrame:
         d = d[[c for c in d.columns if not c.startswith("probe_")]].merge(df, on="run", how="left")
         d.to_csv(pooled, index=False)
         print(f"{len(df)} runs probed; merged into {pooled}")
-        print(d.groupby(["knob", "value"])[["generalization", "probe_heldout_io_acc", "probe_heldout_io_ld", "probe_val_acc"]].mean().round(3).to_string())
+        print(d.groupby(["knob", "value"])[["generalization", "probe_heldout_io_acc", "generalization_pairs", "probe_heldout_pairs_acc", "probe_val_acc"]].mean().round(3).to_string())
         from scipy.stats import spearmanr
-        for target in ("probe_heldout_io_acc", "probe_heldout_io_ld"):
+        for target in ("probe_heldout_io_acc", "probe_heldout_io_ld", "probe_heldout_pairs_acc", "probe_heldout_pairs_ld"):
             sub = d[["mean_ncd", "zipper_score", target]].dropna()
             R = sub.rank()
             def partial(x, y, c):

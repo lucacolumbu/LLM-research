@@ -797,3 +797,35 @@ predictable from a count, the lag-0 model still pays 2.3 nats. So the boundary c
 not select the lag. One more clue: in the lag-19 model, targets with offset <= 19 (which the
 lag-19 head cannot reach) become predictable late in the copy (CE 2.2, 2.0, 0.7 at j = 17,
 18, 19), so a second, weaker mechanism reads the copy's own history.
+
+## 2026-09-18 (night): generalisation redone on clean probes; diversity pillar reframed
+
+Single-sentence probes at the final checkpoint of all 45 two-name runs (retrained after the
+prune), 256 prompts per split (`analysis/clean_generalisation.py`, merged into
+`results/diversity_pooled.csv`).
+
+| knob | value | held-out IO: document / probe | held-out pairs: document / probe |
+|---|---|---|---|
+| pool | 4 / 8 / 16 / 32 / 64 | 0.02/0.19, 0.17/0.19, 0.47/0.49, 0.55/0.46, 0.57/0.57 | -, 0.96/1.00, 1.00/1.00, 1.00/1.00, 1.00/1.00 |
+| skew | 0 / 0.5 / 1 / 1.5 / 2 | 0.36/0.26, 0.30/0.17, 0.58/0.57, 0.66/0.55, 0.63/0.26 | 1.00/1.00, 1.00/1.00, 1.00/1.00, 0.98/0.97, 0.93/0.93 |
+| repetition | 0 / 0.25 / 0.5 / 0.75 / 1 | 0.03/0.00, 0.10/0.25, 0.48/0.40, 0.18/0.06, 0.49/0.05 | 0.96/0.98, 1.00/0.99, 1.00/1.00, 1.00/1.00, 0.96/0.99 |
+
+1. The document metric was inflated by the in-context shortcut mainly at repetition rate
+   1.0 (0.49 vs 0.05) and at skew 2 (0.63 vs 0.26); elsewhere the two agree within 0.1.
+2. **Held-out-IO generalisation is governed by training repetition, non-monotonically.** At
+   repetition rate 0 the circuit does not generalise to held-out names at all (probe 0.001,
+   logit difference -5.1); at 0.25-0.5 it reaches 0.25-0.40; at 0.75-1.0 it collapses to
+   0.05. Reading: in-document repetition trains a content-independent copy mechanism whose
+   promotion of in-context names extends to the held-out ones and counteracts the MLP prior,
+   until at high repetition the copy shortcut replaces the IOI circuit altogether. That is
+   an interaction between the two circuits of this project, observed on mixed data.
+3. **Diversity pillar, corrected.** Partial Spearman (other zipper quantity held fixed), 45
+   or 42 runs: held-out IO accuracy, NCD +0.19 / gain -0.21; held-out IO logit difference,
+   +0.06 / -0.07; held-out pairs accuracy, +0.46 / -0.19; held-out pairs logit difference,
+   +0.44 / -0.37. Diversity has a modest positive effect on pair generalisation and gain a
+   modest negative one; neither predicts held-out-IO generalisation, which the earlier
+   document-metric analysis (partial +0.75 on the crossing step) had attributed to
+   diversity. The paper's statement becomes: gain predicts when the copy circuit forms;
+   diversity is decorrelated from gain and relates modestly to how far the two-name circuit
+   generalises across name pairs; held-out-role generalisation depends on the repetition
+   structure of training documents through a second circuit.

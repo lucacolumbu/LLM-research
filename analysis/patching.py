@@ -63,9 +63,17 @@ def build_prompts(meta: dict[str, Any], n: int, seed: int = 0, split: str = "val
             h, r = int(rng.choice(held)), int(rng.choice(regular))
             a, b = (h, r) if rng.random() < 0.5 else (r, h)
             s = r
+        elif split == "heldout_pairs":
+            if not heldout_pairs:
+                break
+            pairs = sorted(tuple(sorted(pp)) for pp in heldout_pairs)
+            a, b = (int(x) for x in pairs[int(rng.integers(len(pairs)))])
+            if rng.random() < 0.5:
+                a, b = b, a
+            s = a if rng.random() < 0.5 else b
         else:
             raise ValueError(split)
-        if frozenset((a, b)) in heldout_pairs:
+        if split != "heldout_pairs" and frozenset((a, b)) in heldout_pairs:
             continue
         io = b if s == a else a
         place, obj = str(rng.choice(PLACES)), str(rng.choice(OBJECTS))
@@ -77,7 +85,7 @@ def build_prompts(meta: dict[str, Any], n: int, seed: int = 0, split: str = "val
         corrupt.append(bad)
         ios.append(io)
         ss.append(s)
-    tokens = np.array(clean, dtype=np.int64).reshape(-1, len(base))
+    tokens = np.array(clean, dtype=np.int64).reshape(-1, 17)
     mask = np.zeros_like(tokens, dtype=bool)
     s_ids = np.full_like(tokens, -1)
     if len(tokens):
@@ -85,7 +93,7 @@ def build_prompts(meta: dict[str, Any], n: int, seed: int = 0, split: str = "val
         s_ids[:, P] = ss
     return {
         "tokens": tokens,
-        "corrupt": np.array(corrupt, dtype=np.int64).reshape(-1, len(base)),
+        "corrupt": np.array(corrupt, dtype=np.int64).reshape(-1, 17),
         "io": np.array(ios, dtype=np.int64),
         "s": np.array(ss, dtype=np.int64),
         "target_mask": mask,

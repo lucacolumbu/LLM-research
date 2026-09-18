@@ -108,10 +108,16 @@ copy-based score cannot see it. On natural text (TinyStories) no induction head 
 ### 3.4b The second zipper quantity: diversity
 - Mean pairwise NCD over document pairs. Three two-name knobs (pool size, name skew,
   repetition rate; 45 runs) decorrelate diversity from per-document gain (rho -0.27).
-- Neither predicts formation (|rho| <= 0.1). Diversity predicts generalisation with gain held
-  fixed (held-out pairs +0.57, held-out logit-diff crossing +0.75); gain does not (-0.20,
-  +0.21). Gain predicts when the copy circuit forms; diversity predicts how well it
-  generalises. Figure: results/diversity_pooled.png.
+- Neither predicts formation (|rho| <= 0.1). On clean single-sentence probes, diversity has
+  a modest positive partial effect on held-out-pair generalisation (+0.46 accuracy, +0.44
+  logit difference) and gain a modest negative one (-0.19, -0.37); neither predicts
+  held-out-role generalisation (+0.19 / -0.21). Gain predicts when the copy circuit forms;
+  diversity relates to how far the two-name circuit generalises across pairs.
+- Held-out-role generalisation is governed by the repetition rate of training documents,
+  non-monotonically (probe accuracy 0.00, 0.25, 0.40, 0.06, 0.05 for rates 0 to 1): the
+  copy circuit trained by in-document repeats extends its promotion of in-context names to
+  the held-out ones until, at high repetition, it replaces the IOI circuit. A two-circuit
+  interaction on mixed data. Figure: results/diversity_pooled.png.
 - Two-name formation is flat except at the extremes: pool 4 (memorisation) and repetition
   rate 1.0, where an induction shortcut replaces the IOI circuit for most targets (1500 vs
   333), the brief's "too clean" prediction.
