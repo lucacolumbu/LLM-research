@@ -727,3 +727,30 @@ decorrelated (Spearman -0.27). Tables `results/diversity_<knob>.csv`, pooled
    circuit forms (induction task, rho -0.98); corpus diversity predicts *how well* the
    circuit generalises (two-name task); each is silent on the other's outcome. The two
    zipper quantities map onto the two outcomes of the brief.
+
+## 2026-09-18: skew-reversal trace (item 3)
+
+Single-sentence probes, each pool name as the IO with a random regular subject, 64 prompts
+per name, final checkpoints of the 15 skew runs and the 3 pool-16 runs; context bonus of
+the name decomposed by component (`analysis/skew_trace.py`, `results/skew_trace.csv`).
+
+| skew | held-out names: count as S in training | MLP-0 term | MLP-1 term | context bonus | probe IO acc |
+|---|---|---|---|---|---|
+| 0 | 8311 | 0.18 | 2.41 | 2.7 | 0.14 |
+| 0.5 | 7306 | 0.40 | 2.53 | 3.0 | 0.17 |
+| 1.0 | 5675 | 0.96 | 4.09 | 5.1 | 0.59 |
+| 1.5 | 3725 | 1.04 | 3.07 | 4.2 | 0.52 |
+| 2.0 | 2296 | 0.66 | 1.77 | 2.8 | 0.22 |
+
+Regular names reach a context bonus of 10-11 with about 8 from MLP-1 and 2.5 from MLP-0;
+the held-out deficit sits in both MLPs. The reversal is non-monotone on the clean probe:
+weakening the never-an-answer exposure (fewer appearances as S) helps up to skew 1, then
+the name's total exposure falls (rank-5 and rank-10 names are rare under Zipf 2) and its
+representation degrades, so the benefit reverses. Across the 36 held-out (run, name) rows
+the S-count predicts the MLP-0 term and the probe accuracy only weakly (Spearman -0.32 and
+-0.34): two opposing effects of frequency, not one. A paragraph, as expected.
+
+Confound found on the way: the sweeps' held-out IO accuracy is measured on training-style
+documents in which a third of sentences repeat an earlier triple, so the answer is copyable
+in context; that metric is 0.02 at repetition rate 0 and 0.48 at 0.5. The single-sentence
+probe is the clean generalisation measure and the diversity analysis is being redone with it.
