@@ -13,7 +13,7 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 
-from analysis.plots import INK, MUTED, SERIES, SURFACE, _style
+from analysis.plots import INK, SERIES, SURFACE, _style
 
 ARMS = [("zipper", "gain only", SERIES[0]), ("divgain", "gain + diversity constraint", SERIES[2]), ("mix", "half gain, half random", SERIES[3]), ("random", "random", SERIES[1])]
 
