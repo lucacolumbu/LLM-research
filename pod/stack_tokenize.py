@@ -5,9 +5,9 @@ Outputs under --out (a prefix): <out>.bin (uint16, windows of n_ctx tokens, BOS 
 <out>_val.bin (same layout, from held-out files), <out>_meta.json (vocab, ids, n_ctx,
 counts). Vocabulary: top --vocab-size tokens of the first --vocab-tokens tokens seen.
 
-    HF_TOKEN=... uv run python pod/stack_tokenize.py --dataset bigcode/the-stack-dedup --config python \\
+    HF_TOKEN=... uv run python pod/stack_tokenize.py --dataset bigcode/the-stack-dedup --data-dir data/python \\
         --out /workspace/data/pool --target-tokens 2500000000
-Fallback (not gated): --dataset codeparrot/github-code-clean --config Python-all --text-field code
+Fallback (not gated): --dataset codeparrot/github-code-clean --data-dir "" --text-field code (filter language in-script if needed)
 """
 
 from __future__ import annotations
@@ -24,10 +24,11 @@ TOKEN_RE = re.compile(r"\n|[A-Za-z_][A-Za-z0-9_]*|\d+(?:\.\d+)?|[^\sA-Za-z0-9_]"
 SPECIAL = ["[PAD]", "[BOS]", "[UNK]"]
 
 
-def stream(dataset: str, config: str | None, split: str, text_field: str):
+def stream(dataset: str, data_dir: str | None, split: str, text_field: str):
+    """The Stack keeps one config and selects the language by directory (data_dir='data/python')."""
     from datasets import load_dataset
 
-    ds = load_dataset(dataset, config, split=split, streaming=True) if config else load_dataset(dataset, split=split, streaming=True)
+    ds = load_dataset(dataset, data_dir=data_dir, split=split, streaming=True) if data_dir else load_dataset(dataset, split=split, streaming=True)
     for row in ds:
         yield row[text_field]
 
@@ -35,7 +36,7 @@ def stream(dataset: str, config: str | None, split: str, text_field: str):
 def main() -> None:
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--dataset", default="bigcode/the-stack-dedup")
-    p.add_argument("--config", default="python")
+    p.add_argument("--data-dir", default="data/python", help="language directory inside the dataset; empty for datasets without one")
     p.add_argument("--split", default="train")
     p.add_argument("--text-field", default="content")
     p.add_argument("--out", type=Path, required=True)
@@ -52,7 +53,7 @@ def main() -> None:
     # pass 1: vocabulary from the first vocab_tokens tokens (stream restarts for pass 2)
     counts: Counter = Counter()
     seen = 0
-    for text in stream(a.dataset, a.config, a.split, a.text_field):
+    for text in stream(a.dataset, a.data_dir or None, a.split, a.text_field):
         toks = TOKEN_RE.findall(text)
         counts.update(toks)
         seen += len(toks)
@@ -68,7 +69,7 @@ def main() -> None:
     train = np.memmap(str(a.out) + ".bin", dtype=np.uint16, mode="w+", shape=(n_train_windows, a.n_ctx))
     val = np.zeros((a.val_windows, a.n_ctx), dtype=np.uint16)
     nt = nv = files = unk = tot = 0
-    for fi, text in enumerate(stream(a.dataset, a.config, a.split, a.text_field)):
+    for fi, text in enumerate(stream(a.dataset, a.data_dir or None, a.split, a.text_field)):
         ids = [idx.get(t, unk_id) for t in TOKEN_RE.findall(text)]
         files += 1
         to_val = (fi % a.val_every == 0) and nv < a.val_windows
@@ -92,7 +93,7 @@ def main() -> None:
     val[:nv].tofile(str(a.out) + "_val.bin")
     meta = {"task": "text", "kind": "code", "vocab": vocab, "pad_id": pad_id, "bos_id": bos_id, "unk_id": unk_id, "n_ctx": a.n_ctx,
             "n_train_windows": int(nt), "n_val_windows": int(nv), "files": files, "frac_unk": unk / max(tot, 1),
-            "config": {"dataset": a.dataset, "config": a.config, "vocab_size": len(vocab), "ctx_len": a.n_ctx}}
+            "config": {"dataset": a.dataset, "data_dir": a.data_dir, "vocab_size": len(vocab), "ctx_len": a.n_ctx}}
     Path(str(a.out) + "_meta.json").write_text(json.dumps(meta))
     print(f"wrote {nt:,} train windows ({nt * a.n_ctx / 1e9:.2f}B tokens), {nv:,} val windows; UNK {meta['frac_unk']:.4f}", flush=True)
 
