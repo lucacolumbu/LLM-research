@@ -44,7 +44,7 @@ def main(argv: list[str] | None = None) -> Path:
         top = order[: a.n // 2]
         rest = np.setdiff1d(np.arange(len(tokens)), top)
         idx = np.concatenate([top, rng.choice(rest, a.n - len(top), replace=False)])
-        info = {"n_by_gain": int(len(top)), "n_random": int(a.n - len(top))}
+        info = {"n_by_gain": len(top), "n_random": int(a.n - len(top))}
     else:
         docs = [to_bytes(strip_pad(t, pad)) for t in tokens]
         chosen: list[int] = []
@@ -64,7 +64,7 @@ def main(argv: list[str] | None = None) -> Path:
     train = {k: v[idx] for k, v in splits["train"].items()}
     train["score"] = gain[idx]
     meta = dict(meta)
-    meta["selection"] = {"method": a.method, "n": int(len(idx)), "seed": a.seed, "pool": str(a.pool), "mean_score_selected": float(gain[idx].mean()), "mean_score_pool": float(gain.mean()), **info}
+    meta["selection"] = {"method": a.method, "n": len(idx), "seed": a.seed, "pool": str(a.pool), "mean_score_selected": float(gain[idx].mean()), "mean_score_pool": float(gain.mean()), **info}
     save_dataset(a.out, {"train": train, "val": splits["val"]}, meta)
     print(json.dumps(meta["selection"]))
     return a.out

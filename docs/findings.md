@@ -952,3 +952,34 @@ On "did not form": the selected arm's prefix-matching score is 0.17 and rising a
 tokens against reported natural-data phase changes at 1-10B tokens; the correct statement
 is that formation lies beyond the budget and the selected arm is further along at every
 checkpoint from step 5,000, in every seed.
+
+## 2026-09-19: two compressor quantities on code (four arms, three seeds, 8,000 steps)
+
+Arms of 100k documents: gain only; random; mix (50k by gain + 50k random); diversity-
+constrained (greedy by gain, accepting a document only if its NCD to 16 probes of the
+accepted set is >= 0.75; 20k of the top documents rejected). Figure
+`results/phase3_code_four_arms.png`; per-run numbers in `results/identifier_loss.json`
+and the prefix-matching summaries.
+
+| arm | mean gain of subset | prefix-matching at 8k (seeds) | val loss | CE on repeated rare identifiers | CE on other tokens |
+|---|---|---|---|---|---|
+| gain only | 0.365 | 0.05, 0.03, 0.07 | 2.43 | 6.20 | 1.84 |
+| gain + diversity | 0.311 | 0.10, 0.12, 0.02 | 2.30 | 5.68 | 1.75 |
+| half gain, half random | 0.292 | 0.02, 0.01, 0.03 | 2.13 | 5.13 | 1.64 |
+| random | 0.158 | 0.01, 0.01, 0.01 | 2.03 | 4.74 | 1.57 |
+
+1. **The diversity constraint gives the strongest copy head of any arm** (0.08 mean, two
+   seeds at 0.10-0.12 against the gain-only arm's 0.05) while recovering a third of the
+   distribution cost (val loss 2.30 between 2.43 and 2.03; rare-identifier CE 5.68 between
+   6.20 and 4.74). Rejecting near-duplicate boilerplate removes cross-document repetition,
+   which does nothing for an in-context copy head, and keeps within-document structure.
+2. **The mix recovers three quarters of the cost** (2.13; identifiers 5.13) with a copy head
+   still twice the random arm's (0.02 vs 0.01), though weaker than gain-only.
+3. So the two compressor quantities are complementary on real data and the trade-off is
+   tunable: gain buys the circuit, distance buys the distribution, and the constrained
+   selector gets more of the first for less of the second than gain alone. Prediction from
+   the synthetic results confirmed in direction; the rare-identifier cost is not fully
+   closed by either two-quantity arm at this budget.
+4. Caveat: prefix-matching scores of 0.02-0.12 are far below formation (0.5); these are
+   early-growth comparisons at 65M tokens, and the seed spread within the constrained arm
+   (0.02 to 0.12) is large.
