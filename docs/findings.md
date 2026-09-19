@@ -905,3 +905,22 @@ at the mode). Why the seed's layer depends on the signal's strength is the one o
    sign of an induction head appears only in the selected arm; the budget is too small to
    see formation. One seed per arm is training to 24,000 steps to test whether the zipper
    arm forms first.
+
+### Long runs on code (24,000 steps, 195M tokens, ~15 epochs of the subset), one seed per arm
+
+| arm | prefix-matching on random repeats, by step | in-distribution prefix-matching (real code, best head) | val loss |
+|---|---|---|---|
+| zipper | 0.05 (8k) -> 0.12 (12.8k) -> 0.17 (24k), still rising | 0.14 (L1H1) | 2.41 |
+| random | 0.01 -> 0.02 -> 0.03 | 0.11 (L1H1) | 1.90 |
+
+Neither arm reaches the 0.5 threshold; induction accuracy on random repeats stays at
+0.01. The zipper arm's head is five times stronger on the out-of-distribution probe and
+climbs as a crawl (no snap), but in distribution the two models are nearly the same: at
+positions whose token occurred earlier, both predict the next token with 0.60-0.62
+accuracy, 0.84-0.86 when the copy would be right and 0.49-0.53 when it would be wrong.
+The reason a strong head does not pay on this corpus: on real code the token after the
+previous occurrence is the next token only 29% of the time, so a copy head is a weak
+predictor next to syntax. Selection by compression does change what forms (a stronger
+copy head, earlier), and the ordering is the predicted one, but the effect at this scale
+is small and the behavioural payoff nil. Real-data claim for the paper: directional,
+modest, and honest about the 29% ceiling on this corpus.

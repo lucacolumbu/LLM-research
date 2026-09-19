@@ -18,7 +18,7 @@ by a copy lag, and the data and architecture pick the member (lag 1 in attention
 at moderate repetition, lags 8 to 22 with long copies, small vocabularies, or MLPs), each with
 a predictable accuracy ceiling; and an IOI-style two-name task is solved by subject
 suppression plus MLP-mediated promotion of in-context names with no name-mover head, so a
-copy-based score cannot see it. On natural text (TinyStories) no induction head forms at this budget in either arm, and the LZ77 match-length histogram shows why: the corpus has almost no long verbatim repeats, so the compression score has no range to work with; natural-text induction rides on single-token repeats that gzip does not reward.
+copy-based score cannot see it. On real data the bridge measurement (the LZ77 match-length histogram of the selected documents) explains the outcome: on children's stories the corpus has almost no long verbatim repeats and no induction head forms in either arm; on Python source the score has range, the selected subset develops a copy head five times stronger than a random subset's and sooner, in the predicted direction, but the head crosses no formation threshold within 195M tokens and buys nothing in distribution, where the previous occurrence predicts the next token only 29% of the time.
 
 ## 1. Introduction
 - Data selection scores documents against loss or surface statistics (DSIR, DoReMi,
@@ -133,21 +133,23 @@ copy-based score cannot see it. On natural text (TinyStories) no induction head 
   rate 1.0, where an induction shortcut replaces the IOI circuit for most targets (1500 vs
   333), the brief's "too clean" prediction.
 
-### 3.5 Real text: negative at this scale, with the bridge measurement
-- TinyStories slice, 379k documents of 128 tokens; 100k by gzip gain vs random x3; 2L4H
-  MLP rotary, 65M tokens. No induction head in either arm (prefix-matching at baseline,
-  induction accuracy 0); zipper arm has higher validation loss (1.96 vs 1.90).
-- The LZ77 match-length histogram explains it: natural stories have a median match of 2
-  tokens and 0.1-0.35% of tokens in matches >= 8, against 27% in the synthetic subset that
-  forms at 700. The score's range collapses (0.04-0.07); what remains of natural-text
-  induction signal is single-token repetition (47% of tokens), which gzip does not reward.
-- Honest framing: the compressor measures long verbatim structure; the induction heads of
-  natural text ride on short repeats. A repeated-bigram score (Aoyama et al.) is the
-  natural-text analogue and gzip tracks it at rho 0.79. An attention-only model also forms
-  no induction head at this budget, and in-distribution repeat-token and early-vs-late loss
-  gaps show no in-context benefit emerging: 65M tokens is 15-150x below the budgets at which
-  natural-text induction heads are reported. The natural-text test needs either that budget
-  on a rented GPU or a corpus with genuine verbatim structure (code).
+### 3.5 Real text and real code: the bridge holds, the payoff is small
+- TinyStories (379k documents, 65M tokens): no induction head in either arm, in any
+  architecture, and the LZ77 match-length histogram shows why: median match 2 tokens,
+  0.1-0.35% of tokens in matches >= 8 (27% in the synthetic subset that forms at 700). The
+  score has no range on this corpus; natural-text induction rides on single-token repeats
+  that gzip does not reward (47% of tokens already).
+- Python source (498k documents from 12k files): the score has range (top fifth by gzip
+  gain: 45% of tokens in matches >= 8, mean longest match 30 tokens, more than the
+  synthetic subset). At 65M tokens the selected arm's prefix-matching score lifts late in
+  all three seeds (0.01 -> 0.03-0.07) while random stays at 0.01; at 195M tokens it reaches
+  0.17 and is still rising, random 0.03. Neither crosses 0.5, and in distribution the two
+  models copy almost equally (0.14 vs 0.11 prefix matching; 0.60 vs 0.62 next-token
+  accuracy at repeat positions), because on real code the token after the previous
+  occurrence is the next token only 29% of the time. Selection by compression forms a
+  stronger copy head sooner, in the predicted direction, with no behavioural payoff at
+  this scale. The selected subsets also have higher validation loss (2.41 vs 1.90; stories
+  1.96 vs 1.90): the most compressible fifth is a narrower distribution.
 
 ## 4. Limitations
 - Toy scale, synthetic data; 2-layer models; one tokenizer per task.
