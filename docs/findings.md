@@ -924,3 +924,31 @@ predictor next to syntax. Selection by compression does change what forms (a str
 copy head, earlier), and the ordering is the predicted one, but the effect at this scale
 is small and the behavioural payoff nil. Real-data claim for the paper: directional,
 modest, and honest about the 29% ceiling on this corpus.
+
+## 2026-09-19: code, where copying should pay (identifier positions), and the reading of "did not form"
+
+`analysis/identifier_loss.py`: next-token loss on second-and-later occurrences within a
+document of low-frequency identifiers (vocabulary rank > 500, alphabetic, not a keyword),
+1,000 validation documents (4,241 such targets), against first occurrences and all other
+tokens.
+
+| arm, step | repeated identifiers: CE / acc | first occurrences: CE / acc | other tokens: CE / acc |
+|---|---|---|---|
+| zipper 24k | 6.01 / 0.28 | 8.13 / 0.11 | 1.80 / 0.60 |
+| random 24k | 3.98 / 0.32 | 6.09 / 0.16 | 1.47 / 0.64 |
+| zipper 8k (3 seeds) | 6.10-6.34 / 0.19-0.21 | 7.76-7.87 / 0.09 | 1.82-1.85 / 0.58-0.59 |
+| random 8k (3 seeds) | 4.61-4.86 / 0.21-0.25 | 6.23-6.32 / 0.14 | 1.56-1.58 / 0.62 |
+
+The selected arm is worse at exactly the positions where a copy head should pay, by 1.5-2
+nats, and worse everywhere else by 0.3. The global metric did not hide a gain; it hid a
+larger loss on rare identifiers, consistent with a repetitive subset containing fewer
+distinct identifiers to learn. A gain-only selector picks repetitive data and starves the
+distribution, which is the paper's own prediction about using one compressor quantity
+without the other. Two-quantity arms are training: half by gain plus half random (three
+seeds) and greedy-by-gain with an NCD >= 0.75 diversity constraint against 16 probes of the
+accepted set.
+
+On "did not form": the selected arm's prefix-matching score is 0.17 and rising at 195M
+tokens against reported natural-data phase changes at 1-10B tokens; the correct statement
+is that formation lies beyond the budget and the selected arm is further along at every
+checkpoint from step 5,000, in every seed.
