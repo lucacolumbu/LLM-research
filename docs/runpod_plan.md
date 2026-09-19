@@ -111,3 +111,22 @@ until the volume is deleted.
   env `HF_TOKEN`; on boot: clone the repo, `uv sync`, `zsh pod/run_pilot.sh`.
 - Progress: `results/pod_queue.log` on the volume, tailed through the pod log stream.
 - Terminate the pod at the end of each session; the volume keeps everything.
+
+## Pod start command (container args), written 2026-09-20
+The pod has no exec channel through these tools, so the container's command does the whole
+bootstrap. `GITHUB_TOKEN` is optional (private repository); `HF_TOKEN` comes from the Runpod
+secret. Progress goes to the pod log and to /workspace/results/pod_queue.log on the volume.
+
+    bash -c 'set -e; cd /workspace;
+      if [ -d LLM-research/.git ]; then cd LLM-research && git pull --ff-only;
+      else git clone https://${GITHUB_TOKEN:+x-access-token:${GITHUB_TOKEN}@}github.com/lucacolumbu/LLM-research.git && cd LLM-research; fi;
+      pip install -q uv && uv sync -q;
+      DATA=/workspace/data bash pod/run_pilot.sh 2>&1 | tee -a /workspace/results/pod_queue.log;
+      sleep infinity'
+
+The trailing sleep keeps the pod alive after the pilot so results can be inspected and the
+`FULL=1` / `LONG=1` stages started by restarting with a different command; terminate the
+pod when done.
+
+Repository: git@github.com:lucacolumbu/LLM-research.git (private at the time of writing).
+Push key: ~/.ssh/id_ed25519_github on this machine.
