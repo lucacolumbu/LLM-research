@@ -19,7 +19,7 @@ import numpy as np
 import torch
 
 from analysis.circuit import _step_of
-from data.generator import load_dataset
+from data.generator import run_meta
 from train.train import load_checkpoint
 
 
@@ -55,7 +55,7 @@ def analyze_run(
 ) -> dict[str, Any]:
     run_dir = results_dir / run
     tc = json.loads((run_dir / "train_config.json").read_text())
-    _, meta = load_dataset(Path(tc["dataset"]))
+    meta = run_meta(tc)
     lo = len([t for t in meta["vocab"][:4] if t.startswith("[")])  # skip special tokens
     pool = None
     if meta.get("task") == "text":

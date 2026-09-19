@@ -349,3 +349,12 @@ def main(argv: list[str] | None = None) -> Path:
 
 if __name__ == "__main__":
     main()
+
+
+def run_meta(train_config: dict) -> dict:
+    """Dataset metadata for a run: from the npz named in the run config, or from the
+    memmap prefix's _meta.json for memmap runs (train.train --mmap)."""
+    if train_config.get("mmap"):
+        return json.loads((Path(train_config["mmap"] + "_meta.json")).read_text())
+    _, meta = load_dataset(Path(train_config["dataset"]))
+    return meta

@@ -22,6 +22,8 @@ Mechanistic-interpretability project: how properties of training data shape circ
 - `uv run python -m selection.select_by_score --pool datasets/pool_het.npz --method zipper|random|refloss|oracle --n N --out datasets/sel_x.npz` selects a subset of a heterogeneous pool by a per-document score
 - `uv run python -m selection.experiment --n 20000 --seeds 0 1 2` runs the Phase 2 comparison end to end (pool, arms, training, `results/selection_summary.csv`)
 - `train.train --switch-dataset <npz> --switch-step N` trains on a second dataset from step N (data-schedule experiments such as late leaks)
+- `train.train --mmap <prefix> --mmap-index <arm.npy> --resume --autocast --device cuda` trains from a uint16 memmapped pool (`<prefix>.bin` windows, `<prefix>_val.bin`, `<prefix>_meta.json`); checkpoints carry optimizer, scheduler and RNG state and `--resume` continues from the latest one
+- `pod/stack_tokenize.py`, `pod/score_pool.py`, `pod/run_pilot.sh`: the Runpod pipeline for Phase 3 at 500M-1B tokens (plan in `docs/runpod_plan.md`); `datasets/mm/` is a 20k-window local fixture for testing it
 - `uv run jupyter lab` opens notebooks
 
 ## Layout

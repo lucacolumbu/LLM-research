@@ -12,6 +12,7 @@ Writes:
 from __future__ import annotations
 
 import argparse
+import contextlib
 import csv
 import fcntl
 import json
@@ -60,6 +61,10 @@ class TrainConfig:
     results_dir: str = "results"
     switch_dataset: str = ""  # if set, train on this dataset from switch_step onward (data-schedule experiments)
     switch_step: int = 0
+    mmap: str = ""  # memmapped pool prefix (<mmap>.bin uint16 windows, <mmap>_val.bin, <mmap>_meta.json); replaces dataset
+    mmap_index: str = ""  # .npy of window ids forming the training arm (default: whole pool)
+    resume: bool = False  # continue from the latest checkpoint in checkpoints_dir/run (model, optimizer, schedule, rng)
+    autocast: bool = False  # bf16 autocast on cuda
 
 
 def build_model(tc: TrainConfig, d_vocab: int, n_ctx: int) -> HookedTransformer:
@@ -124,17 +129,24 @@ def evaluate(
     }
 
 
-def save_checkpoint(model: HookedTransformer, tc: TrainConfig, step: int, path: Path) -> None:
+def save_checkpoint(model: HookedTransformer, tc: TrainConfig, step: int, path: Path, opt=None, sched=None, rng_state=None) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    torch.save(
-        {
-            "step": step,
-            "train_config": asdict(tc),
-            "model_cfg": model.cfg.to_dict(),
-            "state_dict": model.state_dict(),
-        },
-        path,
-    )
+    ckpt = {
+        "step": step,
+        "train_config": asdict(tc),
+        "model_cfg": model.cfg.to_dict(),
+        "state_dict": model.state_dict(),
+    }
+    if opt is not None:
+        ckpt["optimizer"] = opt.state_dict()
+        ckpt["scheduler"] = sched.state_dict() if sched is not None else None
+        ckpt["rng"] = rng_state
+    torch.save(ckpt, path)
+
+
+def _latest_checkpoint(ckpt_dir: Path) -> Path | None:
+    cks = sorted(ckpt_dir.glob("step_*.pt"), key=lambda p: int(p.stem.split("_")[1]))
+    return cks[-1] if cks else None
 
 
 def load_checkpoint(path: Path, device: str = "cpu") -> tuple[HookedTransformer, dict[str, Any]]:
@@ -175,10 +187,22 @@ def append_results_row(path: Path, row: dict[str, Any]) -> None:
 def train(tc: TrainConfig) -> dict[str, Any]:
     torch.manual_seed(tc.seed)
     rng = np.random.default_rng(tc.seed)
-    splits, meta = load_dataset(Path(tc.dataset))
+    if tc.mmap:
+        meta = json.loads(Path(tc.mmap + "_meta.json").read_text())
+        n_ctx = meta["n_ctx"]
+        pool = np.memmap(tc.mmap + ".bin", dtype=np.uint16, mode="r").reshape(-1, n_ctx)
+        arm = np.load(tc.mmap_index) if tc.mmap_index else np.arange(len(pool))
+        val_tok = np.fromfile(tc.mmap + "_val.bin", dtype=np.uint16).reshape(-1, n_ctx)[:2000].astype(np.int64)
+        splits = {"val": {"tokens": val_tok, "target_mask": np.zeros(val_tok.shape, bool), "s_ids": np.full(val_tok.shape, -1)}}
+        train_tokens = None
+        print(f"mmap pool {len(pool):,} windows, arm {len(arm):,} windows, n_ctx {n_ctx}")
+    else:
+        splits, meta = load_dataset(Path(tc.dataset))
+        train_tokens = torch.as_tensor(splits["train"]["tokens"])
+        n_ctx = train_tokens.shape[1]
+        pool = arm = None
     pad_id = meta["pad_id"]
-    train_tokens = torch.as_tensor(splits["train"]["tokens"])
-    n_ctx = train_tokens.shape[1]
+    autocast_ctx = torch.autocast("cuda", dtype=torch.bfloat16) if (tc.autocast and tc.device == "cuda") else contextlib.nullcontext()
 
     model = build_model(tc, d_vocab=len(meta["vocab"]), n_ctx=n_ctx)
     n_params = sum(p.numel() for p in model.parameters())
@@ -198,7 +222,21 @@ def train(tc: TrainConfig) -> dict[str, Any]:
             f.write(json.dumps(record) + "\n")
 
     print(f"run={tc.run} params={n_params:,} n_ctx={n_ctx} d_vocab={len(meta['vocab'])} steps={tc.steps}")
-    save_checkpoint(model, tc, 0, ckpt_dir / "step_0.pt")
+    start = 1
+    latest_ckpt = _latest_checkpoint(ckpt_dir) if tc.resume else None
+    if latest_ckpt is not None and int(latest_ckpt.stem.split("_")[1]) > 0:
+        ck = torch.load(latest_ckpt, map_location=tc.device, weights_only=False)
+        model.load_state_dict(ck["state_dict"])
+        if ck.get("optimizer") is not None:
+            opt.load_state_dict(ck["optimizer"])
+            if ck.get("scheduler") is not None:
+                sched.load_state_dict(ck["scheduler"])
+            if ck.get("rng") is not None:
+                rng.bit_generator.state = ck["rng"]
+        start = ck["step"] + 1
+        print(f"resumed from {latest_ckpt} at step {ck['step']}")
+    else:
+        save_checkpoint(model, tc, 0, ckpt_dir / "step_0.pt")
     t0 = time.time()
     loss_val = float("nan")
     latest: dict[str, Any] = {}
@@ -206,11 +244,16 @@ def train(tc: TrainConfig) -> dict[str, Any]:
     if tc.switch_dataset:
         switch_splits, _ = load_dataset(Path(tc.switch_dataset))
         switch_tokens = torch.as_tensor(switch_splits["train"]["tokens"])
-    for step in range(1, tc.steps + 1):
-        source = switch_tokens if switch_tokens is not None and step > tc.switch_step else train_tokens
-        idx = rng.integers(len(source), size=tc.batch_size)
-        tokens = source[idx].to(tc.device)
-        loss = lm_loss(model(tokens), tokens, pad_id)
+    for step in range(start, tc.steps + 1):
+        if pool is not None:
+            idx = np.sort(rng.choice(arm, size=tc.batch_size))
+            tokens = torch.from_numpy(pool[idx].astype(np.int64)).to(tc.device)
+        else:
+            source = switch_tokens if switch_tokens is not None and step > tc.switch_step else train_tokens
+            idx = rng.integers(len(source), size=tc.batch_size)
+            tokens = source[idx].to(tc.device)
+        with autocast_ctx:
+            loss = lm_loss(model(tokens), tokens, pad_id)
         opt.zero_grad(set_to_none=True)
         loss.backward()
         torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
@@ -238,11 +281,11 @@ def train(tc: TrainConfig) -> dict[str, Any]:
                 f"heldout_pairs acc {ev['heldout_pairs']['io_acc']:.3f} ({latest['elapsed_s']}s)"
             )
         if step % tc.ckpt_every == 0 or step == tc.steps:
-            save_checkpoint(model, tc, step, ckpt_dir / f"step_{step}.pt")
+            save_checkpoint(model, tc, step, ckpt_dir / f"step_{step}.pt", opt, sched, rng.bit_generator.state)
 
     row = {
         "run": tc.run,
-        "dataset": tc.dataset,
+        "dataset": tc.dataset or f"{tc.mmap} [{Path(tc.mmap_index).stem if tc.mmap_index else 'all'}]",
         "condition": json.dumps(meta["config"], sort_keys=True),
         "seed": tc.seed,
         "steps": tc.steps,
@@ -266,7 +309,7 @@ def train(tc: TrainConfig) -> dict[str, Any]:
 
 def main(argv: list[str] | None = None) -> dict[str, Any]:
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument("--dataset", required=True)
+    p.add_argument("--dataset", default="", help="npz dataset; omit when using --mmap")
     p.add_argument("--run", required=True)
     for f in TrainConfig.__dataclass_fields__.values():
         if f.name in ("dataset", "run"):
