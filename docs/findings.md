@@ -983,3 +983,44 @@ and the prefix-matching summaries.
 4. Caveat: prefix-matching scores of 0.02-0.12 are far below formation (0.5); these are
    early-growth comparisons at 65M tokens, and the seed spread within the constrained arm
    (0.02 to 0.12) is large.
+
+## 2026-09-20: in-context delta on rare identifiers (replaces the absolute identifier CE)
+
+Metric: for each rare identifier (not among the top-2,000 names by pool frequency; NAME =
+identifier-shaped token, not a keyword or builtin, outside string literals by quote
+parity) with >= 2 occurrences in a validation document, CE at its first occurrence minus
+CE at its second. 2,000 validation documents, 1,306 identifier pairs; same checkpoints and
+validation set as the loss column (`analysis/incontext_delta.py`, `analysis/swap_control.py`,
+`results/incontext_delta.json`, `results/swap_control.csv`, figure
+`results/incontext_delta_trajectory.png`).
+
+| arm | CE1 (first occurrence) | CE2 (second) | mean delta (3 seeds) | median delta | fraction > 0 |
+|---|---|---|---|---|---|
+| gain only | 8.94 | 7.23 | 1.71 (1.70, 1.72, 1.73) | 1.22 | 0.71 |
+| gain + diversity | 8.53 | 6.55 | 1.98 (2.11, 2.04, 1.79) | 1.54 | 0.75 |
+| half gain, half random | 7.50 | 5.60 | 1.90 (1.98, 1.81, 1.92) | 1.36 | 0.76 |
+| random | 7.10 | 5.08 | 2.03 (2.20, 1.83, 2.05) | 1.50 | 0.76 |
+
+Controls. Distance between occurrences (<=32 / 32-64 / 64-128): delta 1.8 / 1.6 / 1.6
+(gain only), 2.1 / 1.8 / 1.8 (constrained), 2.1 / 1.6 / 1.6 (mix), 2.2 / 1.7 / 1.7 (random):
+a mild decline with distance, identical across arms. Non-identifier baseline (repeated
+keywords and punctuation): delta 0.58-0.67 in every arm, a third of the identifier value,
+so the effect is specific to identifiers. Rarity threshold: top-500 / top-5,000 give the
+same ordering. Shuffled-context control as specified (permute all tokens before the second
+occurrence): CE2 rises to ~12 nats in every arm, above a first occurrence, so it measures
+out-of-distribution damage rather than copy dependence and is not diagnostic. Name-swap
+control instead (replace the first occurrence with another rare name y): at the second
+occurrence log p(x) falls by 1.27 / 1.50 / 1.43 / 1.57 nats and log p(y) rises by 1.27 /
+1.69 / 1.48 / 1.76 (gain only / constrained / mix / random); the model prefers y after the
+swap 16 / 16 / 11 / 10% of the time.
+
+Verdict: outcome two of the brief, "head present but not yet load-bearing", with one
+addition. CE1 orders exactly like validation loss (8.9 > 8.5 > 7.5 > 7.1), and the delta
+does not follow the copy-head order (prefix-matching 0.05 / 0.08 / 0.02 / 0.01): it is
+1.7-2.0 nats in every arm, grows smoothly from step 400 with no snap in any arm, and is
+consistently lowest in the gain-only arm (every seed below every random seed). The swap
+control shows genuine content-dependent in-context name prediction in all four arms, of
+equal size, so it comes from something every arm shares (the weak distributed attention to
+previous occurrences seen in both long-run models, 0.11-0.14) rather than from the head the
+selection accelerated. The earlier absolute-CE comparison measured distribution quality;
+this measure isolates the in-context component and finds it flat across arms.

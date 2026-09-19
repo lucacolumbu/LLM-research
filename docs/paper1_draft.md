@@ -145,15 +145,24 @@ copy-based score cannot see it. On real data the match-length histogram of a cor
   0.07 at 65M tokens vs 0.01 random) and reaches 0.17 at 195M tokens, still rising, against
   0.03 for random. Formation (0.5) lies beyond the budget; reported natural-data phase
   changes sit at 1-10B tokens. The selected arm is further along at every checkpoint.
-- The cost on the distribution is real and lands where copying should pay. Validation loss
-  2.43 vs 2.03, and on second-and-later occurrences of rare identifiers, the positions an
-  induction head exists for, the gain-only arm is 1.5-2 nats worse (6.2 vs 4.7): a gain-only
-  selector picks repetitive boilerplate with fewer distinct identifiers to learn, the
-  prediction the synthetic diversity results make about using one quantity alone.
+- The cost on the distribution is real. Validation loss 2.43 vs 2.03, and the CE at the
+  first occurrence of rare identifiers orders the same way (8.9 vs 7.1): a gain-only selector
+  picks repetitive boilerplate with fewer distinct identifiers to learn, the prediction the
+  synthetic diversity results make about using one quantity alone (absolute values in
+  Appendix A).
+- The accelerated head is not yet load-bearing. The in-context delta on rare identifiers
+  (CE at first minus second occurrence) isolates in-context prediction from distribution
+  quality: it is 1.7-2.0 nats in every arm, grows smoothly with no snap, is specific to
+  identifiers (0.6 for repeated keywords), holds across occurrence distances, and does not
+  follow the prefix-matching order; a name-swap control moves 1.3-1.8 nats from the original
+  to the substituted name in every arm alike. In-context name prediction on code exists at
+  this budget but comes from a mechanism all arms share; the head the selection accelerated
+  (prefix-matching 0.02-0.12) contributes nothing measurable to it yet.
 - The remedy is the second compressor quantity. Greedy selection by gain with an NCD >=
   0.75 diversity constraint yields the strongest copy head of any arm (0.08, two seeds at
-  0.10-0.12) and recovers a third of the loss (2.30; identifiers 5.68); a half-gain,
-  half-random mix recovers three quarters (2.13; 5.13) with a head still twice random's.
+  0.10-0.12) and recovers a third of the loss (2.30) and of the first-occurrence identifier
+  CE; a half-gain, half-random mix recovers three quarters (2.13) with a head still twice
+  random's.
   Gain buys the circuit, distance buys the distribution, and the constrained selector gets
   more of the first for less of the second than gain alone. This is the form of the method
   a code-model team could use: compress once, rank, dedup by compression distance.
@@ -188,3 +197,15 @@ McDougall et al. 2023 (copy suppression).
 3. selection: bar/strip of formation per arm (to make)
 4. lag family: lag vs r_max, and ceiling predicted vs observed (to make)
 5. two-name: trajectory with DLA decomposition; late-leak curve (results/leak_sample_efficiency.png)
+
+## Appendix A. Absolute identifier losses on code (8,000 steps, mean of 3 seeds)
+
+| arm | CE on second-and-later occurrences of rare identifiers | first occurrences | other tokens | in-context delta |
+|---|---|---|---|---|
+| gain only | 6.20 | 7.80 | 1.84 | 1.71 |
+| gain + diversity | 5.68 | 7.41 | 1.75 | 1.98 |
+| half gain, half random | 5.13 | 6.60 | 1.64 | 1.90 |
+| random | 4.74 | 6.26 | 1.57 | 2.03 |
+
+Absolute losses order like validation loss in every column; only the delta isolates the
+in-context component (results/incontext_delta.json, results/identifier_loss.json).
