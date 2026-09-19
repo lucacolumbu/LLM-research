@@ -44,7 +44,7 @@ def main() -> None:
     ax.bar(x - 0.2, [b[2] for b in bars], 0.38, color=[b[1] for b in bars], yerr=[b[3] for b in bars], capsize=3, label="repeated low-frequency identifiers")
     ax.bar(x + 0.2, [b[4] for b in bars], 0.38, color=[b[1] for b in bars], alpha=0.45, label="other tokens")
     ax.set_xticks(x)
-    ax.set_xticklabels([b[0].replace(", ", ",\n") for b in bars], fontsize=8)
+    ax.set_xticklabels([b[0].replace(", ", ",\n").replace(" + ", "\n+ ") for b in bars], fontsize=8)
     _style(ax, "Loss where copying should pay, final checkpoint", "cross-entropy (nats)")
     ax.set_xlabel("")
     ax.legend(frameon=False, fontsize=8, labelcolor=INK)
