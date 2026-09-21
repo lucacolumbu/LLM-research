@@ -31,9 +31,11 @@ say "stage 2: scoring"
 run_arm() {  # run_arm <arm> <seed> [steps]
   local arm=$1 seed=$2 steps=${3:-$STEPS} run=stack_${1}_s${2}${3:+_$3}
   local idx=${POOL}_arm_${arm}.npy; [ "$arm" = random ] && idx=${POOL}_arm_random_s${seed}.npy
-  if [ -f $CHECKPOINTS_DIR/$run/step_${steps}.pt ]; then say "skip $run"; return; fi
-  say "train $run"
-  uv run python -m train.train $TRAIN --mmap-index $idx --run $run --seed $seed --steps $steps 2>&1 | tail -3 | tee -a "$LOG"
+  if [ -f $CHECKPOINTS_DIR/$run/step_${steps}.pt ]; then say "skip training $run"; else
+    say "train $run"
+    uv run python -m train.train $TRAIN --mmap-index $idx --run $run --seed $seed --steps $steps 2>&1 | tail -3 | tee -a "$LOG"
+  fi
+  if [ -f $RESULTS_DIR/$run/prefix_matching_summary.json ]; then say "skip scoring $run"; grep -E "formation|final" "$RESULTS_DIR/$run.pm.log" | tee -a "$LOG"; return; fi
   uv run python -m analysis.prefix_matching --run $run --top-k 512 > "$RESULTS_DIR/$run.pm.log" 2>&1 || { tail -5 "$RESULTS_DIR/$run.pm.log" | tee -a "$LOG"; return 1; }
   grep -E "formation|final" "$RESULTS_DIR/$run.pm.log" | tee -a "$LOG"
 }
