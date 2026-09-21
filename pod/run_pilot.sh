@@ -9,9 +9,10 @@ cd "$(dirname "$0")/.."
 DATA=${DATA:-/workspace/data}; POOL=$DATA/pool
 LOG=${LOG:-/workspace/results/pod_queue.log}; mkdir -p "$(dirname "$LOG")" "$DATA"
 export CHECKPOINTS_DIR=${CHECKPOINTS_DIR:-/workspace/checkpoints} RESULTS_DIR=${RESULTS_DIR:-/workspace/results}
-STEPS=${STEPS:-15000}        # 15,000 steps x 128 x 256 = 500M tokens
-CKPT=${CKPT:-500}
-TRAIN="--mmap $POOL --steps $STEPS --ckpt-every $CKPT --eval-every $CKPT --batch-size 128 --n-layers 4 --n-heads 8 --d-model 256 --d-head 32 \
+STEPS=${STEPS:-30000}        # 30,000 steps x 64 x 256 = 491M tokens
+CKPT=${CKPT:-1000}
+export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+TRAIN="--mmap $POOL --steps $STEPS --ckpt-every $CKPT --eval-every $CKPT --batch-size 64 --n-layers 4 --n-heads 8 --d-model 256 --d-head 32 \
   --positional-embedding-type rotary --weight-decay 0.0 --warmup-steps 500 --device cuda --autocast --resume \
   --checkpoints-dir $CHECKPOINTS_DIR --results-dir $RESULTS_DIR"
 say() { echo "[$(date +%H:%M:%S)] $*" | tee -a "$LOG"; }
@@ -37,5 +38,5 @@ run_arm() {  # run_arm <arm> <seed> [steps]
 say "stage 3: pilot"
 run_arm divgain 0; run_arm random 0
 if [ -n "${FULL:-}" ]; then say "stage 4: three seeds per arm"; for s in 1 2; do run_arm divgain $s; run_arm random $s; done; fi
-if [ -n "${LONG:-}" ]; then say "stage 5: 1B tokens"; run_arm divgain 0 30000; run_arm random 0 30000; fi
+if [ -n "${LONG:-}" ]; then say "stage 5: 1B tokens"; run_arm divgain 0 60000; run_arm random 0 60000; fi
 say "DONE"

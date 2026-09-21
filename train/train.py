@@ -192,6 +192,10 @@ def train(tc: TrainConfig) -> dict[str, Any]:
         n_ctx = meta["n_ctx"]
         pool = np.memmap(tc.mmap + ".bin", dtype=np.uint16, mode="r").reshape(-1, n_ctx)
         arm = np.load(tc.mmap_index) if tc.mmap_index else np.arange(len(pool))
+        # hold the arm's windows in RAM (uint16: 2 bytes/token, ~1 GB for 2M windows of 256);
+        # random reads from a memmap on a network volume were the bottleneck on the pod
+        pool = np.ascontiguousarray(pool[np.sort(arm)])
+        arm = np.arange(len(pool))
         val_tok = np.fromfile(tc.mmap + "_val.bin", dtype=np.uint16).reshape(-1, n_ctx)[:2000].astype(np.int64)
         splits = {"val": {"tokens": val_tok, "target_mask": np.zeros(val_tok.shape, bool), "s_ids": np.full(val_tok.shape, -1)}}
         train_tokens = None
@@ -262,7 +266,8 @@ def train(tc: TrainConfig) -> dict[str, Any]:
         loss_val = loss.item()
 
         if step % tc.eval_every == 0 or step == tc.steps:
-            ev = {s: evaluate(model, splits.get(s, _EMPTY), pad_id) for s in EVAL_SPLITS}
+            eval_bs = 32 if len(meta["vocab"]) > 8192 else 256  # logits are batch x ctx x vocab in fp32
+            ev = {s: evaluate(model, splits.get(s, _EMPTY), pad_id, batch_size=eval_bs) for s in EVAL_SPLITS}
             latest = {
                 "step": step,
                 "tokens_seen": step * tc.batch_size * n_ctx,
