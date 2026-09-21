@@ -9,6 +9,8 @@ cd "$(dirname "$0")/.."
 DATA=${DATA:-/workspace/data}; POOL=$DATA/pool
 LOG=${LOG:-/workspace/results/pod_queue.log}; mkdir -p "$(dirname "$LOG")" "$DATA"
 export CHECKPOINTS_DIR=${CHECKPOINTS_DIR:-/workspace/checkpoints} RESULTS_DIR=${RESULTS_DIR:-/workspace/results}
+# analysis scripts use repo-relative results/ and checkpoints/; point those at the volume
+mkdir -p "$CHECKPOINTS_DIR" "$RESULTS_DIR"; ln -sfn "$CHECKPOINTS_DIR" checkpoints; ln -sfn "$RESULTS_DIR" results
 STEPS=${STEPS:-30000}        # 30,000 steps x 64 x 256 = 491M tokens
 CKPT=${CKPT:-1000}
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
@@ -32,7 +34,8 @@ run_arm() {  # run_arm <arm> <seed> [steps]
   if [ -f $CHECKPOINTS_DIR/$run/step_${steps}.pt ]; then say "skip $run"; return; fi
   say "train $run"
   uv run python -m train.train $TRAIN --mmap-index $idx --run $run --seed $seed --steps $steps 2>&1 | tail -3 | tee -a "$LOG"
-  uv run python -m analysis.prefix_matching --run $run --top-k 512 --results-dir $RESULTS_DIR --checkpoints-dir $CHECKPOINTS_DIR 2>&1 | grep -E "formation|final" | tee -a "$LOG"
+  uv run python -m analysis.prefix_matching --run $run --top-k 512 > "$RESULTS_DIR/$run.pm.log" 2>&1 || { tail -5 "$RESULTS_DIR/$run.pm.log" | tee -a "$LOG"; return 1; }
+  grep -E "formation|final" "$RESULTS_DIR/$run.pm.log" | tee -a "$LOG"
 }
 
 say "stage 3: pilot"
