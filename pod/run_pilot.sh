@@ -10,7 +10,9 @@ DATA=${DATA:-/workspace/data}; POOL=$DATA/pool
 LOG=${LOG:-/workspace/results/pod_queue.log}; mkdir -p "$(dirname "$LOG")" "$DATA"
 export CHECKPOINTS_DIR=${CHECKPOINTS_DIR:-/workspace/checkpoints} RESULTS_DIR=${RESULTS_DIR:-/workspace/results}
 # analysis scripts use repo-relative results/ and checkpoints/; point those at the volume
-mkdir -p "$CHECKPOINTS_DIR" "$RESULTS_DIR"; ln -sfn "$CHECKPOINTS_DIR" checkpoints; ln -sfn "$RESULTS_DIR" results
+mkdir -p "$CHECKPOINTS_DIR" "$RESULTS_DIR"
+for d in checkpoints results; do [ -L $d ] || rm -rf $d; done  # the clone has placeholder dirs
+ln -sfn "$CHECKPOINTS_DIR" checkpoints; ln -sfn "$RESULTS_DIR" results
 STEPS=${STEPS:-30000}        # 30,000 steps x 64 x 256 = 491M tokens
 CKPT=${CKPT:-1000}
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
