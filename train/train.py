@@ -145,6 +145,10 @@ def save_checkpoint(model: HookedTransformer, tc: TrainConfig, step: int, path: 
 
 
 def _latest_checkpoint(ckpt_dir: Path) -> Path | None:
+    """Prefer latest.pt (model + optimizer + schedule + rng, overwritten each interval);
+    fall back to the highest step_*.pt (model only)."""
+    if (ckpt_dir / "latest.pt").exists():
+        return ckpt_dir / "latest.pt"
     cks = sorted(ckpt_dir.glob("step_*.pt"), key=lambda p: int(p.stem.split("_")[1]))
     return cks[-1] if cks else None
 
@@ -286,7 +290,11 @@ def train(tc: TrainConfig) -> dict[str, Any]:
                 f"heldout_pairs acc {ev['heldout_pairs']['io_acc']:.3f} ({latest['elapsed_s']}s)"
             )
         if step % tc.ckpt_every == 0 or step == tc.steps:
-            save_checkpoint(model, tc, step, ckpt_dir / f"step_{step}.pt", opt, sched, rng.bit_generator.state)
+            # trajectory checkpoints are model-only (analysis needs weights); the resume state
+            # with optimizer moments lives in latest.pt, overwritten each interval
+            save_checkpoint(model, tc, step, ckpt_dir / f"step_{step}.pt")
+            save_checkpoint(model, tc, step, ckpt_dir / "latest.tmp.pt", opt, sched, rng.bit_generator.state)
+            (ckpt_dir / "latest.tmp.pt").replace(ckpt_dir / "latest.pt")
 
     row = {
         "run": tc.run,
