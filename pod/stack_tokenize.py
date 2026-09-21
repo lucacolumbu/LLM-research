@@ -100,3 +100,8 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+    # the streaming client's background threads can crash the interpreter during
+    # finalisation (PyGILState_Release) after all outputs are flushed; exit hard instead
+    import os
+
+    os._exit(0)

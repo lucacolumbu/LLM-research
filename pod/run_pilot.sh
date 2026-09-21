@@ -17,8 +17,11 @@ TRAIN="--mmap $POOL --steps $STEPS --ckpt-every $CKPT --eval-every $CKPT --batch
 say() { echo "[$(date +%H:%M:%S)] $*" | tee -a "$LOG"; }
 
 say "stage 1: data"
-[ -f ${POOL}_meta.json ] || uv run python pod/stack_tokenize.py --dataset ${DATASET:-bigcode/the-stack-dedup} --data-dir ${DATA_DIR:-data/python} \
-  --text-field ${TEXT_FIELD:-content} --out $POOL --n-ctx 256 --target-tokens ${TARGET_TOKENS:-2500000000} 2>&1 | tee -a "$LOG"
+if [ ! -f ${POOL}_meta.json ]; then
+  uv run python pod/stack_tokenize.py --dataset ${DATASET:-bigcode/the-stack-dedup} --data-dir ${DATA_DIR:-data/python} \
+    --text-field ${TEXT_FIELD:-content} --out $POOL --n-ctx 256 --target-tokens ${TARGET_TOKENS:-2500000000} 2>&1 | tee -a "$LOG" || true
+  [ -f ${POOL}_meta.json ] || { say "stage 1 failed: no ${POOL}_meta.json"; exit 1; }
+fi
 say "stage 2: scoring"
 [ -f ${POOL}_score_report.json ] || uv run python pod/score_pool.py --pool $POOL --frac 0.2 --seeds 0 1 2 --workers ${WORKERS:-8} 2>&1 | tee -a "$LOG"
 
