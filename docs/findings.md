@@ -1045,3 +1045,18 @@ local selected arm's level). The constrained arm forms two to three times sooner
 measures and ends with higher induction accuracy; its validation loss is 0.2 nats worse,
 the distribution cost again. Decision rule met (both crossed 0.5): three seeds per arm and
 a 1B-token push for both are running.
+
+### Seeds (in progress, 2026-09-21 23:15 UTC)
+
+| arm | seed | prefix-matching >= 0.5 | induction acc >= 0.5 | final prefix-matching | final induction acc | val loss |
+|---|---|---|---|---|---|---|
+| gain + diversity | 0 | 1,000 | 2,000 | 0.75 | 0.86 | 1.80 |
+| gain + diversity | 1 | 1,000 | 2,000 | 0.89 | 0.86 | |
+| gain + diversity | 2 | 1,000 | 2,000 | 0.83 | 0.84 | 1.78 |
+| random | 0 | 2,000 | 6,000 | 0.82 | 0.70 | 1.60 |
+| random | 1 | 1,500 | 4,000 | 0.74 | 0.78 | |
+| random | 2 | running | | | | |
+
+Seed 0 checkpoints every 1,000 steps, seeds 1-2 every 500. The constrained arm's
+formation steps are identical across seeds; the random arm's vary (1,500-2,000 /
+4,000-6,000) and are later in every seed on both measures.
