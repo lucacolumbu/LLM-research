@@ -232,8 +232,8 @@ def train(tc: TrainConfig) -> dict[str, Any]:
     print(f"run={tc.run} params={n_params:,} n_ctx={n_ctx} d_vocab={len(meta['vocab'])} steps={tc.steps}")
     start = 1
     latest_ckpt = _latest_checkpoint(ckpt_dir) if tc.resume else None
-    if latest_ckpt is not None and int(latest_ckpt.stem.split("_")[1]) > 0:
-        ck = torch.load(latest_ckpt, map_location=tc.device, weights_only=False)
+    ck = torch.load(latest_ckpt, map_location=tc.device, weights_only=False) if latest_ckpt is not None else None
+    if ck is not None and ck["step"] > 0:
         model.load_state_dict(ck["state_dict"])
         if ck.get("optimizer") is not None:
             opt.load_state_dict(ck["optimizer"])
