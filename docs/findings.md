@@ -1024,3 +1024,24 @@ equal size, so it comes from something every arm shares (the weak distributed at
 previous occurrences seen in both long-run models, 0.11-0.14) rather than from the head the
 selection accelerated. The earlier absolute-CE comparison measured distribution quality;
 this measure isolates the in-context component and finds it flat across arms.
+
+## 2026-09-21: The Stack pilot on Runpod (RTX 4090), 491M tokens per arm
+
+Pool: 9.77M windows of 256 word-level tokens (2.5B tokens) from the Python split of
+The Stack (deduplicated), vocabulary 32,768, UNK 8.1%. Scoring: gain per window; the
+diversity-constrained arm (greedy by gain, NCD >= 0.75 to 16 probes; 247k of 2.2M
+scanned rejected) and random arms of 1.95M windows. Match-length range: pool 26% of
+tokens in matches >= 8 (mean longest 28); gain-only top fifth 62% (61); constrained 57%
+(50). Model 4L8H d256, context 256, batch 64, 30,000 steps, rotary, bf16.
+
+| arm | val loss | prefix-matching >= 0.5 at step | induction accuracy >= 0.5 at step | final prefix-matching | final induction accuracy |
+|---|---|---|---|---|---|
+| gain + diversity | 1.80 | 1,000 (16M tokens) | 2,000 | 0.75 | 0.86 |
+| random | 1.60 | 2,000 (33M tokens) | 6,000 | 0.82 | 0.70 |
+
+Induction heads form in both arms at this budget, where the local 195M-token runs on
+site-packages had not formed; The Stack's copy structure is denser (pool already at the
+local selected arm's level). The constrained arm forms two to three times sooner on both
+measures and ends with higher induction accuracy; its validation loss is 0.2 nats worse,
+the distribution cost again. Decision rule met (both crossed 0.5): three seeds per arm and
+a 1B-token push for both are running.

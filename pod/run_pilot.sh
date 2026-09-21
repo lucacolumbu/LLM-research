@@ -46,4 +46,6 @@ say "stage 3: pilot"
 run_arm divgain 0; run_arm random 0
 if [ -n "${FULL:-}" ]; then say "stage 4: three seeds per arm"; for s in 1 2; do run_arm divgain $s; run_arm random $s; done; fi
 if [ -n "${LONG:-}" ]; then say "stage 5: 1B tokens"; run_arm divgain 0 60000; run_arm random 0 60000; fi
+say "RESULTS DUMP"
+for r in $RESULTS_DIR/stack_*; do [ -d "$r" ] || continue; echo "== $(basename $r) pm: $(tr -d '\n ' < $r/prefix_matching_summary.json 2>/dev/null | cut -c1-2000)"; echo "== $(basename $r) log:"; cat $r/log.jsonl; done
 say "DONE"
