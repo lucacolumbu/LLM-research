@@ -1063,3 +1063,24 @@ on prefix matching and 4,000-6,000 on induction accuracy, later in every seed on
 measures: 1.5-2x on the head's attention, 2-3x on behaviour. Final induction accuracy
 0.84-0.86 vs 0.70-0.78; validation loss 1.78-1.80 vs 1.59-1.60. Three seeds, no overlap.
 The 1B-token runs for both arms are in progress.
+
+### 1B tokens (60,000 steps), seed 0, both arms (2026-09-22)
+
+| arm | prefix-matching >= 0.5 | induction acc >= 0.5 | final prefix-matching | final induction acc | val loss at 491M / 983M |
+|---|---|---|---|---|---|
+| gain + diversity | 1,000 | 2,000 | 0.75 | 0.86 | 1.80 / 1.745 |
+| random | 2,000 | 5,500 | 0.84 | 0.70 | 1.60 / 1.557 |
+
+Doubling the budget (a second pass over each arm's 1.95M windows) leaves formation and
+final induction accuracy where they were and improves validation loss by 0.05 in both arms;
+the 0.2-nat gap between arms persists. The trajectories (checkpoints every 500 steps, 121
+per run): in the constrained arm prefix-matching jumps from 0.02 to 0.71 between steps 0
+and 1,000 and induction accuracy from 0.14 to 0.60 between 1,000 and 2,000, then both hold
+(0.75-0.81 / 0.73-0.85); in the random arm prefix-matching climbs 0.31 -> 0.58 -> 0.67 ->
+0.70 over steps 1,000-4,000 and induction accuracy 0.17 -> 0.34 -> 0.42 -> 0.54 -> 0.64 over
+2,000-8,000, then drifts up to 0.70. The selected arm snaps; the random arm seeps. That is
+the same snap-vs-seep contrast seen between the induction and two-name tasks locally, here
+between data selections on the same real corpus. Runs dumped in
+`results/stack/pod_log_dump.txt` (random seeds 1-2 and the long runs' summaries partly cut
+by the log stream's byte cap; headline numbers in `results/stack/headline.json`).
+Pod spend to this point about $6.30; pod stopped at 02:15 UTC, volume kept.
