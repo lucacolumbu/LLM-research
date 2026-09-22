@@ -1046,7 +1046,7 @@ measures and ends with higher induction accuracy; its validation loss is 0.2 nat
 the distribution cost again. Decision rule met (both crossed 0.5): three seeds per arm and
 a 1B-token push for both are running.
 
-### Seeds (in progress, 2026-09-21 23:15 UTC)
+### Seeds (complete, 2026-09-21 23:50 UTC)
 
 | arm | seed | prefix-matching >= 0.5 | induction acc >= 0.5 | final prefix-matching | final induction acc | val loss |
 |---|---|---|---|---|---|---|
@@ -1055,8 +1055,11 @@ a 1B-token push for both are running.
 | gain + diversity | 2 | 1,000 | 2,000 | 0.83 | 0.84 | 1.78 |
 | random | 0 | 2,000 | 6,000 | 0.82 | 0.70 | 1.60 |
 | random | 1 | 1,500 | 4,000 | 0.74 | 0.78 | |
-| random | 2 | running | | | | |
+| random | 2 | 2,000 | 5,000 | 0.74 | 0.73 | 1.59 |
 
 Seed 0 checkpoints every 1,000 steps, seeds 1-2 every 500. The constrained arm's
-formation steps are identical across seeds; the random arm's vary (1,500-2,000 /
-4,000-6,000) and are later in every seed on both measures.
+formation steps are identical across seeds (1,000 / 2,000); the random arm's are 1,500-2,000
+on prefix matching and 4,000-6,000 on induction accuracy, later in every seed on both
+measures: 1.5-2x on the head's attention, 2-3x on behaviour. Final induction accuracy
+0.84-0.86 vs 0.70-0.78; validation loss 1.78-1.80 vs 1.59-1.60. Three seeds, no overlap.
+The 1B-token runs for both arms are in progress.
