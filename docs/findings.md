@@ -1084,3 +1084,38 @@ between data selections on the same real corpus. Runs dumped in
 `results/stack/pod_log_dump.txt` (random seeds 1-2 and the long runs' summaries partly cut
 by the log stream's byte cap; headline numbers in `results/stack/headline.json`).
 Pod spend to this point about $6.30; pod stopped at 02:15 UTC, volume kept.
+
+### In-context delta and name-swap control on The Stack (final checkpoints, 2026-09-22)
+
+2,000 validation windows, 4,807 rare-identifier pairs (not in the top 2,000 names of a
+1M-window sample), 20,867 repeated-common-token pairs; `pod/stack_analysis.py` on a CPU pod.
+
+| arm | seed | CE1 | CE2 | delta (mean / frac > 0) | common-token delta | swap: x drop / y gain / prefers y |
+|---|---|---|---|---|---|---|
+| gain + diversity | 0 | 9.14 | 4.56 | 4.58 / 0.86 | 0.74 | 5.62 / 8.01 / 0.57 |
+| gain + diversity | 1 | 9.06 | 4.78 | 4.28 / 0.84 | 0.73 | 5.42 / 7.75 / 0.57 |
+| gain + diversity | 2 | 9.07 | 4.54 | 4.53 / 0.86 | 0.73 | 5.64 / 8.24 / 0.58 |
+| random | 0 | 8.39 | 3.98 | 4.41 / 0.88 | 0.66 | 5.46 / 8.29 / 0.54 |
+| random | 1 | 8.20 | 4.02 | 4.18 / 0.87 | 0.66 | 4.99 / 7.44 / 0.47 |
+| random | 2 | 8.29 | 3.73 | 4.56 / 0.88 | 0.66 | 5.57 / 8.42 / 0.54 |
+| gain + diversity, 1B | 0 | 9.20 | 4.27 | 4.93 / 0.86 | 0.72 | 6.28 / 8.88 / 0.60 |
+| random, 1B | 0 | 8.16 | 3.59 | 4.56 / 0.88 | 0.66 | 5.57 / 8.85 / 0.55 |
+
+1. **The copy head is load-bearing in distribution at this scale.** The in-context delta on
+   rare identifiers is 4.2-4.9 nats (1.7-2.0 in the local 65M-token runs), positive for
+   84-88% of identifiers, six times the delta on repeated common tokens (0.66-0.74), and the
+   swap control moves 5-6 nats off the original name and 7.4-8.9 onto the substitute, with
+   the model preferring the substituted name after the swap 47-60% of the time (10-16%
+   locally). Delta declines with occurrence distance (5.1-5.5 at <= 32 tokens, 2.7-3.0 at
+   128-256) in every arm alike.
+2. **At the end of training the two arms copy about equally.** Mean delta 4.46 (constrained)
+   vs 4.38 (random) over three seeds, within seed spread; swap effects slightly larger in
+   the constrained arm (prefers-y 0.57 vs 0.52). CE1 orders like validation loss (9.1 vs
+   8.3), the distribution cost again. At 1B tokens the constrained arm's delta is 4.93 vs
+   4.56 and its swap effect 6.3 / 8.9 / 0.60 vs 5.6 / 8.9 / 0.55: a modest edge, one seed.
+3. Reading for the paper: on real code the selection buys *when* the induction circuit
+   forms (2-3x sooner, three seeds), not how well it copies once formed; by half a billion
+   tokens both arms have equally load-bearing copy heads, and the random arm's model is the
+   better language model. The synthetic finding transfers: gain governs formation, and a
+   gain-heavy selection pays on the distribution. Combined with the earlier local four-arm
+   result, the recommendation is unchanged, use both compressor quantities.
