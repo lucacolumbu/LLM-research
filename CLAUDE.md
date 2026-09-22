@@ -39,6 +39,7 @@ Mechanistic-interpretability project: how properties of training data shape circ
 - `analysis/patching.py`: activation patching and ablations on 17-token single-sentence IOI prompts (answer read at index 14). Mean ablation is per position (prompts share one template); a single mean over positions is off-distribution and inflates sharpness. Use `--k-circuit 0` (smallest head set recovering 80% by joint patching) and `--greedy-max 12` (greedy forward selection for sufficiency); keep-only-k by single-head ranking is kept only for reference.
 - `train/sweep.py`: one-knob sweep runner (`--generator` selects the task module); run names are `<short knob><value>_s<seed>` (e.g. `pool16_s0`, `leak0.045_s0`).
 - `selection/`: greedy selector. Named `selection` because a top-level `select/` package would shadow the stdlib `select` module.
+- `docs/main.tex` + `docs/refs.bib`: the paper, single source (build with `cd docs && pdflatex main && bibtex main && pdflatex main && pdflatex main`, output in `docs/build/`). `docs/archive/` holds superseded drafts; `docs/findings.md` is the log the paper is written from.
 - `notebooks/`: exploration only.
 - `datasets/`, `checkpoints/`, `results/` are git-ignored outputs.
 
