@@ -40,7 +40,15 @@ def main() -> None:
     p.add_argument("--results-dir", type=Path, default=Path("results"))
     p.add_argument("--checkpoints-dir", type=Path, default=Path("checkpoints"))
     p.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
+    p.add_argument("--dump-only", action="store_true", help="skip the analysis; print the saved results file and trajectories")
     a = p.parse_args()
+    if a.dump_only:
+        saved = a.results_dir / "stack_analysis.json"
+        if saved.exists():
+            emit("RESULTS", json.loads(saved.read_text()))
+        dump_runs(a)
+        print("STACK DUMP DONE", flush=True)
+        return
     meta = json.loads(Path(a.pool + "_meta.json").read_text())
     vocab, pad, n_ctx = meta["vocab"], meta["pad_id"], meta["n_ctx"]
     pool = np.memmap(a.pool + ".bin", dtype=np.uint16, mode="r").reshape(-1, n_ctx)
@@ -93,15 +101,26 @@ def main() -> None:
         print(f"{run} [{ck.name}]: CE1 {res['delta']['ce1']:.3f} CE2 {res['delta']['ce2']:.3f} delta {res['delta']['delta_mean']:+.3f} (frac>0 {res['delta']['frac_positive']:.2f}); common delta {res['common']['delta_mean']:+.3f}; swap x_drop {res.get('swap', {}).get('x_drop', float('nan')):+.2f} y_gain {res.get('swap', {}).get('y_gain', float('nan')):+.2f}", flush=True)
         emit(f"ANALYSIS {run}", res)
     (a.results_dir / "stack_analysis.json").write_text(json.dumps(out, indent=1))
-    # full trajectories and logs, chunked
+    dump_runs(a)
+    print("STACK ANALYSIS DONE", flush=True)
+
+
+def dump_runs(a) -> None:
+    """Full trajectories and training logs, chunked; tolerant of truncated log lines."""
     for run in a.runs:
         pm = a.results_dir / run / "prefix_matching_summary.json"
         if pm.exists():
             emit(f"PM {run}", json.loads(pm.read_text()).get("trajectory"))
         lg = a.results_dir / run / "log.jsonl"
         if lg.exists():
-            emit(f"LOG {run}", [[r["step"], round(r["train_loss"], 4), round(r["val_loss"], 4)] for r in map(json.loads, lg.read_text().splitlines())])
-    print("STACK ANALYSIS DONE", flush=True)
+            rows = []
+            for line in lg.read_text().splitlines():
+                try:
+                    r = json.loads(line)
+                    rows.append([r["step"], round(r["train_loss"], 4), round(r["val_loss"], 4)])
+                except (ValueError, KeyError):
+                    continue
+            emit(f"LOG {run}", rows)
 
 
 if __name__ == "__main__":
