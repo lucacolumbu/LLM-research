@@ -1,0 +1,38 @@
+{
+ "stack_divgain_s0": {
+  "formation_step_prefix_matching": "1000",
+  "formation_step_induction_acc": "2000",
+  "final_max_prefix_matching": "0.7454184889793396",
+  "final_induction_acc": "0.8568548560142517"
+ },
+ "stack_divgain_s1": {
+  "formation_step_prefix_matching": "1000",
+  "formation_step_induction_acc": "2000",
+  "final_max_prefix_matching": "0.8927515149116516",
+  "final_induction_acc": "0.859375"
+ },
+ "stack_divgain_s2": {
+  "formation_step_prefix_matching": "1000",
+  "formation_step_induction_acc": "2000",
+  "final_max_prefix_matching": "0.8283448219299316",
+  "final_induction_acc": "0.8422378897666931"
+ },
+ "stack_random_s0": {
+  "formation_step_prefix_matching": "2000",
+  "formation_step_induction_acc": "6000",
+  "final_max_prefix_matching": "0.8195507526397705",
+  "final_induction_acc": "0.6970766186714172"
+ },
+ "stack_divgain_s0_60000": {
+  "formation_step_prefix_matching": "1000",
+  "formation_step_induction_acc": "2000",
+  "final_max_prefix_matching": "0.7478092908859253",
+  "final_induction_acc": "0.8558467626571655"
+ },
+ "stack_random_s0_60000": {
+  "formation_step_prefix_matching": "2000",
+  "formation_step_induction_acc": "5500",
+  "final_max_prefix_matching": "0.8409201502799988",
+  "final_induction_acc": "0.6995967626571655"
+ }
+}

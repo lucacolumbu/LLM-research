@@ -1080,9 +1080,11 @@ and 1,000 and induction accuracy from 0.14 to 0.60 between 1,000 and 2,000, then
 0.70 over steps 1,000-4,000 and induction accuracy 0.17 -> 0.34 -> 0.42 -> 0.54 -> 0.64 over
 2,000-8,000, then drifts up to 0.70. The selected arm snaps; the random arm seeps. That is
 the same snap-vs-seep contrast seen between the induction and two-name tasks locally, here
-between data selections on the same real corpus. Runs dumped in
-`results/stack/pod_log_dump.txt` (random seeds 1-2 and the long runs' summaries partly cut
-by the log stream's byte cap; headline numbers in `results/stack/headline.json`).
+between data selections on the same real corpus. Full trajectories for all
+eight runs (prefix-matching, induction accuracy, train and validation loss per checkpoint)
+are in `results/stack/trajectories.json`, rebuilt from the CPU pod's chunked dump
+(`results/stack/dump_log_dump.txt`); headline numbers in `results/stack/headline.json`.
+Figure: `results/stack/stack_trajectories.png` (`analysis.stack_figure`).
 Pod spend to this point about $6.30; pod stopped at 02:15 UTC, volume kept.
 
 ### In-context delta and name-swap control on The Stack (final checkpoints, 2026-09-22)
@@ -1119,3 +1121,22 @@ Pod spend to this point about $6.30; pod stopped at 02:15 UTC, volume kept.
    better language model. The synthetic finding transfers: gain governs formation, and a
    gain-heavy selection pays on the distribution. Combined with the earlier local four-arm
    result, the recommendation is unchanged, use both compressor quantities.
+
+### Wrap-up (2026-09-22, 15:30 UTC)
+
+All Runpod pods terminated; total pod spend about $6.60. The network volume `fd7ievzwy5`
+(100 GB, EU-RO-1, $7/month) still holds the tokenised pool (2.5B tokens), the arm indices,
+the eight runs' final checkpoints and logs. Everything needed for the paper is local
+(`results/stack/`); the volume is only worth keeping for a follow-up run on the same pool.
+
+Trajectory reading, three seeds (figure `results/stack/stack_trajectories.png`): the
+constrained arm's prefix-matching score crosses 0.5 between steps 500 and 1,000 in every
+seed (0.10-0.12 at 500, 0.55-0.72 at 1,000) and its induction accuracy between 1,500 and
+2,000 (0.38-0.49 at 1,500, 0.57-0.61 at 2,000); the random arm's prefix-matching reaches
+0.31-0.34 at 1,000 and 0.46-0.61 at 1,500-2,000, and its induction accuracy climbs from
+0.17-0.23 at 2,000 through 0.43-0.55 at 4,000 to 0.55-0.62 at 6,000. Both measures then
+plateau in both arms; the random arm's induction accuracy stays 0.06-0.16 below the
+constrained arm's to the end of training, at 491M and at 983M tokens, while the two arms'
+prefix-matching scores overlap (0.75-0.89 vs 0.74-0.84). The head attends where it should
+in both arms; what the constrained arm's model does better is the copy itself on random
+sequences, consistent with the selection's denser long matches. Validation loss curves never cross.

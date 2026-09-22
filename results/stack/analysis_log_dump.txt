@@ -1,0 +1,5931 @@
+{
+  "items": [
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:26:49.264759588Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:26:49.265472791Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:26:49.266106143Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:26:49.266108516Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:26:49.266110569Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:26:49.266114505Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:26:49.270417484Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:26:49.270419447Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:26:49.270421000Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:26:49.279261720Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:26:49.279298676Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:26:49.279307740Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:13:57.232883401Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:13:57.232920718Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:13:57.232922931Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:13:57.232960908Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:13:57.237923439Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:13:57.237931270Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:13:57.237933293Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:13:57.237934836Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:13:57.237936799Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:13:57.237938161Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:13:57.237939973Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:13:57.237941686Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:13:57.237943679Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:13:57.237945071Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:13:57.242711477Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:13:57.242727040Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:13:57.242729544Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:13:57.242734602Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:13:57.242817536Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:13:57.258387193Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:13:57.258409116Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:13:57.258411510Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:13:57.258413613Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:14:13.125813625Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:14:13.125836409Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:14:13.125848538Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:14:13.125879504Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:14:13.127670967Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:14:13.127695354Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:14:13.128261115Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:14:13.128266343Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:14:13.128827817Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:14:13.128836760Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:14:13.128839204Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:14:13.128841097Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:14:13.128843310Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:14:13.128844882Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:14:13.133108061Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:14:13.133116744Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:14:13.133118888Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:14:13.133120440Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:14:13.133189053Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:14:13.143698393Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:14:13.143711863Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:14:13.143713856Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:14:13.143715348Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:14:28.882263599Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:14:28.882300224Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:14:28.882335157Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:14:28.882343710Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:14:28.885427035Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:14:28.885456920Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:14:28.886038234Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:14:28.886047898Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:14:28.886603634Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:14:28.886615081Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:14:28.886617925Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:14:28.886619838Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:14:28.886621791Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:14:28.886623534Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:14:28.891160354Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:14:28.891173023Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:14:28.891198742Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:14:28.891202918Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:14:28.891223950Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:14:28.915211191Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:14:28.915226645Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:14:28.915228417Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:14:28.915229920Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:14:44.619115840Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:14:44.619146647Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:14:44.619148690Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:14:44.619185385Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:14:44.621210940Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:14:44.621218371Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:14:44.621894558Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:14:44.621903111Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:14:44.622547479Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:14:44.622553448Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:14:44.622555812Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:14:44.622558426Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:14:44.622560429Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:14:44.622562372Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:14:44.626835356Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:14:44.626863348Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:14:44.626868726Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:14:44.626872782Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:14:44.626917830Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:14:44.637276423Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:14:44.637288170Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:14:44.637290223Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:14:44.637291715Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:15:00.339050549Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:15:00.339107925Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:15:00.339112301Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:15:00.339162367Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:15:00.341272429Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:15:00.341278688Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:15:00.341899121Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:15:00.341917348Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:15:00.342495207Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:15:00.342501336Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:15:00.342503349Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:15:00.342504932Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:15:00.342506354Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:15:00.342507746Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:15:00.346918477Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:15:00.346927030Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:15:00.346937996Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:15:00.346941091Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:15:00.347014141Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:15:00.355132946Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:15:00.355152696Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:15:00.355156442Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:15:00.355160167Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:15:16.082041138Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:15:16.082072976Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:15:16.082075319Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:15:16.082097333Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:15:16.083827524Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:15:16.083837368Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:15:16.084413845Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:15:16.084420345Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:15:16.084994047Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:15:16.084999846Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:15:16.085009290Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:15:16.085011854Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:15:16.085013887Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:15:16.085015520Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:15:16.089372840Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:15:16.089382505Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:15:16.089384989Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:15:16.089387062Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:15:16.089481724Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:15:16.099134446Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:15:16.099148266Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:15:16.099150319Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:15:16.099151912Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:15:31.807336745Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:15:31.807360581Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:15:31.807363426Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:15:31.807404197Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:15:31.809481500Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:15:31.809489732Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:15:31.810217176Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:15:31.810221693Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:15:31.810879321Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:15:31.810894414Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:15:31.810897639Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:15:31.810899422Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:15:31.810901985Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:15:31.810903458Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:15:31.815720259Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:15:31.815734721Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:15:31.815739338Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:15:31.815743394Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:15:31.815824245Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:15:31.828276856Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:15:31.828300952Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:15:31.828303406Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:15:31.828305039Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:15:47.611539339Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:15:47.611579379Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:15:47.611582163Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:15:47.611606210Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:15:47.613370452Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:15:47.613378154Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:15:47.613974440Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:15:47.613983434Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:15:47.614552870Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:15:47.614558258Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:15:47.614560010Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:15:47.614561603Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:15:47.614563145Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:15:47.614564607Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:15:47.618950961Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:15:47.618957982Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:15:47.618960155Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:15:47.618961828Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:15:47.619050541Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:15:47.633346513Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:15:47.633356578Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:15:47.633358301Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:15:47.633359723Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:16:03.306413071Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:16:03.306451880Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:16:03.306456487Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:16:03.306481694Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:16:03.308186457Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:16:03.308200218Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:16:03.308749934Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:16:03.308757025Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:16:03.309316887Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:16:03.309320983Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:16:03.309325740Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:16:03.309327933Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:16:03.309329916Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:16:03.309331369Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:16:03.313514297Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:16:03.313520757Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:16:03.313523210Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:16:03.313525123Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:16:03.313611553Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:16:03.326330535Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:16:03.326357175Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:16:03.326359819Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:16:03.326361351Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:16:19.021502956Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:16:19.021534213Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:16:19.021539060Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:16:19.021562546Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:16:19.023525166Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:16:19.023536733Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:16:19.024244127Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:16:19.024249525Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:16:19.024863258Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:16:19.024869778Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:16:19.024871710Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:16:19.024873914Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:16:19.024875386Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:16:19.024876828Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:16:19.029237414Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:16:19.029244835Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:16:19.029246978Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:16:19.029248560Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:16:19.029338996Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:16:19.039360733Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:16:19.039373301Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:16:19.039374894Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:16:19.039376346Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:16:34.720436181Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:16:34.720470543Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:16:34.720485545Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:16:34.720506517Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:16:34.722669188Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:16:34.722686033Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:16:34.723339967Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:16:34.723346056Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:16:34.723940119Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:16:34.723948341Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:16:34.723950354Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:16:34.723952157Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:16:34.723953609Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:16:34.723955051Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:16:34.728643910Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:16:34.728652383Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:16:34.728662328Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:16:34.728664071Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:16:34.728750200Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:16:34.739965651Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:16:34.739982106Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:16:34.739984950Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:16:34.739986883Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:16:50.435895731Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:16:50.435916843Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:16:50.435920739Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:16:50.435922672Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:16:50.437502136Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:16:50.437525241Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:16:50.438777113Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:16:50.438784514Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:16:50.439443795Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:16:50.439451507Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:16:50.439454021Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:16:50.439455793Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:16:50.439457746Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:16:50.439459299Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:16:50.444085504Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:16:50.444095188Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:16:50.444099334Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:16:50.444102950Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:16:50.444159254Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:16:50.455813205Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:16:50.455841377Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:16:50.455846244Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:16:50.455850110Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:17:06.132672703Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:17:06.132704601Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:17:06.132706824Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:17:06.132723660Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:17:06.134816596Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:17:06.134828173Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:17:06.135443008Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:17:06.135449898Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:17:06.136057161Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:17:06.136059475Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:17:06.136061988Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:17:06.136064152Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:17:06.136066094Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:17:06.136067577Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:17:06.140980382Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:17:06.140999251Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:17:06.141001234Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:17:06.141002896Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:17:06.141086021Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:17:06.151206776Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:17:06.151214188Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:17:06.151216131Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:17:06.151217523Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:17:21.924377518Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:17:21.924428555Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:17:21.924445360Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:17:21.924460683Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:17:21.926820330Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:17:21.926827771Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:17:21.927426482Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:17:21.927435465Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:17:21.928025612Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:17:21.928030419Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:17:21.928045953Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:17:21.928047715Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:17:21.928049178Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:17:21.928050590Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:17:21.932506979Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:17:21.932526158Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:17:21.932530345Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:17:21.932532087Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:17:21.932622433Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:17:21.941585638Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:17:21.941596424Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:17:21.941598117Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:17:21.941599669Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:17:37.642101102Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:17:37.642131307Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:17:37.642145929Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:17:37.642157066Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:17:37.644222811Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:17:37.644251244Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:17:37.644754811Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:17:37.644763024Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:17:37.645330917Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:17:37.645335244Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:17:37.645337657Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:17:37.645339841Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:17:37.645341623Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:17:37.645343066Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:17:37.649820266Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:17:37.649832875Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:17:37.649837312Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:17:37.649841008Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:17:37.649914378Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:17:37.658308778Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:17:37.658324542Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:17:37.658328558Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:17:37.658332063Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:17:53.371177563Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:17:53.371213207Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:17:53.371215520Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:17:53.371252546Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:17:53.373339393Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:17:53.373352263Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:17:53.374001539Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:17:53.374020507Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:17:53.374561801Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:17:53.374565997Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:17:53.374568551Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:17:53.374570504Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:17:53.374572327Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:17:53.374573769Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:17:53.379834368Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:17:53.379842560Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:17:53.379844833Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:17:53.379846716Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:17:53.379927367Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:17:53.387220752Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:17:53.387243697Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:17:53.387248414Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:17:53.387263717Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:18:09.064203367Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:18:09.064255546Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:18:09.064269607Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:18:09.064312051Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:18:09.066090775Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:18:09.066098456Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:18:09.066674082Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:18:09.066682374Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:18:09.067240313Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:18:09.067243889Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:18:09.067245781Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:18:09.067247474Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:18:09.067248986Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:18:09.067250408Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:18:09.071512796Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:18:09.071520247Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:18:09.071522080Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:18:09.071523663Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:18:09.071609582Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:18:09.079892163Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:18:09.079905143Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:18:09.079907116Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:18:09.079908648Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:18:24.827608247Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:18:24.827658903Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:18:24.827664081Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:18:24.827670881Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:18:24.829432129Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:18:24.829440452Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:18:24.830018591Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:18:24.830023308Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:18:24.830621557Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:18:24.830633084Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:18:24.830635328Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:18:24.830637090Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:18:24.830638753Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:18:24.830640185Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:18:24.834698356Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:18:24.834705577Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:18:24.834707490Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:18:24.834709002Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:18:24.834813069Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:18:24.843338175Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:18:24.843362572Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:18:24.843366858Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:18:24.843370503Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:18:40.556042253Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:18:40.556083435Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:18:40.556085888Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:18:40.556111327Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:18:40.558046856Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:18:40.558055790Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:18:40.558637725Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:18:40.558644094Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:18:40.559221402Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:18:40.559226910Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:18:40.559229044Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:18:40.559231087Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:18:40.559232949Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:18:40.559234482Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:18:40.563474676Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:18:40.563482098Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:18:40.563498923Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:18:40.563502919Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:18:40.563569669Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:18:40.574893002Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:18:40.574900654Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:18:40.574902817Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:18:40.574904409Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:18:56.312304054Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:18:56.312325917Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:18:56.312329161Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:18:56.312345977Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:18:56.314339263Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:18:56.314348307Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:18:56.315034579Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:18:56.315049030Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:18:56.315625627Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:18:56.315637395Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:18:56.315639939Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:18:56.315641531Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:18:56.315643013Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:18:56.315644466Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:18:56.320411542Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:18:56.320429399Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:18:56.320435649Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:18:56.320440546Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:18:56.320500666Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:18:56.331021843Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:18:56.331089645Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:18:56.331098178Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:18:56.331102625Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:19:12.053813537Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:19:12.053840167Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:19:12.053879696Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:19:12.053888179Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:19:12.056658814Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:19:12.056676891Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:19:12.057259077Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:19:12.057271405Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:19:12.057822474Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:19:12.057841031Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:19:12.057843325Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:19:12.057846199Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:19:12.057847962Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:19:12.057849584Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:19:12.063188020Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:19:12.063201470Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:19:12.063203373Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:19:12.063204905Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:19:12.063280879Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:19:12.073705171Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:19:12.073734585Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:19:12.073739302Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:19:12.073743098Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:19:27.832303266Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:19:27.832336136Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:19:27.832338379Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:19:27.832357518Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:19:27.833998825Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:19:27.834002781Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:19:27.834599799Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:19:27.834617075Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:19:27.835137086Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:19:27.835147913Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:19:27.835150376Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:19:27.835152470Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:19:27.835154432Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:19:27.835155995Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:19:27.839589941Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:19:27.839594007Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:19:27.839596170Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:19:27.839597782Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:19:27.839685274Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:19:27.850835967Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:19:27.850847715Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:19:27.850849618Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:19:27.850851140Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:19:43.545264947Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:19:43.545297926Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:19:43.545301822Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:19:43.545303605Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:19:43.547310151Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:19:43.547317953Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:19:43.548749345Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:19:43.548759130Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:19:43.549357880Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:19:43.549361756Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:19:43.549364049Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:19:43.549365872Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:19:43.549367575Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:19:43.549368977Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:19:43.553772737Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:19:43.553782111Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:19:43.553784705Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:19:43.553786908Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:19:43.553895672Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:19:43.564452723Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:19:43.564494826Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:19:43.564499393Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:19:43.564503339Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:19:59.250550708Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:19:59.250587523Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:19:59.250592010Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:19:59.250612430Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:19:59.252409302Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:19:59.252439768Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:19:59.252993750Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:19:59.252998177Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:19:59.253565580Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:19:59.253571809Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:19:59.253573903Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:19:59.253575695Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:19:59.253577568Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:19:59.253579070Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:19:59.257743671Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:19:59.257746886Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:19:59.257748979Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:19:59.257750812Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:19:59.257838824Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:19:59.268444378Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:19:59.268457298Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:19:59.268467743Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:19:59.268469376Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:20:14.996252608Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:20:14.996268312Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:20:14.996271277Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:20:14.996272969Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:20:14.999460922Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:20:14.999482915Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:20:15.000096027Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:20:15.000102446Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:20:15.000668447Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:20:15.000674656Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:20:15.000676639Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:20:15.000678342Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:20:15.000680615Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:20:15.000682368Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:20:15.005415113Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:20:15.005428283Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:20:15.005432730Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:20:15.005436475Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:20:15.005514943Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:20:15.028704165Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:20:15.028720079Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:20:15.028722242Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:20:15.028723814Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:20:30.731551770Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:20:30.731587594Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:20:30.731589577Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:20:30.731621605Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:20:30.733833090Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:20:30.733851708Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:20:30.734481835Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:20:30.734490458Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:20:30.735056659Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:20:30.735061076Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:20:30.735063019Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:20:30.735064621Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:20:30.735066074Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:20:30.735067536Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:20:30.739902424Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:20:30.739910296Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:20:30.739912229Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:20:30.739913771Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:20:30.739999550Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:20:30.752176847Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:20:30.752192130Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:20:30.752194784Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:20:30.752196817Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:20:46.412560534Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:20:46.412591431Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:20:46.412593634Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:20:46.412661786Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:20:46.414355553Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:20:46.414368212Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:20:46.415772493Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:20:46.415779443Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:20:46.416375199Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:20:46.416378574Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:20:46.416380808Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:20:46.416383822Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:20:46.416385785Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:20:46.416387588Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:20:46.420660031Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:20:46.420672449Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:20:46.420676776Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:20:46.420680532Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:20:46.420769946Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:20:46.436999615Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:20:46.437010161Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:20:46.437011964Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:20:46.437013466Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:21:02.145782063Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:21:02.145811347Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:21:02.145817927Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:21:02.145855153Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:21:02.148137524Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:21:02.148160929Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:21:02.148762994Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:21:02.148776895Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:21:02.149324759Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:21:02.149328504Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:21:02.149330858Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:21:02.149332801Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:21:02.149334643Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:21:02.149336066Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:21:02.153599315Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:21:02.153605224Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:21:02.153607237Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:21:02.153608919Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:21:02.153695229Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:21:02.168486996Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:21:02.168512354Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:21:02.168514387Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:21:02.168515870Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:21:17.858666457Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:21:17.858694119Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:21:17.858697584Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:21:17.858708100Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:21:17.860416368Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:21:17.860434575Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:21:17.861044933Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:21:17.861048668Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:21:17.861598805Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:21:17.861614399Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:21:17.861616352Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:21:17.861617904Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:21:17.861619386Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:21:17.861620839Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:21:17.865832080Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:21:17.865859020Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:21:17.865863697Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:21:17.865867473Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:21:17.865926702Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:21:17.875908788Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:21:17.875925644Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:21:17.875929710Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:21:17.875933536Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:21:33.649160216Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:21:33.649196500Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:21:33.649204913Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:21:33.649228098Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:21:33.651002616Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:21:33.651025700Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:21:33.651586023Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:21:33.651593254Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:21:33.652215078Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:21:33.652228108Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:21:33.652232274Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:21:33.652234007Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:21:33.652235649Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:21:33.652237132Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:21:33.657021134Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:21:33.657045891Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:21:33.657052541Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:21:33.657056477Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:21:33.657115476Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:21:33.667280768Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:21:33.667295740Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:21:33.667297623Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:21:33.667299165Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:21:49.432803596Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:21:49.432846120Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:21:49.432848374Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:21:49.432895655Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:21:49.434872356Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:21:49.434881170Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:21:49.435453490Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:21:49.435461983Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:21:49.436042916Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:21:49.436047142Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:21:49.436049145Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:21:49.436050758Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:21:49.436052521Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:21:49.436053923Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:21:49.440188539Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:21:49.440195439Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:21:49.440197292Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:21:49.440198914Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:21:49.440277733Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:21:49.452871746Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:21:49.452909012Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:21:49.452913889Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:21:49.452918045Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:22:05.164633573Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:22:05.164676467Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:22:05.164678660Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:22:05.164704860Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:22:05.166512648Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:22:05.166538046Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:22:05.167077246Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:22:05.167083886Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:22:05.167655986Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:22:05.167665120Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:22:05.167667313Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:22:05.167669016Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:22:05.167670859Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:22:05.167672371Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:22:05.172456653Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:22:05.172472457Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:22:05.172474580Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:22:05.172476333Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:22:05.172554761Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:22:05.183015938Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:22:05.183034265Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:22:05.183044641Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:22:05.183046293Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:22:20.937639101Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:22:20.937672931Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:22:20.937677338Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:22:20.937721074Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:22:20.939570404Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:22:20.939582252Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:22:20.940153681Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:22:20.940157046Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:22:20.940780022Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:22:20.940791410Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:22:20.940793763Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:22:20.940795816Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:22:20.940797639Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:22:20.940799141Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:22:20.945023903Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:22:20.945033427Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:22:20.945037483Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:22:20.945042260Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:22:20.945120478Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:22:20.956676761Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:22:20.956718404Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:22:20.956722990Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:22:20.956726806Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:22:36.665751248Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:22:36.665785559Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:22:36.665787883Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:22:36.665792019Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:22:36.669122566Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:22:36.669139411Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:22:36.669829158Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:22:36.669838833Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:22:36.670467388Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:22:36.670495710Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:22:36.670500608Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:22:36.670504824Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:22:36.670509211Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:22:36.670512886Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:22:36.675386273Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:22:36.675393233Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:22:36.675395066Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:22:36.675401025Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:22:36.675505362Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:22:36.683723136Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:22:36.683739661Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:22:36.683741904Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:22:36.683743416Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:22:52.467089209Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:22:52.467124863Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:22:52.467127146Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:22:52.467181398Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:22:52.468951229Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:22:52.468958640Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:22:52.469548116Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:22:52.469551581Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:22:52.470111263Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:22:52.470118874Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:22:52.470120807Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:22:52.470122329Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:22:52.470123861Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:22:52.470125324Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:22:52.474314812Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:22:52.474325438Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:22:52.474327992Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:22:52.474329614Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:22:52.474416735Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:22:52.482879738Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:22:52.482893198Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:22:52.482895442Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:22:52.482896984Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:23:08.176585781Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:23:08.176659722Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:23:08.176666552Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:23:08.176669637Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:23:08.178445717Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:23:08.178453258Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:23:08.179081533Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:23:08.179086530Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:23:08.179652431Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:23:08.179658931Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:23:08.179660914Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:23:08.179662486Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:23:08.179664028Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:23:08.179665521Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:23:08.184603083Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:23:08.184610565Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:23:08.184612538Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:23:08.184614210Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:23:08.184711376Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:23:08.192828970Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:23:08.192840517Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:23:08.192842360Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:23:08.192843932Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:23:23.907162563Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:23:23.907194591Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:23:23.907196985Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:23:23.907200600Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:23:23.909236521Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:23:23.909249781Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:23:23.909970715Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:23:23.909979888Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:23:23.910621463Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:23:23.910629755Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:23:23.910632009Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:23:23.910634062Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:23:23.910635684Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:23:23.910637127Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:23:23.914944542Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:23:23.914956871Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:23:23.914959264Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:23:23.914960977Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:23:23.915052344Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:23:23.926279192Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:23:23.926315447Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:23:23.926320044Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:23:23.926323839Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:23:39.615955747Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:23:39.616039863Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:23:39.616047505Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:23:39.616051511Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:23:39.618104057Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:23:39.618113321Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:23:39.618786232Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:23:39.618798030Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:23:39.619357040Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:23:39.619360996Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:23:39.619362979Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:23:39.619372303Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:23:39.619375869Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:23:39.619377551Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:23:39.623704576Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:23:39.623713289Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:23:39.623715302Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:23:39.623716915Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:23:39.623786509Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:23:39.633934095Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:23:39.633958131Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:23:39.633961045Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:23:39.633962618Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:23:55.357581870Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:23:55.357618015Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:23:55.357620308Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:23:55.357633308Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:23:55.359442367Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:23:55.359451801Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:23:55.360027397Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:23:55.360031693Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:23:55.360585135Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:23:55.360592667Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:23:55.360595000Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:23:55.360596843Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:23:55.360598526Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:23:55.360600018Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:23:55.365652173Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:23:55.365666975Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:23:55.365669179Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:23:55.365670821Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:23:55.365750751Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:23:55.376626702Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:23:55.376649926Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:23:55.376652000Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:23:55.376653532Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:24:11.082599025Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:24:11.082634658Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:24:11.082636821Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:24:11.082638574Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:24:11.084733794Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:24:11.084749377Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:24:11.085362129Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:24:11.085366876Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:24:11.085963152Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:24:11.085969111Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:24:11.085970894Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:24:11.085972506Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:24:11.085973958Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:24:11.085975441Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:24:11.090434925Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:24:11.090442757Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:24:11.090444940Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:24:11.090446542Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:24:11.090545321Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:24:11.099862308Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:24:11.099886043Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:24:11.099888026Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:24:11.099889518Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:24:26.864798574Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:24:26.864832946Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:24:26.864856101Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:24:26.864860538Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:24:26.867385413Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:24:26.867393385Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:24:26.867954689Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:24:26.867975621Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:24:26.868476924Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:24:26.868481361Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:24:26.868483825Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:24:26.868485778Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:24:26.868488091Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:24:26.868489533Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:24:26.873982331Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:24:26.873990163Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:24:26.873994549Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:24:26.873998205Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:24:26.874046948Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:24:26.882948861Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:24:26.882957544Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:24:26.882961530Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:24:26.882965295Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:24:42.599592667Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:24:42.599639307Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:24:42.599641781Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:24:42.599646187Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:24:42.601385622Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:24:42.601403259Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:24:42.601986706Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:24:42.601990432Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:24:42.602595732Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:24:42.602612948Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:24:42.602617935Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:24:42.602622181Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:24:42.602626508Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:24:42.602630113Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:24:42.607354426Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:24:42.607361006Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:24:42.607363249Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:24:42.607364891Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:24:42.607468517Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:24:42.626578406Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:24:42.626619878Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:24:42.626624535Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:24:42.626628341Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:24:58.411918097Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:24:58.411945017Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:24:58.411961221Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:24:58.412000581Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:24:58.414662663Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:24:58.414678837Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:24:58.415287913Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:24:58.415290857Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:24:58.416114445Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:24:58.416133995Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:24:58.416136458Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:24:58.416138562Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:24:58.416140324Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:24:58.416141806Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:24:58.420529332Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:24:58.420540139Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:24:58.420542883Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:24:58.420545006Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:24:58.420628451Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:24:58.430745241Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:24:58.430766382Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:24:58.430768956Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:24:58.430770388Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:25:14.229858958Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:25:14.229885318Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:25:14.229892799Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:25:14.229910095Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:25:14.232156202Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:25:14.232179787Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:25:14.232853029Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:25:14.232864226Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:25:14.233445170Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:25:14.233453763Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:25:14.233456186Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:25:14.233458069Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:25:14.233459842Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:25:14.233461314Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:25:14.238229402Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:25:14.238244435Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:25:14.238246508Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:25:14.238248931Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:25:14.238259427Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:25:14.247556103Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:25:14.247570816Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:25:14.247572809Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:25:14.247574391Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:25:29.959359002Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:25:29.959389568Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:25:29.959408997Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:25:29.959440755Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:25:29.961506591Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:25:29.961530657Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:25:29.962166112Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:25:29.962177038Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:25:29.962755909Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:25:29.962764482Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:25:29.962766665Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:25:29.962768598Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:25:29.962770370Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:25:29.962771833Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:25:29.967298338Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:25:29.967306059Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:25:29.967308303Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:25:29.967310085Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:25:29.967406410Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:25:29.976444187Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:25:29.976465900Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:25:29.976469455Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:25:29.976471068Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:26:01.207748867Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:26:01.207800976Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:26:01.207810620Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:26:01.207840395Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:26:01.209637216Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:26:01.209654602Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:26:01.210217679Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:26:01.210220954Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:26:01.210848557Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:26:01.210855067Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:26:01.210857941Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:26:01.210859854Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:26:01.210862007Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:26:01.210863530Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:26:01.215192548Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:26:01.215200700Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:26:01.215204726Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:26:01.215208311Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:26:01.215287901Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:26:01.263087891Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:26:01.263107040Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:26:01.263109424Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:26:01.263111317Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:26:02.143079201Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:26:02.143118941Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:26:02.143124109Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:26:02.143138290Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:26:02.145542404Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:26:02.145551548Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:26:02.146154605Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:26:02.146165411Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:26:02.146691262Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:26:02.146695318Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:26:02.146698112Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:26:02.146700085Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:26:02.146701918Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:26:02.146710491Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:26:02.151239589Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:26:02.151255814Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:26:02.151260160Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:26:02.151263836Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:26:02.151336475Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:26:02.161144740Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:26:02.161161295Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:26:02.161165461Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:26:02.161169167Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:26:17.849267289Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:26:17.849302652Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:26:17.849307229Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:26:17.849309252Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:26:17.851059063Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:26:17.851066233Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:26:17.851631884Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:26:17.851643010Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:26:17.852205286Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:26:17.852208040Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:26:17.852210544Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:26:17.852212416Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:26:17.852214259Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:26:17.852215932Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:26:17.857029979Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:26:17.857037971Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:26:17.857042227Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:26:17.857046123Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:26:17.857129458Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:26:17.867375782Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:26:17.867435312Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:26:17.867442523Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:26:17.867446529Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:26:33.575710417Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:26:33.575730657Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:26:33.575733161Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:26:33.575735675Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:26:33.577522942Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:26:33.577541960Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:26:33.578102844Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:26:33.578110625Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:26:33.578698058Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:26:33.578703336Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:26:33.578705359Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:26:33.578707342Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:26:33.578709385Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:26:33.578710808Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:26:33.583890394Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:26:33.583896183Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:26:33.583898597Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:26:33.583900119Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:26:33.583988111Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:26:33.594909971Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:26:33.594932134Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:26:33.594934027Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:26:33.594935769Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:26:49.262516226Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:26:49.262556096Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:26:49.262578279Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:26:49.262600222Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:26:49.264744836Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:26:49.264759588Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:26:49.265459320Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:26:49.265472791Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:26:49.266101896Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:26:49.266106143Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:26:49.266108516Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:26:49.266110569Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:26:49.266112593Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:26:49.266114505Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:26:49.270410023Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:26:49.270417484Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:26:49.270419447Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:26:49.270421000Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:26:49.270501020Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:26:49.279261720Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:26:49.279298676Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:26:49.279303593Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:26:49.279307740Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:27:03.190112307Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:27:03.190122893Z"
+    },
+    {
+      "source": "container",
+      "line": "== CUDA ==",
+      "ts": "2026-09-22T14:27:03.190124806Z"
+    },
+    {
+      "source": "container",
+      "line": "==========",
+      "ts": "2026-09-22T14:27:03.190126368Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:27:03.192093726Z"
+    },
+    {
+      "source": "container",
+      "line": "CUDA Version 12.8.1",
+      "ts": "2026-09-22T14:27:03.192114066Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:27:03.192666306Z"
+    },
+    {
+      "source": "container",
+      "line": "Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+      "ts": "2026-09-22T14:27:03.192673778Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:27:03.193243504Z"
+    },
+    {
+      "source": "container",
+      "line": "This container image and its contents are governed by the NVIDIA Deep Learning Container License.",
+      "ts": "2026-09-22T14:27:03.193248091Z"
+    },
+    {
+      "source": "container",
+      "line": "By pulling and using the container, you accept the terms and conditions of this license:",
+      "ts": "2026-09-22T14:27:03.193250134Z"
+    },
+    {
+      "source": "container",
+      "line": "https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license",
+      "ts": "2026-09-22T14:27:03.193251787Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:27:03.193257035Z"
+    },
+    {
+      "source": "container",
+      "line": "A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.",
+      "ts": "2026-09-22T14:27:03.193258587Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:27:03.197688116Z"
+    },
+    {
+      "source": "container",
+      "line": "WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.",
+      "ts": "2026-09-22T14:27:03.197702498Z"
+    },
+    {
+      "source": "container",
+      "line": "   Use the NVIDIA Container Toolkit to start this container with GPU support; see",
+      "ts": "2026-09-22T14:27:03.197707415Z"
+    },
+    {
+      "source": "container",
+      "line": "   https://docs.nvidia.com/datacenter/cloud-native/ .",
+      "ts": "2026-09-22T14:27:03.197711261Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:27:03.197779183Z"
+    },
+    {
+      "source": "container",
+      "line": "fatal: detected dubious ownership in repository at '/workspace/LLM-research'",
+      "ts": "2026-09-22T14:27:03.222352265Z"
+    },
+    {
+      "source": "container",
+      "line": "To add an exception for this directory, call:",
+      "ts": "2026-09-22T14:27:03.222387438Z"
+    },
+    {
+      "source": "container",
+      "line": "",
+      "ts": "2026-09-22T14:27:03.222392155Z"
+    },
+    {
+      "source": "container",
+      "line": "\tgit config --global --add safe.directory /workspace/LLM-research",
+      "ts": "2026-09-22T14:27:03.222405435Z"
+    }
+  ],
+  "count": 1185,
+  "truncated": false
+}

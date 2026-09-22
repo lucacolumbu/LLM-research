@@ -133,41 +133,44 @@ copy-based score cannot see it. On real data the match-length histogram of a cor
   rate 1.0, where an induction shortcut replaces the IOI circuit for most targets (1500 vs
   333), the brief's "too clean" prediction.
 
-### 3.5 Real data: the diagnostic identifies structure, gain-only selection pays a cost, two quantities together are the remedy
+### 3.5 Real data: the diagnostic identifies structure, selection buys formation, the distribution pays
 - Diagnostic. The LZ77 match-length histogram of a corpus says whether the score can act.
   TinyStories (379k documents): median match 2 tokens, 0.1-0.35% of tokens in matches >= 8;
   no induction head forms in either arm at 65M tokens in any architecture. Python source
-  (498k documents from 12k files): the top fifth by gzip gain has 45% of tokens in matches
-  >= 8 and a mean longest match of 30 tokens, more than the synthetic subset that forms at
-  step 700.
-- Selection accelerates the target circuit, directionally and consistently. On code the
-  gain-selected arm's prefix-matching score lifts from step 5,000 in all three seeds (0.03-
-  0.07 at 65M tokens vs 0.01 random) and reaches 0.17 at 195M tokens, still rising, against
-  0.03 for random. Formation (0.5) lies beyond the budget; reported natural-data phase
-  changes sit at 1-10B tokens. The selected arm is further along at every checkpoint.
-- The cost on the distribution is real. Validation loss 2.43 vs 2.03, and the CE at the
-  first occurrence of rare identifiers orders the same way (8.9 vs 7.1): a gain-only selector
-  picks repetitive boilerplate with fewer distinct identifiers to learn, the prediction the
-  synthetic diversity results make about using one quantity alone (absolute values in
-  Appendix A).
-- The accelerated head is not yet load-bearing. The in-context delta on rare identifiers
-  (CE at first minus second occurrence) isolates in-context prediction from distribution
-  quality: it is 1.7-2.0 nats in every arm, grows smoothly with no snap, is specific to
-  identifiers (0.6 for repeated keywords), holds across occurrence distances, and does not
-  follow the prefix-matching order; a name-swap control moves 1.3-1.8 nats from the original
-  to the substituted name in every arm alike. In-context name prediction on code exists at
-  this budget but comes from a mechanism all arms share; the head the selection accelerated
-  (prefix-matching 0.02-0.12) contributes nothing measurable to it yet.
-- The remedy is the second compressor quantity. Greedy selection by gain with an NCD >=
-  0.75 diversity constraint yields the strongest copy head of any arm (0.08, two seeds at
-  0.10-0.12) and recovers a third of the loss (2.30) and of the first-occurrence identifier
-  CE; a half-gain, half-random mix recovers three quarters (2.13) with a head still twice
-  random's.
-  Gain buys the circuit, distance buys the distribution, and the constrained selector gets
-  more of the first for less of the second than gain alone. This is the form of the method
-  a code-model team could use: compress once, rank, dedup by compression distance.
-- Open at this scale: no arm reaches formation, seed spread in the constrained arm is wide
-  (0.02-0.12), and neither two-quantity arm closes the rare-identifier cost fully.
+  from The Stack (9.77M windows of 256 tokens, 2.5B tokens): 26% of the pool's tokens sit in
+  matches >= 8, 62% in the top fifth by gain, 57% in the diversity-constrained selection.
+  Where the histogram has mass, the selector has something to select.
+- Selection buys when the circuit forms. Diversity-constrained gain selection (greedy by
+  gain, NCD >= 0.75 to a probe set) vs a random subset of equal size (1.95M windows, 491M
+  tokens, 4L8H, three seeds each): the selected arm's prefix-matching score crosses 0.5 at
+  step 1,000 and its induction accuracy at 2,000 in every seed; the random arm's at
+  1,500-2,000 and 4,000-6,000. Two to three times sooner, no overlap across seeds, on both
+  measures. Final induction accuracy 0.84-0.86 vs 0.70-0.78. The selected arm snaps (0.02
+  to 0.71 in one thousand steps); the random arm seeps over six thousand. Doubling the
+  budget to 1B tokens changes neither formation nor the final accuracies.
+- The cost on the distribution is real and does not close. Validation loss 1.78-1.80 vs
+  1.59-1.60 at 491M tokens, 1.745 vs 1.557 at 1B; the CE at the first occurrence of rare
+  identifiers orders the same way (9.1 vs 8.3). The random arm's model is the better
+  language model at every checkpoint.
+- Once formed, the copy head is equally load-bearing in both arms. The in-context delta on
+  rare identifiers (CE at first minus second occurrence) is 4.2-4.9 nats in every run,
+  positive for 84-88% of identifiers, six times the delta on repeated common tokens, and a
+  name-swap control moves 5-6 nats off the original name and 7-9 onto the substitute, with
+  the model preferring the substituted name after the swap about half the time. The two
+  arms are within seed spread of each other (4.46 vs 4.38); at 1B tokens the selected arm
+  leads by 0.4 nats, one seed. On real code the selection buys *when* the induction circuit
+  forms, not how much the model relies on it once it has.
+- The smaller local code study (498k windows from 12k files, 195M tokens) is where the two
+  compressor quantities separate: gain alone yields the most repetitive boilerplate and the
+  worst distribution (validation loss 2.43 vs 2.03 random), a half-gain, half-random mix
+  recovers three quarters of that loss, and the diversity constraint gives the strongest
+  copy head of any arm at a third of the loss recovered. Gain buys the circuit, distance
+  buys the distribution. This is the form of the method a code-model team could use:
+  compress once, rank, dedup by compression distance.
+- Open: the in-context delta is at most a modest edge for the selected arm and one seed at
+  1B; whether earlier formation compounds into anything downstream at larger scale is
+  untested; the 0.2-nat distribution gap is a fixed cost of selecting 20% of a pool by any
+  compression criterion and would need a mix or a curriculum to remove.
 
 ## 4. Limitations
 - Toy scale, synthetic data; 2-layer models; one tokenizer per task.
@@ -197,6 +200,8 @@ McDougall et al. 2023 (copy suppression).
 3. selection: bar/strip of formation per arm (to make)
 4. lag family: lag vs r_max, and ceiling predicted vs observed (to make)
 5. two-name: trajectory with DLA decomposition; late-leak curve (results/leak_sample_efficiency.png)
+6. The Stack: results/stack/stack_trajectories.png (formation window per arm, validation loss to 1B tokens, in-context delta)
+7. code, four arms: results/phase3_code_four_arms.png
 
 ## Appendix A. Absolute identifier losses on code (8,000 steps, mean of 3 seeds)
 
