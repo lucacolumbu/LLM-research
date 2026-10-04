@@ -21,3 +21,4 @@ results/*
 # raw corpora (downloads, hundreds of MB)
 data/raw/
 docs/build/
+docs/*.pdf

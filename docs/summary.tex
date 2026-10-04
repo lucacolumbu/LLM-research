@@ -1,0 +1,137 @@
+\documentclass[10pt]{article}
+\usepackage[margin=0.8in,top=0.7in,bottom=0.7in]{geometry}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+\usepackage{parskip}
+
+\graphicspath{{../results/stack/}}
+\makeatletter
+\renewcommand\section{\@startsection{section}{1}{\z@}{8pt}{3pt}{\normalfont\large\bfseries}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\setlength{\itemsep}{0pt}
+\setlength{\leftmargini}{1.2em}
+\pagestyle{empty}
+
+\begin{document}
+
+{\LARGE\bfseries Mechanism-matched data scoring}\\[2pt]
+{\large Compression predicts and accelerates the formation of induction heads}\\[2pt]
+{\small Research summary, Luca Columbu, 2026. Full draft and code: \textcolor{red}{[link]}.}
+
+\section{The question}
+Pretraining data is selected with scalars that blend every capability
+together: loss under a reference model, similarity to a target
+distribution, redundancy. None of them can say which capability a
+decision buys or sells, because none looks at what the model builds.
+This project asks whether data can be scored against a specific
+\emph{mechanism} instead: pick a circuit the model should learn, find
+the cheapest program that performs the same computation, run it on each
+document, and use its output as the data score.
+
+\section{The idea}
+An induction head finds the previous occurrence of the current token,
+attends there, and copies what followed. That is also what the LZ77
+compressor behind \texttt{gzip} does. So per-document compression
+gain (how much shorter a document compresses than a shuffled copy of
+itself) should predict when induction heads form, and selecting
+documents by it should make them form sooner. A second compressor
+quantity, the normalised compression distance between documents,
+measures corpus diversity and should matter for something else.
+
+\section{What was found}
+\begin{itemize}
+\item \textbf{Gain predicts formation.} On synthetic copy tasks the
+  training step at which the induction head forms is a monotone
+  function of gain: Spearman $-0.98$ (attention-only), $-0.92$ (with
+  MLPs), $-1.0$ on condition means, three seeds per condition, replicated
+  at 3 layers and 8 heads. Where gain and the nominal repeated fraction
+  disagree, formation follows gain. Weight decay changes nothing.
+\item \textbf{The compressor measures the causal variable better than
+  the data generator.} Selecting 20,000 of 60,000 mixed documents by gain
+  forms the circuit at step 700 in every seed; a random subset at
+  5,200 or never; an oracle that sees the hidden generating parameter at
+  800--1,000. Gain tracks the realised copy length at $\rho=0.995$, the
+  generating parameter at $0.60$, and a copy-length oracle picks a 97\%
+  identical subset.
+\item \textbf{The data picks the circuit variant.} With MLPs the model
+  builds an induction circuit that keys on the token $k$ positions back,
+  with $k$ fixed by the geometry of copies in the data and an exact
+  accuracy ceiling. Plateaus at 0.66--0.76 that read as partial
+  learning are completed lag-$k$ circuits. Tracing shows the lag is
+  inherited from a positional copier the model builds before any
+  induction head exists.
+\item \textbf{Diversity is a different quantity.} Across 45 runs of a
+  second task, gain and compression distance decorrelate; distance
+  relates to generalisation across held-out name pairs, gain does not,
+  and neither predicts when that task's circuit forms. That circuit
+  turned out to be subject suppression plus MLP promotion, not the
+  name-copying the task was designed for.
+\item \textbf{A learned scorer repairs the blind spot.} Gain collapses
+  when small vocabularies make accidental matches common. A small
+  reference model that already has an induction head restores the
+  prediction ($\rho$ from $-0.72$ to $-0.93$ pooled over 39 runs).
+\end{itemize}
+
+\section{Real data: Python code from The Stack}
+2.5B tokens of Python, cut into 9.77M windows of 256 tokens. Two arms of
+1.95M windows: greedy selection by gain with a diversity constraint
+(compression distance at least 0.75 to already-selected documents) and a
+random subset of equal size. A 4-layer, 8-head model trained on each for
+491M tokens, three seeds; one seed per arm continued to 983M.
+
+\begin{center}\small
+\begin{tabular}{lcccc}\toprule
+Arm & Head forms (step) & Behaviour forms (step) & Final induction acc. & Validation loss \\\midrule
+Gain + diversity & 1,000 in all seeds & 2,000 in all seeds & 0.84--0.86 & 1.78--1.80 \\
+Random & 1,500--2,000 & 4,000--6,000 & 0.70--0.78 & 1.59--1.61 \\\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{center}
+\includegraphics[width=\textwidth]{stack_trajectories.png}
+\end{center}
+
+The selected arm forms the induction head 1.5--2$\times$ sooner in
+attention and 2--3$\times$ sooner in behaviour, with no overlap across
+seeds, and keeps a higher induction accuracy to the end. It pays 0.2
+nats of validation loss, a cost that doubling the budget does not
+remove: selecting the most repetitive fifth of a corpus narrows the
+distribution. An in-context test on rare identifiers (loss at first
+minus second occurrence, 4.2--4.9 nats in every run) shows that once
+both circuits exist they are equally load-bearing in distribution.
+Selection buys \emph{when} the circuit forms. A smaller local study
+showed the two compressor quantities set the two axes of the trade-off:
+gain buys the circuit, distance buys the distribution, and a diversity
+constraint gets more of the first for less of the second than gain
+alone.
+
+The compressor's own match-length histogram says in advance where
+selection can act. On children's stories (TinyStories) long matches
+cover under 0.4\% of tokens; no induction head forms in any arm and the
+score correctly predicts that it would not.
+
+\section{What this involved}
+Everything was built from scratch in Python with PyTorch and
+TransformerLens: two synthetic task generators with independently
+controllable data knobs, a training and checkpointing harness, exact
+direct-logit-attribution decomposition, activation patching and greedy
+sufficient-set analyses, the compressor scores, the greedy selector,
+and a streaming pipeline for The Stack on rented GPUs. Each synthetic
+task was mechanism-traced before it was swept; three shortcuts that
+would have produced clean-looking results about the wrong mechanism
+were caught this way, and the induction task was redesigned three
+times. About 200 training runs on a laptop and eight on a single rented
+RTX 4090; the whole real-data study cost about \$7.
+
+\section{Limits and next}
+Models of 2--4 layers, one circuit family, one learning rate, a
+formation window early relative to production budgets. Not yet shown:
+selection acting on prose, and a circuit where the hand-written scorer
+should fail and the learned one take over (facts with paraphrases),
+which is the planned second paper.
+
+\end{document}
