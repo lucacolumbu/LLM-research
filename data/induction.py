@@ -25,7 +25,8 @@ Knobs (InductionConfig):
                 "short_tail" (80% of documents draw r from [2, r_cap // 3], 20% from
                 the full range: mostly short with a long tail, same maximum),
                 "long" (r = r_cap always), or "geometric" (memoryless: constant hazard of
-                the copy ending, same mean as uniform, capped at r_cap). Separates "lag follows the maximum" from
+                the copy ending, parameterised for the uniform's mean but capped at r_cap,
+                which lowers the realised mean by about 1.6 tokens). Separates "lag follows the maximum" from
                 "lag follows the typical length".
 
 Splits: train, val. `s_ids` holds the current token at each target (the token whose
@@ -106,7 +107,8 @@ def generate_split(rng: np.random.Generator, cfg: InductionConfig, n: int) -> di
             if cfg.length_dist == "long":
                 r = r_cap
             elif cfg.length_dist == "geometric":
-                # memoryless lengths with the same mean as uniform on [2, r_cap], capped at r_cap
+                # memoryless lengths parameterised for the mean of uniform [2, r_cap]; the cap truncates
+                # the tail, so the realised mean is about 1.6 below it
                 mean_extra = (r_cap - 2) / 2
                 r = min(2 + int(rng.geometric(1.0 / (mean_extra + 1.0))) - 1, r_cap)
             elif cfg.length_dist == "short_tail" and rng.random() < 0.8:

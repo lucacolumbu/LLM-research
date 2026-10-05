@@ -1140,3 +1140,14 @@ constrained arm's to the end of training, at 491M and at 983M tokens, while the 
 prefix-matching scores overlap (0.75-0.89 vs 0.74-0.84). The head attends where it should
 in both arms; what the constrained arm's model does better is the copy itself on random
 sequences, consistent with the selection's denser long matches. Validation loss curves never cross.
+
+## 2026-10-05: geometric copy-length mean, a correction
+
+The geometric length distribution is parameterised to match the uniform's mean (13.0 at
+repeat fraction 0.75) but is capped at r_cap, and the cap truncates its tail: the realised
+mean is 11.2-11.5 across seeds, about 1.6 tokens lower. The 2026-09-18 note's "mean held
+fixed" is therefore approximate. The lag result stands as recorded (geometric gives lag
+22-23 against uniform's 19, with the seed at the modal offset in both), and the direction of
+the difference (more short copies) is unchanged; only the matched-mean framing is loosened.
+The unit test that asserted a sub-1-token match had never passed; it now asserts within 2.
+
