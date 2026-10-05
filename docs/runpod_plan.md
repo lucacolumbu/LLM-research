@@ -119,7 +119,7 @@ secret. Progress goes to the pod log and to /workspace/results/pod_queue.log on 
 
     bash -c 'set -e; cd /workspace;
       if [ -d LLM-research/.git ]; then cd LLM-research && git pull --ff-only;
-      else git clone https://${GITHUB_TOKEN:+x-access-token:${GITHUB_TOKEN}@}github.com/lucacolumbu/LLM-research.git && cd LLM-research; fi;
+      else git clone https://github.com/lucacolumbu/LLM-research.git && cd LLM-research; fi;  # a read-only token was prepended here while the repo was private
       pip install -q uv && uv sync -q;
       DATA=/workspace/data bash pod/run_pilot.sh 2>&1 | tee -a /workspace/results/pod_queue.log;
       sleep infinity'
